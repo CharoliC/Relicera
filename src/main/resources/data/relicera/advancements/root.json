@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "relicera:relic_repair_table"
+    },
+    "title": {
+      "translate": "advancements.relicera.root.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.root.description"
+    },
+    "background": "relicera:textures/gui/advancements/backgrounds/relicera_advancement.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_relicera_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "relicera:relicera_items"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "EBE",
+    "RDR",
+    "EBE"
+  ],
+  "key": {
+    "E": {
+      "item": "relicera:torchflower_ember"
+    },
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "R": {
+      "item": "minecraft:blaze_rod"
+    },
+    "D": {
+      "item": "minecraft:dragon_breath"
+    }
+  },
+  "result": {
+    "item": "relicera:solar_ember",
+    "count": 1
+  }
+}

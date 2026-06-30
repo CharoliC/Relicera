@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "relicera:block/relic_repair_table"
+    }
+  }
+}

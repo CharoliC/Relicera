@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:iluthia",
+  "display": {
+    "icon": {
+      "item": "relicera:ephemeral_bloom"
+    },
+    "title": {
+      "translate": "advancements.relicera.iluthia_1.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.iluthia_1.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_ephemeral_bloom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:ephemeral_bloom"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

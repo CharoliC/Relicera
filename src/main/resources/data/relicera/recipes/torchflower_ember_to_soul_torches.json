@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "E",
+    "S",
+    "B"
+  ],
+  "key": {
+    "E": {
+      "item": "relicera:torchflower_ember"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    }
+  },
+  "result": {
+    "item": "minecraft:soul_torch",
+    "count": 8
+  }
+}

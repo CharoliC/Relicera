@@ -1,0 +1,53 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_forgotten_thread": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:forgotten_thread"
+            ]
+          }
+        ]
+      }
+    },
+    "has_hallowed_enamel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:hallowed_enamel"
+            ]
+          }
+        ]
+      }
+    },
+    "has_feysilver_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:feysilver_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_forgotten_thread",
+      "has_hallowed_enamel",
+      "has_feysilver_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "relicera:fourfold_sherd_pendant"
+    ]
+  }
+}

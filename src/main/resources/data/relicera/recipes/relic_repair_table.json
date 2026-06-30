@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GFG",
+    "DOD",
+    "L L"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "F": {
+      "item": "relicera:feysilver_ingot"
+    },
+    "D": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "O": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "L": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "item": "relicera:relic_repair_table",
+    "count": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "EHE",
+    "HGH",
+    "EHE"
+  ],
+  "key": {
+    "E": {
+      "item": "relicera:hallowed_enamel"
+    },
+    "H": {
+      "item": "minecraft:honeycomb"
+    },
+    "G": {
+      "item": "minecraft:glow_ink_sac"
+    }
+  },
+  "result": {
+    "item": "relicera:chalice_lining",
+    "count": 1
+  }
+}

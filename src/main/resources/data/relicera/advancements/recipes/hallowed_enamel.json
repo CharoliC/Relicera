@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hallowed_enamel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:hallowed_enamel"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_hallowed_enamel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "relicera:chalice_lining"
+    ]
+  }
+}

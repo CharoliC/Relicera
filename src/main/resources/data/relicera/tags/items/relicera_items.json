@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "relicera:revival_nectar",
+    "relicera:astral_lens",
+    "relicera:forgotten_thread",
+    "relicera:ephemeral_bloom",
+    "relicera:ephemeral_bloom_pendant",
+    "relicera:night_gloves",
+    "relicera:ashen_touch",
+    "relicera:warfire_fragment",
+    "relicera:rotten_tusk",
+    "relicera:feysilver_ingot",
+    "relicera:raw_hallowed_enamel",
+    "relicera:hallowed_enamel",
+    "relicera:chalice_lining",
+    "relicera:torchflower_ember",
+    "relicera:extinguished_solar_furnace",
+    "relicera:withered_life_chalice",
+    "relicera:solar_ember",
+    "relicera:brutal_plunder_badge",
+    "relicera:fourfold_sherd_pendant",
+    "relicera:strider_spurs",
+    "relicera:granbells_furnace",
+    "relicera:iluthias_chalice",
+    "relicera:relic_repair_table"
+  ]
+}

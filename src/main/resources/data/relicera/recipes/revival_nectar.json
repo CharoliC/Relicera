@@ -1,0 +1,22 @@
+{
+  "type": "relicera:no_remainder_shapeless",
+  "category": "food",
+  "ingredients": [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "relicera:ephemeral_bloom"
+    },
+    {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
+  "result": {
+    "item": "relicera:revival_nectar",
+    "count": 1
+  }
+}

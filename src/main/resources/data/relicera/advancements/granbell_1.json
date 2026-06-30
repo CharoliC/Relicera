@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:granbell",
+  "display": {
+    "icon": {
+      "item": "relicera:warfire_fragment"
+    },
+    "title": {
+      "translate": "advancements.relicera.granbell_1.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.granbell_1.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_warfire_fragment": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:warfire_fragment"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

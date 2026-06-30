@@ -1,0 +1,5 @@
+{
+  "type": "relicera:add_ephemeral_bloom",
+  "conditions": [],
+  "source": "sniffer_digging_new_moon"
+}

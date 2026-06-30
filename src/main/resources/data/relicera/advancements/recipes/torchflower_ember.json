@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_torchflower_ember": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:torchflower_ember"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "relicera:torchflower_ember_to_torches",
+      "relicera:torchflower_ember_to_soul_torches",
+      "relicera:torchflower_ember_to_fire_charges",
+      "relicera:solar_ember",
+      "relicera:strider_spurs",
+      "relicera:ashen_touch"
+    ]
+  }
+}

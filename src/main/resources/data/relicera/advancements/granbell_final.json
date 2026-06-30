@@ -1,0 +1,35 @@
+{
+  "parent": "relicera:granbell_2",
+  "display": {
+    "icon": {
+      "item": "relicera:granbells_furnace"
+    },
+    "title": {
+      "translate": "advancements.relicera.granbell_final.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.granbell_final.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_granbells_furnace": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:granbells_furnace"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

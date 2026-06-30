@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "BTB",
+    "EIE",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "T": {
+      "item": "relicera:forgotten_thread"
+    },
+    "E": {
+      "item": "relicera:hallowed_enamel"
+    },
+    "I": {
+      "item": "relicera:feysilver_ingot"
+    }
+  },
+  "result": {
+    "item": "relicera:fourfold_sherd_pendant",
+    "count": 1
+  }
+}

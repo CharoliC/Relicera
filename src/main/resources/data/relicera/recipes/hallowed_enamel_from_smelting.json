@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "relicera:raw_hallowed_enamel"
+  },
+  "result": "relicera:hallowed_enamel",
+  "experience": 0.8,
+  "cookingtime": 200
+}

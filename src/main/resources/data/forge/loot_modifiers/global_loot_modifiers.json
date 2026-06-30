@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "entries": [
+    "relicera:forgotten_thread_village_chests",
+    "relicera:forgotten_thread_ancient_city_chests",
+    "relicera:forgotten_thread_cat_gifts",
+    "relicera:ephemeral_bloom_sniffer_digging",
+    "relicera:ephemeral_bloom_stronghold_library_chests",
+    "relicera:feysilver_ingot_overworld_chests",
+    "relicera:extinguished_solar_furnace_chests",
+    "relicera:withered_life_chalice_chests"
+  ]
+}
