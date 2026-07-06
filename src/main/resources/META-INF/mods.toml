@@ -32,3 +32,10 @@ mandatory=true
 versionRange="${curios_version_range}"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="jei"
+mandatory=false
+versionRange="${jei_version_range}"
+ordering="AFTER"
+side="CLIENT"

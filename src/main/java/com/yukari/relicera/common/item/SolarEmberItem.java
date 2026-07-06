@@ -1,7 +1,6 @@
 package com.yukari.relicera.common.item;
 
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +23,6 @@ public class SolarEmberItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.relicera.solar_ember.tooltip")
-                .withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("tooltip.relicera.solar_ember.0"));
     }
 }

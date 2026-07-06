@@ -1,6 +1,5 @@
 package com.yukari.relicera.common.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +15,6 @@ public class EphemeralBloomItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.relicera.ephemeral_bloom.tooltip").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("tooltip.relicera.ephemeral_bloom.0"));
     }
 }

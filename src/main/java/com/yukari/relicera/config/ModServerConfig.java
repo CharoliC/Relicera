@@ -9,6 +9,7 @@ public final class ModServerConfig {
     public static final ForgeConfigSpec.DoubleValue FORGOTTEN_THREAD_ANCIENT_CITY_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue FORGOTTEN_THREAD_CAT_GIFT_CHANCE;
     public static final ForgeConfigSpec.IntValue REVIVAL_NECTAR_ILUTHIAS_BLESSING_DURATION;
+    public static final ForgeConfigSpec.IntValue ILUTHIAS_BLESSING_MAX_ABSORPTION;
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_SNIFFER_DIGGING_NEW_MOON_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS;
@@ -56,6 +57,14 @@ public final class ModServerConfig {
         REVIVAL_NECTAR_ILUTHIAS_BLESSING_DURATION = BUILDER
                 .comment("Duration in ticks for Iluthia's Blessing granted by Revival Nectar. 400 ticks = 20 seconds.")
                 .defineInRange("iluthiasBlessingDuration", 20 * 20, 1, 20 * 60 * 60);
+
+        BUILDER.pop();
+
+        BUILDER.push("iluthias_blessing");
+
+        ILUTHIAS_BLESSING_MAX_ABSORPTION = BUILDER
+                .comment("Maximum total absorption amount Iluthia's Blessing can accumulate. 60 = 30 absorption hearts. Existing absorption above this value is not reduced.")
+                .defineInRange("maxAbsorption", 60, 0, 1024);
 
         BUILDER.pop();
 

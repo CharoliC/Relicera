@@ -1,5 +1,6 @@
 {
   "size": 1,
   "operation": "SET",
-  "order": 180
+  "order": 180,
+  "icon": "relicera:slot/empty_relicera_relic_slot"
 }
