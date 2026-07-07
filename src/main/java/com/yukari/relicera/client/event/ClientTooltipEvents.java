@@ -73,6 +73,10 @@ public final class ClientTooltipEvents {
         if (event.getItemStack().is(ModItems.ILUTHIAS_CHALICE.get())) {
             appendIluthiasChaliceTooltip(event);
         }
+
+        if (event.getItemStack().is(ModItems.DREAMCATCHER_BOX.get())) {
+            event.getToolTip().add(tooltipLine("dreamcatcher_box", 0));
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

@@ -33,6 +33,7 @@ public final class ModServerConfig {
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_KEEP_INVENTORY_IN_FIRE_OR_LAVA;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue DREAMCATCHER_BOX_SLEEP_RANGE;
     public static final ForgeConfigSpec SPEC;
 
     static {
@@ -205,6 +206,14 @@ public final class ModServerConfig {
         ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION = BUILDER
                 .comment("Damage reduction against damage from undead creatures while Iluthia's Chalice is equipped. 0.30 = -30%.")
                 .defineInRange("undeadDamageReduction", 0.30D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("dreamcatcher_box");
+
+        DREAMCATCHER_BOX_SLEEP_RANGE = BUILDER
+                .comment("Range in blocks for Dreamcatcher Boxes to react to nearby sleeping players and villagers.")
+                .defineInRange("sleepRange", 8.0D, 0.0D, 64.0D);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

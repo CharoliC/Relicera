@@ -6,7 +6,8 @@
   "refmap": "relicera.refmap.json",
   "mixins": [
     "FishingHookMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "PlayerAccessor"
   ],
   "client": [],
   "injectors": {

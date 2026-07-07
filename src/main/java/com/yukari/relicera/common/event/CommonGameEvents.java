@@ -4,6 +4,7 @@ import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.astral.AstralLensDamageProtection;
 import com.yukari.relicera.common.astral.AstralObservationData;
 import com.yukari.relicera.common.astral.AstralObservationTracker;
+import com.yukari.relicera.common.block.DreamcatcherBoxSleepRewards;
 import com.yukari.relicera.common.curio.AshenTouchEffects;
 import com.yukari.relicera.common.curio.BrutalPlunderBadgeEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
@@ -36,6 +37,8 @@ import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.level.SleepFinishedTimeEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.event.DropRulesEvent;
@@ -63,7 +66,13 @@ public final class CommonGameEvents {
     public static void onLevelTick(TickEvent.LevelTickEvent event) {
         if (event.phase == TickEvent.Phase.END && event.level instanceof ServerLevel serverLevel) {
             AshenTouchEffects.clearQueuedFires(serverLevel);
+            DreamcatcherBoxSleepRewards.tickLevel(serverLevel);
         }
+    }
+
+    @SubscribeEvent
+    public static void onSleepFinished(SleepFinishedTimeEvent event) {
+        DreamcatcherBoxSleepRewards.onSleepFinished(event);
     }
 
     @SubscribeEvent
@@ -198,6 +207,13 @@ public final class CommonGameEvents {
         GranbellsFurnaceEffects.tickLavaStanding(event.getEntity());
         FourfoldSherdPendantEffects.tickAttributes(event.getEntity());
         IluthiasChaliceEffects.tickImmunities(event.getEntity());
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLivingTickLowest(LivingEvent.LivingTickEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            DreamcatcherBoxSleepRewards.allowEnigmaticCursedSleep(serverPlayer);
+        }
     }
 
     @SubscribeEvent

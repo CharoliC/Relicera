@@ -1,6 +1,7 @@
 package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.block.DreamcatcherBoxBlock;
 import com.yukari.relicera.common.block.RelicRepairTableBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -19,6 +20,11 @@ public final class ModBlocks {
                     .strength(3.5F, 6.0F)
                     .sound(SoundType.DEEPSLATE)
                     .noOcclusion()));
+
+    public static final RegistryObject<Block> DREAMCATCHER_BOX = BLOCKS.register("dreamcatcher_box", () ->
+            new DreamcatcherBoxBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
+                    .sound(SoundType.DEEPSLATE)
+                    .lightLevel(state -> 7)));
 
     private ModBlocks() {
     }

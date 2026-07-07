@@ -10,6 +10,11 @@
 
   "item.relicera.chalice_lining": "Chalice Lining",
 
+  "block.relicera.dreamcatcher_box": "Dreamcatcher Box",
+  "container.relicera.dreamcatcher_box": "Dreamcatcher Box",
+  "tooltip.relicera.dreamcatcher_box.0": "§5Collects nearby dreams and gives them form.",
+  "message.relicera.dreamcatcher_box.cursed_sleep": "The Dreamcatcher Box softly closes the seams of nightmare. The Seven Curses still whisper, but tonight, you may rest.",
+
   "item.relicera.ashen_touch": "Ashen Touch",
   "tooltip.relicera.ashen_touch.0": "§5Hold %1$s§5 to see details.",
   "tooltip.relicera.ashen_touch.1": "§5- Melee attacks can no longer apply fire",
@@ -166,8 +171,10 @@
   "advancements.relicera.iluthia_2.description": "Drink Revival Nectar.",
   "advancements.relicera.iluthia_3.title": "Chalice Lining",
   "advancements.relicera.iluthia_3.description": "The chalice's original material is unknown, but this world still offers a few substitutes.",
-  "advancements.relicera.iluthia_4.title": "Reforge the Chalice",
-  "advancements.relicera.iluthia_4.description": "Restore Iluthia's Chalice, let the sacred vessel shine again.",
+  "advancements.relicera.iluthia_final.title": "Reforge the Chalice",
+  "advancements.relicera.iluthia_final.description": "Restore Iluthia's Chalice, let the sacred vessel shine again.",
+  "advancements.relicera.luminas_extra_1.title": "Is that a Dream...?",
+  "advancements.relicera.luminas_extra_1.description": "Get a cake from a maid's dream.",
 
   "effect.relicera.iluthias_blessing": "Iluthia's Blessing",
 

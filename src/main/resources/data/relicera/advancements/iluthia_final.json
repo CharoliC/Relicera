@@ -5,10 +5,10 @@
       "item": "relicera:iluthias_chalice"
     },
     "title": {
-      "translate": "advancements.relicera.iluthia_4.title"
+      "translate": "advancements.relicera.iluthia_final.title"
     },
     "description": {
-      "translate": "advancements.relicera.iluthia_4.description"
+      "translate": "advancements.relicera.iluthia_final.description"
     },
     "frame": "challenge",
     "show_toast": true,

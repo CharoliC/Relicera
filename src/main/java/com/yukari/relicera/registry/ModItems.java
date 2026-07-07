@@ -144,6 +144,11 @@ public final class ModItems {
             new BlockItem(ModBlocks.RELIC_REPAIR_TABLE.get(), new Item.Properties()
                     .rarity(Rarity.RARE)));
 
+    public static final RegistryObject<Item> DREAMCATCHER_BOX = ITEMS.register("dreamcatcher_box", () ->
+            new BlockItem(ModBlocks.DREAMCATCHER_BOX.get(), new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.EPIC)));
+
     private ModItems() {
     }
 

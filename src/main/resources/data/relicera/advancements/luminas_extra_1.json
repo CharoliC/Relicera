@@ -1,0 +1,26 @@
+{
+  "parent": "relicera:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:cake"
+    },
+    "title": {
+      "translate": "advancements.relicera.luminas_extra_1.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.luminas_extra_1.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "cake_from_dreamcatcher_box": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

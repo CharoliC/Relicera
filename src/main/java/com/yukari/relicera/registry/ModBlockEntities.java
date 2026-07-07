@@ -1,6 +1,7 @@
 package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.block.DreamcatcherBoxBlockEntity;
 import com.yukari.relicera.common.block.RelicRepairTableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,6 +16,10 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<RelicRepairTableBlockEntity>> RELIC_REPAIR_TABLE =
             BLOCK_ENTITIES.register("relic_repair_table", () ->
                     BlockEntityType.Builder.of(RelicRepairTableBlockEntity::new, ModBlocks.RELIC_REPAIR_TABLE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<DreamcatcherBoxBlockEntity>> DREAMCATCHER_BOX =
+            BLOCK_ENTITIES.register("dreamcatcher_box", () ->
+                    BlockEntityType.Builder.of(DreamcatcherBoxBlockEntity::new, ModBlocks.DREAMCATCHER_BOX.get()).build(null));
 
     private ModBlockEntities() {
     }

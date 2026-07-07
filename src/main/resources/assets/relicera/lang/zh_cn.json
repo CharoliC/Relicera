@@ -10,6 +10,11 @@
 
   "item.relicera.chalice_lining": "圣杯内衬",
 
+  "block.relicera.dreamcatcher_box": "捕梦匣",
+  "container.relicera.dreamcatcher_box": "捕梦匣",
+  "tooltip.relicera.dreamcatcher_box.0": "§5收集附近的梦境，将其具象化。",
+  "message.relicera.dreamcatcher_box.cursed_sleep": "捕梦匣低声合拢噩梦的缝隙。七咒仍在耳畔低语，但今夜，你得以安眠。",
+
   "item.relicera.ashen_touch": "烬灭之触",
   "tooltip.relicera.ashen_touch.0": "§5按住 %1$s§5 查看详情。",
   "tooltip.relicera.ashen_touch.1": "§5- 近战攻击无法再施加着火",
@@ -166,8 +171,10 @@
   "advancements.relicera.iluthia_2.description": "喝下复苏花蜜。",
   "advancements.relicera.iluthia_3.title": "圣杯内衬",
   "advancements.relicera.iluthia_3.description": "圣杯的材质已经无从知晓，但这个世界仍然可以找到一些替代材料",
-  "advancements.relicera.iluthia_4.title": "重铸圣杯",
-  "advancements.relicera.iluthia_4.description": "修复伊露缇雅的圣杯，让生命圣器重现光辉。",
+  "advancements.relicera.iluthia_final.title": "重铸圣杯",
+  "advancements.relicera.iluthia_final.description": "修复伊露缇雅的圣杯，让生命圣器重现光辉。",
+  "advancements.relicera.luminas_extra_1.title": "不会是在做梦吧......？",
+  "advancements.relicera.luminas_extra_1.description": "从女仆的梦境中拿到蛋糕",
 
   "effect.relicera.iluthias_blessing": "伊露缇雅的庇佑",
 
