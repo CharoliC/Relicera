@@ -1,7 +1,7 @@
 package com.yukari.relicera.common.block;
 
 import com.yukari.relicera.ReliceraMod;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.mixin.PlayerAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -114,7 +114,7 @@ public final class DreamcatcherBoxSleepRewards {
             return;
         }
 
-        double range = ModServerConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get();
+        double range = ModCommonConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get();
         if (range > 0.0D && hasNearbyDreamcatcherBox(level, sleepingPos.get(), range)) {
             ((PlayerAccessor) player).relicera$setSleepCounter(VANILLA_SLEEP_TIMER_READY);
             if (state.cursedSleepMessagePlayers.add(uuid)) {
@@ -134,7 +134,7 @@ public final class DreamcatcherBoxSleepRewards {
     }
 
     private static void recordSleepingVillagers(ServerLevel level, LevelState state) {
-        double range = ModServerConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get();
+        double range = ModCommonConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get();
         if (range <= 0.0D) {
             return;
         }
@@ -163,7 +163,7 @@ public final class DreamcatcherBoxSleepRewards {
     }
 
     private static void recordSleepingTouhouMaids(ServerLevel level, LevelState state) {
-        double range = ModServerConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get();
+        double range = ModCommonConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get();
         if (range <= 0.0D) {
             return;
         }
@@ -257,7 +257,7 @@ public final class DreamcatcherBoxSleepRewards {
             return false;
         }
 
-        DreamcatcherBoxBlockEntity box = findNearestAcceptingBox(level, origin, ModServerConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get(), loot);
+        DreamcatcherBoxBlockEntity box = findNearestAcceptingBox(level, origin, ModCommonConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get(), loot);
         return box != null && box.insertAll(loot);
     }
 

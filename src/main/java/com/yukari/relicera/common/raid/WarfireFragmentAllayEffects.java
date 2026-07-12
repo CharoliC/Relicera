@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.raid;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,7 +31,7 @@ public final class WarfireFragmentAllayEffects {
             return;
         }
 
-        double range = ModServerConfig.WARFIRE_FRAGMENT_ALLAY_AURA_RANGE.get();
+        double range = ModCommonConfig.WARFIRE_FRAGMENT_ALLAY_AURA_RANGE.get();
         if (range <= 0.0D) {
             return;
         }

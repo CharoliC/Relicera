@@ -2,6 +2,7 @@ package com.yukari.relicera.mixin;
 
 import com.yukari.relicera.common.curio.GranbellsFurnaceEffects;
 import com.yukari.relicera.common.curio.IluthiasChaliceEffects;
+import com.yukari.relicera.common.item.TempestsReinsEffects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,6 +34,11 @@ public abstract class LivingEntityMixin {
                 && !player.isCrouching()
                 && fluidState.is(FluidTags.LAVA)
                 && GranbellsFurnaceEffects.isEquipped(player)) {
+            cir.setReturnValue(true);
+            return;
+        }
+
+        if (fluidState.is(FluidTags.WATER) && TempestsReinsEffects.allowsWaterStanding(self)) {
             cir.setReturnValue(true);
         }
     }

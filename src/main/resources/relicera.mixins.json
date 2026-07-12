@@ -5,7 +5,12 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "relicera.refmap.json",
   "mixins": [
+    "AbstractHorseMixin",
+    "AxolotlMixin",
+    "ElderGuardianMixin",
+    "EntityMixin",
     "FishingHookMixin",
+    "FoxAccessor",
     "LivingEntityMixin",
     "PlayerAccessor"
   ],

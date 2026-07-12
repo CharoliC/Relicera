@@ -3,7 +3,7 @@ package com.yukari.relicera;
 import com.mojang.logging.LogUtils;
 import com.yukari.relicera.common.network.ModNetworking;
 import com.yukari.relicera.config.ModClientConfig;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModBlockEntities;
 import com.yukari.relicera.registry.ModBlocks;
 import com.yukari.relicera.registry.ModCreativeModeTabs;
@@ -11,6 +11,7 @@ import com.yukari.relicera.registry.ModEffects;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModLootModifiers;
 import com.yukari.relicera.registry.ModMenuTypes;
+import com.yukari.relicera.registry.ModParticleTypes;
 import com.yukari.relicera.registry.ModRecipeSerializers;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -28,7 +29,7 @@ public class ReliceraMod {
         IEventBus modEventBus = context.getModEventBus();
 
         context.registerConfig(ModConfig.Type.CLIENT, ModClientConfig.SPEC);
-        context.registerConfig(ModConfig.Type.SERVER, ModServerConfig.SPEC);
+        context.registerConfig(ModConfig.Type.COMMON, ModCommonConfig.SPEC);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModEffects.register(modEventBus);
@@ -36,6 +37,7 @@ public class ReliceraMod {
         ModCreativeModeTabs.register(modEventBus);
         ModLootModifiers.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModParticleTypes.register(modEventBus);
         ModRecipeSerializers.register(modEventBus);
         ModNetworking.register();
 

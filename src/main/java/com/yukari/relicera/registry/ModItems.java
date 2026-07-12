@@ -13,6 +13,7 @@ import com.yukari.relicera.common.item.NightGlovesItem;
 import com.yukari.relicera.common.item.RelicCurioItem;
 import com.yukari.relicera.common.item.RevivalNectarItem;
 import com.yukari.relicera.common.item.SolarEmberItem;
+import com.yukari.relicera.common.item.TempestsReinsItem;
 import com.yukari.relicera.common.item.StriderSpursItem;
 import com.yukari.relicera.common.item.TorchflowerEmberItem;
 import com.yukari.relicera.common.item.WarfireFragmentItem;
@@ -51,6 +52,26 @@ public final class ModItems {
             new Item(new Item.Properties()
                     .stacksTo(64)
                     .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> STORMSCALE = ITEMS.register("stormscale", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> RIPPLEHEART_PEARL = ITEMS.register("rippleheart_pearl", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> DRIED_CROWN = ITEMS.register("dried_crown", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> TEMPESTS_REINS = ITEMS.register("tempests_reins", () ->
+            new TempestsReinsItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> CHALICE_LINING = ITEMS.register("chalice_lining", () ->
             new Item(new Item.Properties()
@@ -137,6 +158,11 @@ public final class ModItems {
 
     public static final RegistryObject<Item> ILUTHIAS_CHALICE = ITEMS.register("iluthias_chalice", () ->
             new IluthiasChaliceItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> NEREIAS_CROWN = ITEMS.register("nereias_crown", () ->
+            new RelicCurioItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.EPIC)));
 

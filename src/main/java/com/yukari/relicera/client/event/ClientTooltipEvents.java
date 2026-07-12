@@ -3,13 +3,19 @@ package com.yukari.relicera.client.event;
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.astral.AstralObservationClientData;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.common.curio.NereiasCrownEffects;
+import com.yukari.relicera.common.item.TempestsReinsEffects;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -25,10 +31,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = ReliceraMod.MOD_ID, value = Dist.CLIENT)
 public final class ClientTooltipEvents {
+    private static final String LIBTOOLTIPS_SHIFT_UP_KEY = "tooltip.libtooltips.generic.shift_up";
+    private static final String LIBTOOLTIPS_SHIFT_DOWN_KEY = "tooltip.libtooltips.generic.shift_down";
+    private static final int LIBTOOLTIPS_MAX_LINES = 100;
+    private static final int LIBTOOLTIPS_MAX_SPACES_BEFORE_TOOLTIP = 10;
+
     private ClientTooltipEvents() {
     }
 
@@ -74,8 +87,20 @@ public final class ClientTooltipEvents {
             appendIluthiasChaliceTooltip(event);
         }
 
+        if (event.getItemStack().is(ModItems.NEREIAS_CROWN.get())) {
+            appendNereiasCrownTooltip(event);
+        }
+
         if (event.getItemStack().is(ModItems.DREAMCATCHER_BOX.get())) {
             event.getToolTip().add(tooltipLine("dreamcatcher_box", 0));
+        }
+
+        if (event.getItemStack().is(ModItems.RIPPLEHEART_PEARL.get())) {
+            appendRippleheartPearlTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.TEMPESTS_REINS.get())) {
+            appendTempestsReinsTooltip(event);
         }
     }
 
@@ -99,6 +124,7 @@ public final class ClientTooltipEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onReliceraTooltipOrder(ItemTooltipEvent event) {
         if (isReliceraItem(event.getItemStack())) {
+            removeLibTooltipsGeneratedLines(event);
             moveReliceraModNameToEnd(event.getToolTip());
         }
     }
@@ -182,7 +208,7 @@ public final class ClientTooltipEvents {
         }
 
         event.getToolTip().add(tooltipLine("brutal_plunder_badge", 1,
-                gold(formatSignedNumber(ModServerConfig.BRUTAL_PLUNDER_BADGE_LOOTING_BONUS.get()))));
+                gold(formatSignedNumber(ModCommonConfig.BRUTAL_PLUNDER_BADGE_LOOTING_BONUS.get()))));
         event.getToolTip().add(Component.empty());
         event.getToolTip().add(tooltipLine("brutal_plunder_badge", 2));
         event.getToolTip().add(tooltipLine("brutal_plunder_badge", 3));
@@ -282,35 +308,95 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("iluthias_chalice", 2));
         event.getToolTip().add(tooltipLine("iluthias_chalice", 3));
         event.getToolTip().add(tooltipLine("iluthias_chalice", 4,
-                gold(formatSignedPercent(ModServerConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS.get())),
-                gold(formatNegativePercent(ModServerConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION.get()))));
+                gold(formatSignedPercent(ModCommonConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS.get())),
+                gold(formatNegativePercent(ModCommonConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION.get()))));
         event.getToolTip().add(tooltipLine("iluthias_chalice", 5));
         event.getToolTip().add(tooltipLine("iluthias_chalice", 6));
         event.getToolTip().add(tooltipLine("iluthias_chalice", 7));
+    }
+
+    private static void appendNereiasCrownTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("nereias_crown", 0));
+        event.getToolTip().add(Component.empty());
+
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("nereias_crown", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("nereias_crown", 2));
+        event.getToolTip().add(tooltipLine("nereias_crown", 3));
+        event.getToolTip().add(tooltipLine("nereias_crown", 4));
+        event.getToolTip().add(tooltipLine("nereias_crown", 5,
+                gold(formatNegativePercent(ModCommonConfig.NEREIAS_CROWN_ACTIVE_DAMAGE_REDUCTION.get()))));
+        event.getToolTip().add(tooltipLine("nereias_crown", 6));
+        event.getToolTip().add(tooltipLine("nereias_crown", 7));
+        event.getToolTip().add(tooltipLine("nereias_crown", 8,
+                gold(formatUnsignedPercent(ModCommonConfig.NEREIAS_CROWN_AQUATIC_ATTACK_DAMAGE_SHARE.get()))));
+        event.getToolTip().add(tooltipLine("nereias_crown", 9,
+                gold(formatUnsignedPercent(ModCommonConfig.NEREIAS_CROWN_AQUATIC_MAX_HEALTH_ARMOR_SHARE.get()))));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("nereias_crown", 10));
+        event.getToolTip().add(tooltipLine("nereias_crown", 11, gold(formatSignedNumber(getNereiasCrownAttackDamageBonus(event)))));
+        event.getToolTip().add(tooltipLine("nereias_crown", 12, gold(formatSignedNumber(getNereiasCrownArmorBonus(event)))));
+    }
+
+    private static void appendTempestsReinsTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(tooltipLine("tempests_reins", 0));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("tempests_reins", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("tempests_reins", 2,
+                gold(formatSignedPercent(TempestsReinsEffects.MOVEMENT_SPEED_BONUS)),
+                gold(formatSignedPercent(TempestsReinsEffects.JUMP_STRENGTH_BONUS))));
+        event.getToolTip().add(tooltipLine("tempests_reins", 3,
+                gold(formatSignedNumber(TempestsReinsEffects.STEP_HEIGHT_BONUS))));
+        event.getToolTip().add(tooltipLine("tempests_reins", 4));
+        event.getToolTip().add(tooltipLine("tempests_reins", 5));
+        event.getToolTip().add(tooltipLine("tempests_reins", 6));
+    }
+
+    private static void appendRippleheartPearlTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(tooltipLine("rippleheart_pearl", 0));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("rippleheart_pearl", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("rippleheart_pearl", 2));
+        event.getToolTip().add(tooltipLine("rippleheart_pearl", 3));
     }
 
     private static String formatSignedNumber(int value) {
         return value >= 0 ? "+" + value : String.valueOf(value);
     }
 
-    private static String formatNightGlovesDamageBonus() {
-        return "+" + Math.round(ModServerConfig.NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS.get() * 100.0D) + "%";
-    }
-
-    private static String formatAshenTouchDamageBonus() {
-        return "+" + Math.round(ModServerConfig.ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS.get() * 100.0D) + "%";
-    }
-
-    private static String formatStriderSpursSpeedBonus() {
-        return "+" + Math.round(ModServerConfig.STRIDER_SPURS_SPEED_BONUS.get() * 100.0D) + "%";
-    }
-
-    private static String formatGranbellsFurnaceDamageBonus() {
-        double value = ModServerConfig.GRANBELLS_FURNACE_DAMAGE_BONUS.get();
+    private static String formatSignedNumber(double value) {
         if (Math.abs(value - Math.rint(value)) < 0.0001D) {
             return formatSignedNumber((int) Math.rint(value));
         }
         return (value >= 0.0D ? "+" : "") + String.format(java.util.Locale.ROOT, "%.1f", value);
+    }
+
+    private static String formatNightGlovesDamageBonus() {
+        return "+" + Math.round(ModCommonConfig.NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS.get() * 100.0D) + "%";
+    }
+
+    private static String formatAshenTouchDamageBonus() {
+        return "+" + Math.round(ModCommonConfig.ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS.get() * 100.0D) + "%";
+    }
+
+    private static String formatStriderSpursSpeedBonus() {
+        return "+" + Math.round(ModCommonConfig.STRIDER_SPURS_SPEED_BONUS.get() * 100.0D) + "%";
+    }
+
+    private static String formatGranbellsFurnaceDamageBonus() {
+        return formatSignedNumber(ModCommonConfig.GRANBELLS_FURNACE_DAMAGE_BONUS.get());
     }
 
     private static String formatSignedPercent(double value) {
@@ -318,22 +404,36 @@ public final class ClientTooltipEvents {
         return (percent >= 0L ? "+" : "") + percent + "%";
     }
 
+    private static String formatUnsignedPercent(double value) {
+        return Math.round(value * 100.0D) + "%";
+    }
+
     private static String formatNegativePercent(double value) {
         long percent = Math.round(value * 100.0D);
         return "-" + percent + "%";
     }
 
+    private static double getNereiasCrownAttackDamageBonus(ItemTooltipEvent event) {
+        Player player = event.getEntity();
+        return player == null ? 0.0D : NereiasCrownEffects.getAquaticAttackDamageBonus(player);
+    }
+
+    private static double getNereiasCrownArmorBonus(ItemTooltipEvent event) {
+        Player player = event.getEntity();
+        return player == null ? 0.0D : NereiasCrownEffects.getAquaticArmorBonus(player);
+    }
+
     private static String formatDamageBonus(ItemTooltipEvent event) {
         int effectiveLootingLevel = getTooltipLootingLevel(event);
 
-        long percent = Math.round(com.yukari.relicera.config.ModServerConfig.BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL.get()
+        long percent = Math.round(com.yukari.relicera.config.ModCommonConfig.BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL.get()
                 * effectiveLootingLevel
                 * 100.0D);
         return "+" + percent + "%";
     }
 
     private static int getTooltipLootingLevel(ItemTooltipEvent event) {
-        int badgeLootingBonus = com.yukari.relicera.config.ModServerConfig.BRUTAL_PLUNDER_BADGE_LOOTING_BONUS.get();
+        int badgeLootingBonus = com.yukari.relicera.config.ModCommonConfig.BRUTAL_PLUNDER_BADGE_LOOTING_BONUS.get();
         Player player = event.getEntity();
         if (player == null) {
             return badgeLootingBonus;
@@ -391,6 +491,61 @@ public final class ClientTooltipEvents {
                 tooltip.add(line);
             }
         }
+    }
+
+    private static void removeLibTooltipsGeneratedLines(ItemTooltipEvent event) {
+        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem());
+        if (itemId == null) {
+            return;
+        }
+
+        Set<String> generatedTexts = getLibTooltipsGeneratedLineTexts(itemId);
+        List<Component> tooltip = event.getToolTip();
+        for (int index = tooltip.size() - 1; index > 0; index--) {
+            Component line = tooltip.get(index);
+            if (isLibTooltipsGenericShiftLine(line) || isLibTooltipsGeneratedLiteralLine(line, generatedTexts)) {
+                tooltip.remove(index);
+            }
+        }
+    }
+
+    private static Set<String> getLibTooltipsGeneratedLineTexts(ResourceLocation itemId) {
+        Set<String> generatedTexts = new HashSet<>();
+        String keyPrefix = "tooltip." + itemId.getNamespace() + "." + itemId.getPath() + ".";
+        for (int line = 0; line < LIBTOOLTIPS_MAX_LINES; line++) {
+            String key = keyPrefix + line;
+            if (!I18n.exists(key)) {
+                break;
+            }
+
+            String text = I18n.get(key);
+            if ("hide".equals(text)) {
+                break;
+            }
+
+            addWithPossibleLibTooltipsIndent(generatedTexts, text);
+        }
+        return generatedTexts;
+    }
+
+    private static void addWithPossibleLibTooltipsIndent(Set<String> generatedTexts, String text) {
+        for (int spaces = 0; spaces <= LIBTOOLTIPS_MAX_SPACES_BEFORE_TOOLTIP; spaces++) {
+            generatedTexts.add(" ".repeat(spaces) + text);
+        }
+    }
+
+    private static boolean isLibTooltipsGenericShiftLine(Component line) {
+        if (line.getContents() instanceof TranslatableContents translatable) {
+            String key = translatable.getKey();
+            return LIBTOOLTIPS_SHIFT_UP_KEY.equals(key) || LIBTOOLTIPS_SHIFT_DOWN_KEY.equals(key);
+        }
+        return false;
+    }
+
+    private static boolean isLibTooltipsGeneratedLiteralLine(Component line, Set<String> generatedTexts) {
+        return !generatedTexts.isEmpty()
+                && line.getContents() instanceof LiteralContents
+                && generatedTexts.contains(line.getString());
     }
 
     private static boolean isReliceraModNameLine(String text) {

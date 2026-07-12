@@ -11,10 +11,15 @@ import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
 import com.yukari.relicera.common.curio.GranbellsFurnaceEffects;
 import com.yukari.relicera.common.curio.IluthiasChaliceEffects;
 import com.yukari.relicera.common.curio.NightGlovesEffects;
+import com.yukari.relicera.common.curio.NereiasCrownEffects;
 import com.yukari.relicera.common.curio.StriderSpursEffects;
 import com.yukari.relicera.common.effect.IluthiasBlessingEffects;
+import com.yukari.relicera.common.effect.TempestSprintEffects;
 import com.yukari.relicera.common.item.RottenTuskEffects;
+import com.yukari.relicera.common.item.RippleheartPearlEffects;
 import com.yukari.relicera.common.item.SolarEmberEffects;
+import com.yukari.relicera.common.item.StormscaleDrops;
+import com.yukari.relicera.common.item.TempestsReinsEffects;
 import com.yukari.relicera.common.raid.WarfireFragmentAllayEffects;
 import com.yukari.relicera.common.raid.WarfireFragmentDrops;
 import com.yukari.relicera.registry.ModItems;
@@ -26,6 +31,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -37,6 +43,7 @@ import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -119,12 +126,25 @@ public final class CommonGameEvents {
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
+        if (TempestsReinsEffects.preventDamage(event)) {
+            return;
+        }
         if (GranbellsFurnaceEffects.preventFireDamage(event)) {
             return;
         }
         if (IluthiasBlessingEffects.preventDamage(event)) {
             return;
         }
+        if (TempestSprintEffects.reduceDamage(event)) {
+            return;
+        }
+        if (NereiasCrownEffects.preventDamage(event)) {
+            return;
+        }
+        if (NereiasCrownEffects.preventAquaticAllyDamage(event)) {
+            return;
+        }
+        NereiasCrownEffects.reduceActiveDamage(event);
         AstralLensDamageProtection.apply(event);
         NightGlovesEffects.applyNightMeleeDamageBonus(event);
         BrutalPlunderBadgeEffects.applyDamageBonus(event);
@@ -132,6 +152,7 @@ public final class CommonGameEvents {
         GranbellsFurnaceEffects.applyOutgoingDamageBonus(event);
         FourfoldSherdPendantEffects.applyDamageEffects(event);
         IluthiasChaliceEffects.applyDamageEffects(event);
+        NereiasCrownEffects.rememberWearerTarget(event);
         WarfireFragmentAllayEffects.preventAllayDamage(event);
     }
 
@@ -147,8 +168,17 @@ public final class CommonGameEvents {
 
     @SubscribeEvent
     public static void onLivingAttack(LivingAttackEvent event) {
+        if (TempestsReinsEffects.preventDamage(event)) {
+            return;
+        }
         GranbellsFurnaceEffects.igniteAttacker(event);
         if (GranbellsFurnaceEffects.preventFireDamage(event)) {
+            return;
+        }
+        if (NereiasCrownEffects.preventDamage(event)) {
+            return;
+        }
+        if (NereiasCrownEffects.preventAquaticAllyDamage(event)) {
             return;
         }
         RottenTuskEffects.preventPiglinDamage(event);
@@ -168,6 +198,7 @@ public final class CommonGameEvents {
         }
         RottenTuskEffects.addZoglinDrop(event);
         BrutalPlunderBadgeEffects.addPiglinBarterDrop(event);
+        StormscaleDrops.addElderGuardianThunderstormDrop(event);
     }
 
     @SubscribeEvent
@@ -191,6 +222,20 @@ public final class CommonGameEvents {
     }
 
     @SubscribeEvent
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        NereiasCrownEffects.takeDrownedHeldItems(event);
+        if (event.isCanceled()) {
+            return;
+        }
+        RippleheartPearlEffects.feedEntity(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
+        NereiasCrownEffects.redirectAquaticAllyTarget(event);
+    }
+
+    @SubscribeEvent
     public static void onAnvilRepair(AnvilRepairEvent event) {
         GranbellsFurnaceEffects.preventAnvilDamage(event);
     }
@@ -207,6 +252,9 @@ public final class CommonGameEvents {
         GranbellsFurnaceEffects.tickLavaStanding(event.getEntity());
         FourfoldSherdPendantEffects.tickAttributes(event.getEntity());
         IluthiasChaliceEffects.tickImmunities(event.getEntity());
+        NereiasCrownEffects.tick(event);
+        TempestsReinsEffects.tickHorse(event);
+        TempestSprintEffects.tickHorse(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

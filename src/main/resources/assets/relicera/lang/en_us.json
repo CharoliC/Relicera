@@ -10,6 +10,8 @@
 
   "item.relicera.chalice_lining": "Chalice Lining",
 
+  "item.relicera.dried_crown": "Dried Crown",
+
   "block.relicera.dreamcatcher_box": "Dreamcatcher Box",
   "container.relicera.dreamcatcher_box": "Dreamcatcher Box",
   "tooltip.relicera.dreamcatcher_box.0": "§5Collects nearby dreams and gives them form.",
@@ -109,6 +111,21 @@
   "tooltip.relicera.iluthias_chalice.6": "§5- Can store Totems of Undying",
   "tooltip.relicera.iluthias_chalice.7": "§5- Totems of Undying will give §6Iluthia's Blessing",
 
+  "item.relicera.nereias_crown": "Nereia's Crown",
+  "tooltip.relicera.nereias_crown.0": "§4A magical tool belonging to a certain god. It will not be lost after death.",
+  "tooltip.relicera.nereias_crown.1": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.nereias_crown.2": "§5- Immune to §6lightning§5 and §6drowning§5 damage",
+  "tooltip.relicera.nereias_crown.3": "§5- Greatly increases swim speed",
+  "tooltip.relicera.nereias_crown.4": "§5- Gain §6Conduit Power§5 while touching water",
+  "tooltip.relicera.nereias_crown.5": "§5- Damage taken %1$s while touching water or rain",
+  "tooltip.relicera.nereias_crown.6": "§5- §6Drowned§5 are friendly to you, you can command them to surrender their held items",
+  "tooltip.relicera.nereias_crown.7": "§5- §6Guardians§5 and §6Elder Guardians§5 are friendly to you. They will fight for you",
+  "tooltip.relicera.nereias_crown.8": "§5- Adds %1$s§5 of nearby aquatic creatures' total attack damage to your attack damage",
+  "tooltip.relicera.nereias_crown.9": "§5- Adds %1$s§5 of nearby aquatic creatures' total max health to your armor",
+  "tooltip.relicera.nereias_crown.10": "§dCurrent effects:",
+  "tooltip.relicera.nereias_crown.11": "%1$s§5 attack damage",
+  "tooltip.relicera.nereias_crown.12": "%1$s§5 armor",
+
   "item.relicera.night_gloves": "Night Gloves",
   "tooltip.relicera.night_gloves.0": "§5Hold %1$s§5 to see details.",
   "tooltip.relicera.night_gloves.1": "%1$s§5 melee damage at night",
@@ -119,6 +136,12 @@
 
   "item.relicera.raw_hallowed_enamel": "Raw Hallowed Enamel",
 
+  "item.relicera.rippleheart_pearl": "Rippleheart Pearl",
+  "tooltip.relicera.rippleheart_pearl.0": "§5A little gift from an Axolotl.",
+  "tooltip.relicera.rippleheart_pearl.1": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.rippleheart_pearl.2": "§5- Feed to tamed §6horses§5, §6dogs§5, and §6cats§5 to increase max health",
+  "tooltip.relicera.rippleheart_pearl.3": "§5- Feed to §6foxes§5 to gain their trust",
+
   "item.relicera.rotten_tusk": "Rotten Tusk",
 
   "item.relicera.solar_ember": "Solar Ember",
@@ -127,6 +150,17 @@
   "item.relicera.strider_spurs": "Strider Spurs",
   "tooltip.relicera.strider_spurs.0": "§5Hold %1$s§5 to see details.",
   "tooltip.relicera.strider_spurs.1": "§5- Strider movement speed %1$s",
+
+  "item.relicera.stormscale": "Stormscale",
+
+  "item.relicera.tempests_reins": "Tempest's Reins",
+  "tooltip.relicera.tempests_reins.0": "§5Thunder as reins, rain as road.",
+  "tooltip.relicera.tempests_reins.1": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.tempests_reins.2": "§5- Horse speed %1$s§5, horse jump height %2$s",
+  "tooltip.relicera.tempests_reins.3": "§5- Horse step height %1$s",
+  "tooltip.relicera.tempests_reins.4": "§5- Horse is immune to §6fall§5, §6lightning§5, and §6fire§5 damage",
+  "tooltip.relicera.tempests_reins.5": "§5- Horse can walk on water",
+  "tooltip.relicera.tempests_reins.6": "§5- After being struck by lightning, horse gains §6Tempest Sprint",
 
   "item.relicera.torchflower_ember": "Torchflower Ember",
 
@@ -150,6 +184,9 @@
   "container.relicera.relic_repair_table.hint.iluthias_chalice.chalice_lining": "Fragments of the chalice...?",
   "container.relicera.relic_repair_table.hint.iluthias_chalice.revival_nectar": "A miraculous elixir...?",
   "container.relicera.relic_repair_table.hint.iluthias_chalice.totem_of_undying": "A charm of rebirth...?",
+  "container.relicera.relic_repair_table.hint.nereias_crown.conduit": "Energy of tides...?",
+  "container.relicera.relic_repair_table.hint.nereias_crown.rippleheart_pearl": "Pearl of friendship...?",
+  "container.relicera.relic_repair_table.hint.nereias_crown.stormscale": "Scales of sea monster...?",
 
   "advancements.relicera.root.title": "Relicera",
   "advancements.relicera.root.description": "Otherworldly relics.",
@@ -173,13 +210,25 @@
   "advancements.relicera.iluthia_3.description": "The chalice's original material is unknown, but this world still offers a few substitutes.",
   "advancements.relicera.iluthia_final.title": "Reforge the Chalice",
   "advancements.relicera.iluthia_final.description": "Restore Iluthia's Chalice, let the sacred vessel shine again.",
+  "advancements.relicera.nereia.title": "Shell Fossil",
+  "advancements.relicera.nereia.description": "Obtain the Dried Crown.",
+  "advancements.relicera.nereia_1.title": "Before the Tsunami",
+  "advancements.relicera.nereia_1.description": "During thunderstorms, lightning sometimes clings to the spikes of Elder Guardians.",
+  "advancements.relicera.nereia_2.title": "Ripples of Life",
+  "advancements.relicera.nereia_2.description": "Obtain a Rippleheart Pearl gifted by an Axolotl.",
+  "advancements.relicera.nereia_final.title": "Lord of the Ocean",
+  "advancements.relicera.nereia_final.description": "Restore Nereia's Crown, let the ocean remember its master.",
   "advancements.relicera.luminas_extra_1.title": "Is that a Dream...?",
   "advancements.relicera.luminas_extra_1.description": "Get a cake from a maid's dream.",
 
   "effect.relicera.iluthias_blessing": "Iluthia's Blessing",
+  "effect.relicera.tempest_sprint": "Tempest Sprint",
 
   "jei.relicera.info.astral_lens.line_1": "Obtained after observing every moon phase with a spyglass.",
   "jei.relicera.info.astral_lens.line_2": "This item cannot be obtained again. Please take care of it.",
+  "jei.relicera.info.dried_crown.line_1": "Low probability appears in shipwreck treasure chests and buried treasure.",
+  "jei.relicera.info.dried_crown.line_2": "Low probability appears in underwater ruin chests.",
+  "jei.relicera.info.dried_crown.line_3": "May be found while brushing suspicious blocks in ocean ruins.",
   "jei.relicera.info.ephemeral_bloom.line_1": "On new moon nights, Sniffers occasionally dig up this precious flower.",
   "jei.relicera.info.ephemeral_bloom.line_2": "High probability appears in stronghold library chests.",
   "jei.relicera.info.extinguished_solar_furnace.line_1": "High probability appears in bastion treasure chests.",
@@ -190,12 +239,15 @@
   "jei.relicera.info.forgotten_thread.line_2": "Low probability appears in village chests and ancient city chests.",
   "jei.relicera.info.rotten_tusk.line_1": "Dropped by Zoglins.",
   "jei.relicera.info.rotten_tusk.line_2": "Hold it, and Piglins will flee from you, as if they saw a Zoglin.",
+  "jei.relicera.info.rippleheart_pearl.line_1": "When Axolotls give you Regeneration, they have a low probability of gifting this item.",
+  "jei.relicera.info.rippleheart_pearl.line_2": "Feed it to tamed horses, donkeys, mules, wolves, cats, or foxes to strengthen their vitality.",
+  "jei.relicera.info.stormscale.line_1": "May drop when an Elder Guardian is defeated during a thunderstorm.",
   "jei.relicera.info.warfire_fragment.line_1": "Drops when an Iron Golem is killed by a raid mob during a raid.",
   "jei.relicera.info.withered_life_chalice.line_1": "Medium probability appears in woodland mansion chests and jungle temple chests.",
   "jei.relicera.info.withered_life_chalice.line_2": "Low probability appears in desert pyramid chests.",
   "jei.relicera.info.withered_life_chalice.line_3": "Very rarely appears in dungeon chests.",
 
-  "itemGroup.relicera": "Relicera",
+  "itemGroup.relicera": "§5Relicera",
 
   "tooltip.relicera.spyglass.observed_moon_phases": "Observed moon phases",
 

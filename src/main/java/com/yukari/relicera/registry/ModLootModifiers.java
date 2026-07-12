@@ -2,10 +2,12 @@ package com.yukari.relicera.registry;
 
 import com.mojang.serialization.Codec;
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.loot.AddDriedCrownLootModifier;
 import com.yukari.relicera.common.loot.AddEphemeralBloomLootModifier;
 import com.yukari.relicera.common.loot.AddExtinguishedSolarFurnaceLootModifier;
 import com.yukari.relicera.common.loot.AddFeysilverIngotLootModifier;
 import com.yukari.relicera.common.loot.AddForgottenThreadLootModifier;
+import com.yukari.relicera.common.loot.AddOceanRuinArchaeologyLootModifier;
 import com.yukari.relicera.common.loot.AddWitheredLifeChaliceLootModifier;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,6 +33,12 @@ public final class ModLootModifiers {
 
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_WITHERED_LIFE_CHALICE =
             LOOT_MODIFIER_SERIALIZERS.register("add_withered_life_chalice", () -> AddWitheredLifeChaliceLootModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_OCEAN_RUIN_ARCHAEOLOGY =
+            LOOT_MODIFIER_SERIALIZERS.register("add_ocean_ruin_archaeology", () -> AddOceanRuinArchaeologyLootModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_DRIED_CROWN =
+            LOOT_MODIFIER_SERIALIZERS.register("add_dried_crown", () -> AddDriedCrownLootModifier.CODEC);
 
     private ModLootModifiers() {
     }

@@ -13,6 +13,10 @@
     "relicera:feysilver_ingot",
     "relicera:raw_hallowed_enamel",
     "relicera:hallowed_enamel",
+    "relicera:stormscale",
+    "relicera:rippleheart_pearl",
+    "relicera:dried_crown",
+    "relicera:tempests_reins",
     "relicera:chalice_lining",
     "relicera:torchflower_ember",
     "relicera:extinguished_solar_furnace",
@@ -23,6 +27,7 @@
     "relicera:strider_spurs",
     "relicera:granbells_furnace",
     "relicera:iluthias_chalice",
+    "relicera:nereias_crown",
     "relicera:relic_repair_table",
     "relicera:dreamcatcher_box"
   ]

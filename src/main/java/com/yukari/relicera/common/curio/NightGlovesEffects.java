@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.curio;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -32,7 +32,7 @@ public final class NightGlovesEffects {
                 && event.getSource().getDirectEntity() == player
                 && player.level().isNight()
                 && isEquipped(player)) {
-            event.setAmount(event.getAmount() * (1.0F + ModServerConfig.NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS.get().floatValue()));
+            event.setAmount(event.getAmount() * (1.0F + ModCommonConfig.NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS.get().floatValue()));
         }
     }
 }

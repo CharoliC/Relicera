@@ -44,6 +44,23 @@ public final class RelicRepairRecipes {
                             "container.relicera.relic_repair_table.hint.iluthias_chalice.totem_of_undying"
                     ),
                     RelicRepairParticleStyle.LIFE_CHALICE
+            ),
+            new RelicRepairRecipe(
+                    ModItems.DRIED_CROWN.get(),
+                    1,
+                    List.of(
+                            Ingredient.of(ModItems.STORMSCALE.get()),
+                            Ingredient.of(ModItems.RIPPLEHEART_PEARL.get()),
+                            Ingredient.of(Items.CONDUIT)
+                    ),
+                    new ItemStack(ModItems.NEREIAS_CROWN.get()),
+                    DEFAULT_REPAIR_TIME,
+                    List.of(
+                            "container.relicera.relic_repair_table.hint.nereias_crown.stormscale",
+                            "container.relicera.relic_repair_table.hint.nereias_crown.rippleheart_pearl",
+                            "container.relicera.relic_repair_table.hint.nereias_crown.conduit"
+                    ),
+                    RelicRepairParticleStyle.NEREIAS_CROWN
             )
     );
 

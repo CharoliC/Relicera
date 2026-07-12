@@ -2,7 +2,7 @@ package com.yukari.relicera.common.loot;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModLootModifiers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -43,13 +43,13 @@ public class AddExtinguishedSolarFurnaceLootModifier extends LootModifier {
 
     private static double getChance(ResourceLocation lootTableId) {
         if (BASTION_TREASURE.equals(lootTableId)) {
-            return ModServerConfig.EXTINGUISHED_SOLAR_FURNACE_BASTION_TREASURE_CHEST_CHANCE.get();
+            return ModCommonConfig.EXTINGUISHED_SOLAR_FURNACE_BASTION_TREASURE_CHEST_CHANCE.get();
         }
         if (NETHER_FORTRESS.equals(lootTableId)) {
-            return ModServerConfig.EXTINGUISHED_SOLAR_FURNACE_NETHER_FORTRESS_CHEST_CHANCE.get();
+            return ModCommonConfig.EXTINGUISHED_SOLAR_FURNACE_NETHER_FORTRESS_CHEST_CHANCE.get();
         }
         if (VILLAGE_WEAPONSMITH.equals(lootTableId)) {
-            return ModServerConfig.EXTINGUISHED_SOLAR_FURNACE_WEAPONSMITH_CHEST_CHANCE.get();
+            return ModCommonConfig.EXTINGUISHED_SOLAR_FURNACE_WEAPONSMITH_CHEST_CHANCE.get();
         }
         return 0.0D;
     }

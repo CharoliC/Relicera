@@ -1,35 +1,26 @@
 package com.yukari.relicera.common.raid;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-
-import java.util.Set;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public final class WarfireFragmentDrops {
-    private static final Set<EntityType<?>> ELIGIBLE_RAIDERS = Set.of(
-            EntityType.RAVAGER,
-            EntityType.VINDICATOR,
-            EntityType.PILLAGER,
-            EntityType.EVOKER
-    );
-
     private WarfireFragmentDrops() {
     }
 
     public static void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof IronGolem golem)
                 || !(golem.level() instanceof ServerLevel level)
-                || !(event.getSource().getEntity() instanceof Raider raider)
-                || !isEligibleRaider(raider)
-                || level.random.nextDouble() >= ModServerConfig.WARFIRE_FRAGMENT_IRON_GOLEM_RAIDER_DROP_CHANCE.get()) {
+                || !isDuringRaid(level, golem)
+                || !isConfiguredKiller(event.getSource().getEntity())
+                || level.random.nextDouble() >= ModCommonConfig.WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE.get()) {
             return;
         }
 
@@ -44,9 +35,17 @@ public final class WarfireFragmentDrops {
         level.addFreshEntity(itemEntity);
     }
 
-    private static boolean isEligibleRaider(Entity entity) {
-        return entity instanceof Raider raider
-                && raider.hasActiveRaid()
-                && ELIGIBLE_RAIDERS.contains(raider.getType());
+    private static boolean isDuringRaid(ServerLevel level, IronGolem golem) {
+        return level.getRaidAt(golem.blockPosition()) != null;
+    }
+
+    private static boolean isConfiguredKiller(Entity entity) {
+        if (entity == null) {
+            return false;
+        }
+
+        ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+        return entityId != null
+                && ModCommonConfig.WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES.get().contains(entityId.toString());
     }
 }

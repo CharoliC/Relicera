@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.curio;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.common.item.IluthiasChaliceItem;
 import com.yukari.relicera.registry.ModEffects;
 import com.yukari.relicera.registry.ModItems;
@@ -55,7 +55,7 @@ public final class IluthiasChaliceEffects {
         LivingEntity attacker = getResponsibleAttacker(event.getSource().getEntity(), event.getSource().getDirectEntity());
 
         if (attacker != null && attacker != target && isEquipped(attacker) && target.getMobType() == MobType.UNDEAD) {
-            double damageBonus = ModServerConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS.get();
+            double damageBonus = ModCommonConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS.get();
             if (damageBonus > 0.0D) {
                 event.setAmount(event.getAmount() * (1.0F + (float) damageBonus));
             }
@@ -63,7 +63,7 @@ public final class IluthiasChaliceEffects {
         }
 
         if (attacker != null && attacker.getMobType() == MobType.UNDEAD && isEquipped(target)) {
-            double damageReduction = ModServerConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION.get();
+            double damageReduction = ModCommonConfig.ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION.get();
             if (damageReduction > 0.0D) {
                 event.setAmount(event.getAmount() * Math.max(0.0F, 1.0F - (float) damageReduction));
             }

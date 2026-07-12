@@ -1,7 +1,7 @@
 package com.yukari.relicera.common.item;
 
 import com.yukari.relicera.common.curio.BrutalPlunderBadgeEffects;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -40,7 +40,7 @@ public final class RottenTuskEffects {
             return;
         }
 
-        double range = ModServerConfig.ROTTEN_TUSK_PIGLIN_REPEL_RANGE.get();
+        double range = ModCommonConfig.ROTTEN_TUSK_PIGLIN_REPEL_RANGE.get();
         if (range <= 0.0D) {
             return;
         }

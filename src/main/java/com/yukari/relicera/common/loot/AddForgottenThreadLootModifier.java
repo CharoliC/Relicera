@@ -2,7 +2,7 @@ package com.yukari.relicera.common.loot;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModLootModifiers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -95,9 +95,9 @@ public class AddForgottenThreadLootModifier extends LootModifier {
 
         private double chance() {
             return switch (this) {
-                case VILLAGE_CHEST -> ModServerConfig.FORGOTTEN_THREAD_VILLAGE_CHEST_CHANCE.get();
-                case ANCIENT_CITY_CHEST -> ModServerConfig.FORGOTTEN_THREAD_ANCIENT_CITY_CHEST_CHANCE.get();
-                case CAT_GIFT -> ModServerConfig.FORGOTTEN_THREAD_CAT_GIFT_CHANCE.get();
+                case VILLAGE_CHEST -> ModCommonConfig.FORGOTTEN_THREAD_VILLAGE_CHEST_CHANCE.get();
+                case ANCIENT_CITY_CHEST -> ModCommonConfig.FORGOTTEN_THREAD_ANCIENT_CITY_CHEST_CHANCE.get();
+                case CAT_GIFT -> ModCommonConfig.FORGOTTEN_THREAD_CAT_GIFT_CHANCE.get();
             };
         }
 

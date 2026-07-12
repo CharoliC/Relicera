@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.curio;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -36,7 +36,7 @@ public final class BrutalPlunderBadgeEffects {
         if (event.getDamageSource() != null
                 && event.getDamageSource().getEntity() instanceof Player player
                 && isEquipped(player)) {
-            event.setLootingLevel(event.getLootingLevel() + ModServerConfig.BRUTAL_PLUNDER_BADGE_LOOTING_BONUS.get());
+            event.setLootingLevel(event.getLootingLevel() + ModCommonConfig.BRUTAL_PLUNDER_BADGE_LOOTING_BONUS.get());
         }
     }
 
@@ -50,7 +50,7 @@ public final class BrutalPlunderBadgeEffects {
             return;
         }
 
-        float multiplier = 1.0F + (float) (ModServerConfig.BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL.get() * lootingLevel);
+        float multiplier = 1.0F + (float) (ModCommonConfig.BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL.get() * lootingLevel);
         event.setAmount(event.getAmount() * multiplier);
     }
 

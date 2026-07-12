@@ -1,14 +1,18 @@
 package com.yukari.relicera.common.curio;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -66,7 +70,8 @@ public final class AshenTouchEffects {
             return;
         }
 
-        float multiplier = 1.0F + ModServerConfig.ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS.get().floatValue();
+        spawnExtinguishFeedback(target);
+        float multiplier = 1.0F + ModCommonConfig.ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS.get().floatValue();
         event.setAmount(event.getAmount() * multiplier);
     }
 
@@ -92,6 +97,33 @@ public final class AshenTouchEffects {
         PENDING_FIRE_CLEAR
                 .computeIfAbsent(target.level().dimension(), dimension -> new HashSet<>())
                 .add(target.getUUID());
+    }
+
+    private static void spawnExtinguishFeedback(LivingEntity target) {
+        if (!(target.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        RandomSource random = serverLevel.getRandom();
+        double x = target.getX();
+        double y = target.getY(0.55D);
+        double z = target.getZ();
+        double width = Math.max(0.25D, target.getBbWidth() * 0.35D);
+        double height = Math.max(0.3D, target.getBbHeight() * 0.25D);
+        serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, x, y, z, 18, width, height, width, 0.04D);
+        serverLevel.sendParticles(ParticleTypes.SMOKE, x, y + target.getBbHeight() * 0.2D, z, 12, width * 0.7D, height, width * 0.7D, 0.02D);
+        for (int i = 0; i < 8; i++) {
+            serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE,
+                    x + (random.nextDouble() - 0.5D) * width * 2.0D,
+                    target.getY(0.25D + random.nextDouble() * 0.55D),
+                    z + (random.nextDouble() - 0.5D) * width * 2.0D,
+                    0,
+                    (random.nextDouble() - 0.5D) * 0.05D,
+                    0.04D + random.nextDouble() * 0.04D,
+                    (random.nextDouble() - 0.5D) * 0.05D,
+                    1.0D);
+        }
+        serverLevel.playSound(null, x, y, z, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.PLAYERS, 0.75F, 0.9F + random.nextFloat() * 0.18F);
     }
 
     private static Player getEquippedMeleeAttacker(Entity sourceEntity, Entity directEntity) {

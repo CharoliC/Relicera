@@ -2,7 +2,7 @@ package com.yukari.relicera.common.loot;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModLootModifiers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -44,16 +44,16 @@ public class AddWitheredLifeChaliceLootModifier extends LootModifier {
 
     private static double getChance(ResourceLocation lootTableId) {
         if (WOODLAND_MANSION.equals(lootTableId)) {
-            return ModServerConfig.WITHERED_LIFE_CHALICE_WOODLAND_MANSION_CHEST_CHANCE.get();
+            return ModCommonConfig.WITHERED_LIFE_CHALICE_WOODLAND_MANSION_CHEST_CHANCE.get();
         }
         if (DESERT_PYRAMID.equals(lootTableId)) {
-            return ModServerConfig.WITHERED_LIFE_CHALICE_DESERT_PYRAMID_CHEST_CHANCE.get();
+            return ModCommonConfig.WITHERED_LIFE_CHALICE_DESERT_PYRAMID_CHEST_CHANCE.get();
         }
         if (JUNGLE_TEMPLE.equals(lootTableId)) {
-            return ModServerConfig.WITHERED_LIFE_CHALICE_JUNGLE_TEMPLE_CHEST_CHANCE.get();
+            return ModCommonConfig.WITHERED_LIFE_CHALICE_JUNGLE_TEMPLE_CHEST_CHANCE.get();
         }
         if (SIMPLE_DUNGEON.equals(lootTableId)) {
-            return ModServerConfig.WITHERED_LIFE_CHALICE_SIMPLE_DUNGEON_CHEST_CHANCE.get();
+            return ModCommonConfig.WITHERED_LIFE_CHALICE_SIMPLE_DUNGEON_CHEST_CHANCE.get();
         }
         return 0.0D;
     }

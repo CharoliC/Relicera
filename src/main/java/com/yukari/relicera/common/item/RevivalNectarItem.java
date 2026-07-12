@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.item;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModEffects;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -105,7 +105,7 @@ public class RevivalNectarItem extends Item {
     private static MobEffectInstance createIluthiasBlessingEffect() {
         return new MobEffectInstance(
                 ModEffects.ILUTHIAS_BLESSING.get(),
-                ModServerConfig.REVIVAL_NECTAR_ILUTHIAS_BLESSING_DURATION.get(),
+                ModCommonConfig.REVIVAL_NECTAR_ILUTHIAS_BLESSING_DURATION.get(),
                 ILUTHIAS_BLESSING_AMPLIFIER
         );
     }

@@ -28,9 +28,12 @@ public final class ReliceraJeiPlugin implements IModPlugin {
         addInfo(registration, ModItems.ROTTEN_TUSK.get(), "rotten_tusk", 2);
         addInfo(registration, ModItems.EPHEMERAL_BLOOM.get(), "ephemeral_bloom", 2);
         addInfo(registration, ModItems.WARFIRE_FRAGMENT.get(), "warfire_fragment", 1);
+        addInfo(registration, ModItems.STORMSCALE.get(), "stormscale", 1);
+        addInfo(registration, ModItems.RIPPLEHEART_PEARL.get(), "rippleheart_pearl", 2);
         addInfo(registration, ModItems.ASTRAL_LENS.get(), "astral_lens", 2);
         addInfo(registration, ModItems.EXTINGUISHED_SOLAR_FURNACE.get(), "extinguished_solar_furnace", 3);
         addInfo(registration, ModItems.WITHERED_LIFE_CHALICE.get(), "withered_life_chalice", 3);
+        addInfo(registration, ModItems.DRIED_CROWN.get(), "dried_crown", 3);
     }
 
     private static void addInfo(IRecipeRegistration registration, Item item, String itemName, int lineCount) {

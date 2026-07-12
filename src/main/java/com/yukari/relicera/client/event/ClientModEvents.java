@@ -1,6 +1,9 @@
 package com.yukari.relicera.client.event;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.client.particle.ElectricSparkParticle;
+import com.yukari.relicera.client.particle.GoldHeartParticle;
+import com.yukari.relicera.client.renderer.TempestSprintHorseLayer;
 import com.yukari.relicera.client.screen.FourfoldSherdPendantScreen;
 import com.yukari.relicera.client.renderer.RelicRepairTableRenderer;
 import com.yukari.relicera.client.screen.RelicRepairTableScreen;
@@ -8,9 +11,13 @@ import com.yukari.relicera.client.tooltip.ClientIluthiasChaliceTooltip;
 import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
 import com.yukari.relicera.registry.ModBlockEntities;
 import com.yukari.relicera.registry.ModMenuTypes;
+import com.yukari.relicera.registry.ModParticleTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.HorseRenderer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,7 +42,22 @@ public final class ClientModEvents {
     }
 
     @SubscribeEvent
+    public static void addEntityLayers(EntityRenderersEvent.AddLayers event) {
+        if (event.getRenderer(EntityType.HORSE) instanceof HorseRenderer renderer) {
+            renderer.addLayer(new TempestSprintHorseLayer(renderer, event.getEntityModels()));
+        }
+    }
+
+    @SubscribeEvent
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(IluthiasChaliceTooltip.class, ClientIluthiasChaliceTooltip::new);
+    }
+
+    @SubscribeEvent
+    public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ModParticleTypes.ELECTRIC_SPARK.get(), ElectricSparkParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GOLDHEART_0.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.1F));
+        event.registerSpriteSet(ModParticleTypes.GOLDHEART_1.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.35F));
+        event.registerSpriteSet(ModParticleTypes.GOLDHEART_2.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.65F));
     }
 }

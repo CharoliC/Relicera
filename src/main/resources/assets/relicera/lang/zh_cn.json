@@ -10,6 +10,8 @@
 
   "item.relicera.chalice_lining": "圣杯内衬",
 
+  "item.relicera.dried_crown": "干涸的深海王冠",
+
   "block.relicera.dreamcatcher_box": "捕梦匣",
   "container.relicera.dreamcatcher_box": "捕梦匣",
   "tooltip.relicera.dreamcatcher_box.0": "§5收集附近的梦境，将其具象化。",
@@ -115,9 +117,30 @@
   "tooltip.relicera.iluthias_chalice.6": "§5- 可以存放不死图腾",
   "tooltip.relicera.iluthias_chalice.7": "§5- 令不死图腾拥有§6庇佑§5的力量",
 
+  "item.relicera.nereias_crown": "涅瑞亚的王冠",
+  "tooltip.relicera.nereias_crown.0": "§4属于某位神明的魔法道具，不会在死亡后丢失。",
+  "tooltip.relicera.nereias_crown.1": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.nereias_crown.2": "§5- 免疫§6闪电§5和§6溺水§5的伤害",
+  "tooltip.relicera.nereias_crown.3": "§5- 大幅提升游泳速度",
+  "tooltip.relicera.nereias_crown.4": "§5- 接触水时，获得§6潮涌能量",
+  "tooltip.relicera.nereias_crown.5": "§5- 接触水或雨时，受到的伤害 %1$s",
+  "tooltip.relicera.nereias_crown.6": "§5- §6溺尸§5对你友好，你可以命令溺尸交出手中的物品",
+  "tooltip.relicera.nereias_crown.7": "§5- §6守卫者§5，§6远古守卫者§5对你友好，并为你战斗",
+  "tooltip.relicera.nereias_crown.8": "§5- 将附近水生生物攻击力总和的 %1$s§5 加至你的攻击力",
+  "tooltip.relicera.nereias_crown.9": "§5- 将附近水生生物最大生命值总和的 %1$s§5 加至你的护甲值",
+  "tooltip.relicera.nereias_crown.10": "§d当前效果：",
+  "tooltip.relicera.nereias_crown.11": "%1$s§5 攻击伤害",
+  "tooltip.relicera.nereias_crown.12": "%1$s§5 护甲值",
+
   "item.relicera.revival_nectar": "复苏花蜜",
 
   "item.relicera.raw_hallowed_enamel": "神圣珐琅坯",
+
+  "item.relicera.rippleheart_pearl": "涟心珠",
+  "tooltip.relicera.rippleheart_pearl.0": "§5美西螈的小礼物。",
+  "tooltip.relicera.rippleheart_pearl.1": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.rippleheart_pearl.2": "§5- 喂食给已驯服的§6马§5，§6狗§5，§6猫§5，增加其最大生命值",
+  "tooltip.relicera.rippleheart_pearl.3": "§5- 喂食给§6狐狸§5，可以获得其信任",
 
   "item.relicera.rotten_tusk": "腐化獠牙",
 
@@ -127,6 +150,17 @@
   "item.relicera.strider_spurs": "炽足兽马刺",
   "tooltip.relicera.strider_spurs.0": "§5按住 %1$s§5 查看详情。",
   "tooltip.relicera.strider_spurs.1": "§5- 骑乘炽足兽的移动速度 %1$s",
+
+  "item.relicera.stormscale": "风暴鳞片",
+
+  "item.relicera.tempests_reins": "雷暴之驭",
+  "tooltip.relicera.tempests_reins.0": "§5雷鸣为缰，暴雨为路。",
+  "tooltip.relicera.tempests_reins.1": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.tempests_reins.2": "§5- 马匹速度 %1$s§5，马匹跳跃高度 %2$s",
+  "tooltip.relicera.tempests_reins.3": "§5- 马匹台阶高度 %1$s",
+  "tooltip.relicera.tempests_reins.4": "§5- 马匹免疫§6摔落§5，§6闪电§5，§6火焰§5伤害",
+  "tooltip.relicera.tempests_reins.5": "§5- 马匹可以在水面上行走",
+  "tooltip.relicera.tempests_reins.6": "§5- 马匹被闪电击中后，获得§6雷暴冲刺",
 
   "item.relicera.torchflower_ember": "火把花余烬",
 
@@ -150,6 +184,9 @@
   "container.relicera.relic_repair_table.hint.iluthias_chalice.chalice_lining": "圣杯的残片...？",
   "container.relicera.relic_repair_table.hint.iluthias_chalice.revival_nectar": "奇迹的灵药...？",
   "container.relicera.relic_repair_table.hint.iluthias_chalice.totem_of_undying": "复生的护符...？",
+  "container.relicera.relic_repair_table.hint.nereias_crown.conduit": "潮汐的能量...？",
+  "container.relicera.relic_repair_table.hint.nereias_crown.rippleheart_pearl": "友谊的宝珠...？",
+  "container.relicera.relic_repair_table.hint.nereias_crown.stormscale": "海怪的鳞片...？",
 
   "advancements.relicera.root.title": "Relicera",
   "advancements.relicera.root.description": "异界之遗。",
@@ -173,13 +210,25 @@
   "advancements.relicera.iluthia_3.description": "圣杯的材质已经无从知晓，但这个世界仍然可以找到一些替代材料",
   "advancements.relicera.iluthia_final.title": "重铸圣杯",
   "advancements.relicera.iluthia_final.description": "修复伊露缇雅的圣杯，让生命圣器重现光辉。",
+  "advancements.relicera.nereia.title": "贝壳化石",
+  "advancements.relicera.nereia.description": "获得干涸的深海王冠。",
+  "advancements.relicera.nereia_1.title": "海啸之前",
+  "advancements.relicera.nereia_1.description": "在雷雨天，远古守卫者的尖刺上偶尔会附着一些雷电。",
+  "advancements.relicera.nereia_2.title": "生命涟漪",
+  "advancements.relicera.nereia_2.description": "获得美西螈赠送的涟心珠。这到底是什么东西...？",
+  "advancements.relicera.nereia_final.title": "海洋之主",
+  "advancements.relicera.nereia_final.description": "修复涅瑞亚的王冠，让海洋再次回忆起他的主人。",
   "advancements.relicera.luminas_extra_1.title": "不会是在做梦吧......？",
   "advancements.relicera.luminas_extra_1.description": "从女仆的梦境中拿到蛋糕",
 
   "effect.relicera.iluthias_blessing": "伊露缇雅的庇佑",
+  "effect.relicera.tempest_sprint": "雷暴冲刺",
 
   "jei.relicera.info.astral_lens.line_1": "使用望远镜观察所有的月相后获得。",
   "jei.relicera.info.astral_lens.line_2": "虽然不会被常规方法摧毁。但无法获取第二次，请妥善保管。",
+  "jei.relicera.info.dried_crown.line_1": "低概率出现在沉船宝藏箱和埋藏的宝藏中。",
+  "jei.relicera.info.dried_crown.line_2": "低概率出现在海底废墟宝箱中。",
+  "jei.relicera.info.dried_crown.line_3": "低概率在海底废墟考古获得。",
   "jei.relicera.info.ephemeral_bloom.line_1": "在新月夜，嗅探兽偶尔会挖到这种珍贵的花朵。",
   "jei.relicera.info.ephemeral_bloom.line_2": "高概率出现在要塞图书馆宝箱。",
   "jei.relicera.info.extinguished_solar_furnace.line_1": "高概率出现在堡垒遗迹藏宝室宝箱。",
@@ -190,6 +239,9 @@
   "jei.relicera.info.forgotten_thread.line_2": "低概率出现在村庄宝箱和远古城市宝箱。",
   "jei.relicera.info.rotten_tusk.line_1": "僵尸疣猪兽掉落。",
   "jei.relicera.info.rotten_tusk.line_2": "拿着它，猪灵将会像看到僵尸疣猪兽般逃离你。",
+  "jei.relicera.info.rippleheart_pearl.line_1": "与美西螈一同战胜敌人，并获得美西螈给予的生命恢复时，有低概率出现。",
+  "jei.relicera.info.rippleheart_pearl.line_2": "可以喂给已驯服的马、驴、骡、狼、猫，以及狐狸，使其生命力增强。",
+  "jei.relicera.info.stormscale.line_1": "雷雨天击败远古守卫者时有概率掉落。",
   "jei.relicera.info.warfire_fragment.line_1": "在袭击事件中，铁傀儡被袭击单位击杀有概率掉落。",
   "jei.relicera.info.withered_life_chalice.line_1": "中概率出现在林地府邸宝箱，丛林神殿宝箱。",
   "jei.relicera.info.withered_life_chalice.line_2": "低概率出现在沙漠神殿宝箱。",

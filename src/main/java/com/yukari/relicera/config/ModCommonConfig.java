@@ -1,8 +1,11 @@
 package com.yukari.relicera.config;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public final class ModServerConfig {
+import java.util.List;
+
+public final class ModCommonConfig {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     public static final ForgeConfigSpec.DoubleValue FORGOTTEN_THREAD_VILLAGE_CHEST_CHANCE;
@@ -13,10 +16,14 @@ public final class ModServerConfig {
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_SNIFFER_DIGGING_NEW_MOON_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS;
-    public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_IRON_GOLEM_RAIDER_DROP_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_ALLAY_AURA_RANGE;
     public static final ForgeConfigSpec.DoubleValue ROTTEN_TUSK_PIGLIN_REPEL_RANGE;
     public static final ForgeConfigSpec.DoubleValue FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue STORMSCALE_ELDER_GUARDIAN_THUNDERSTORM_DROP_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_PEARL_AXOLOTL_ASSIST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_PEARL_WARM_OCEAN_RUIN_ARCHAEOLOGY_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EXTINGUISHED_SOLAR_FURNACE_BASTION_TREASURE_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EXTINGUISHED_SOLAR_FURNACE_NETHER_FORTRESS_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EXTINGUISHED_SOLAR_FURNACE_WEAPONSMITH_CHEST_CHANCE;
@@ -24,6 +31,10 @@ public final class ModServerConfig {
     public static final ForgeConfigSpec.DoubleValue WITHERED_LIFE_CHALICE_DESERT_PYRAMID_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue WITHERED_LIFE_CHALICE_JUNGLE_TEMPLE_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue WITHERED_LIFE_CHALICE_SIMPLE_DUNGEON_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_SHIPWRECK_TREASURE_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_UNDERWATER_RUIN_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_BURIED_TREASURE_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_OCEAN_RUIN_ARCHAEOLOGY_CHANCE;
     public static final ForgeConfigSpec.IntValue BRUTAL_PLUNDER_BADGE_LOOTING_BONUS;
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL;
     public static final ForgeConfigSpec.DoubleValue ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS;
@@ -33,7 +44,18 @@ public final class ModServerConfig {
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_KEEP_INVENTORY_IN_FIRE_OR_LAVA;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_ACTIVE_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_AQUATIC_AURA_RANGE;
+    public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_AQUATIC_ATTACK_DAMAGE_SHARE;
+    public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_AQUATIC_MAX_HEALTH_ARMOR_SHARE;
     public static final ForgeConfigSpec.DoubleValue DREAMCATCHER_BOX_SLEEP_RANGE;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_COLLISION_KNOCKBACK;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_COLLISION_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_FULL_JUMP_SHOCKWAVE_RANGE;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_FULL_JUMP_SHOCKWAVE_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue TEMPEST_SPRINT_FULL_JUMP_SHOCKWAVE_KNOCKBACK;
     public static final ForgeConfigSpec SPEC;
 
     static {
@@ -91,9 +113,18 @@ public final class ModServerConfig {
 
         BUILDER.push("warfire_fragment");
 
-        WARFIRE_FRAGMENT_IRON_GOLEM_RAIDER_DROP_CHANCE = BUILDER
-                .comment("Chance for Warfire Fragment to drop when an iron golem is killed by a raid ravager, vindicator, pillager, or evoker. 0.42 = 42%.")
-                .defineInRange("ironGolemRaiderDropChance", 0.42D, 0.0D, 1.0D);
+        WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE = BUILDER
+                .comment("Chance for Warfire Fragment to drop when an iron golem is killed during a raid by a configured entity type. 0.42 = 42%.")
+                .defineInRange("ironGolemDropChance", 0.42D, 0.0D, 1.0D);
+
+        WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES = BUILDER
+                .comment("Entity type ids that can trigger Warfire Fragment drops when killing an iron golem during a raid.")
+                .defineList("ironGolemKillerEntityTypes", List.of(
+                        "minecraft:ravager",
+                        "minecraft:vindicator",
+                        "minecraft:pillager",
+                        "minecraft:evoker"
+                ), ModCommonConfig::isValidResourceLocation);
 
         WARFIRE_FRAGMENT_ALLAY_AURA_RANGE = BUILDER
                 .comment("Range in blocks for Allays holding a Warfire Fragment to grant Strength II and Resistance I.")
@@ -114,6 +145,26 @@ public final class ModServerConfig {
         FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE = BUILDER
                 .comment("Chance for Feysilver Ingot to be added to selected overworld chest loot. 0.067 = 6.7%.")
                 .defineInRange("overworldChestChance", 0.067D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("stormscale");
+
+        STORMSCALE_ELDER_GUARDIAN_THUNDERSTORM_DROP_CHANCE = BUILDER
+                .comment("Chance for Stormscale to drop when an Elder Guardian dies during a thunderstorm. 0.28 = 28%.")
+                .defineInRange("elderGuardianThunderstormDropChance", 0.28D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("rippleheart_pearl");
+
+        RIPPLEHEART_PEARL_AXOLOTL_ASSIST_CHANCE = BUILDER
+                .comment("Chance for Rippleheart Pearl to drop when an Axolotl grants its assist Regeneration to a player. 0.06 = 6%.")
+                .defineInRange("axolotlAssistChance", 0.06D, 0.0D, 1.0D);
+
+        RIPPLEHEART_PEARL_WARM_OCEAN_RUIN_ARCHAEOLOGY_CHANCE = BUILDER
+                .comment("Chance for Rippleheart Pearl to be added to warm ocean ruin archaeology loot. 0.036 = 3.6%.")
+                .defineInRange("warmOceanRuinArchaeologyChance", 0.036D, 0.0D, 1.0D);
 
         BUILDER.pop();
 
@@ -150,6 +201,26 @@ public final class ModServerConfig {
         WITHERED_LIFE_CHALICE_SIMPLE_DUNGEON_CHEST_CHANCE = BUILDER
                 .comment("Chance for Withered Life Chalice to be added to each dungeon chest. 1.6%")
                 .defineInRange("simpleDungeonChestChance", 0.016D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("dried_crown");
+
+        DRIED_CROWN_SHIPWRECK_TREASURE_CHEST_CHANCE = BUILDER
+                .comment("Chance for Dried Crown to be added to shipwreck treasure chest loot. 0.05 = 5%.")
+                .defineInRange("shipwreckTreasureChestChance", 0.05D, 0.0D, 1.0D);
+
+        DRIED_CROWN_UNDERWATER_RUIN_CHEST_CHANCE = BUILDER
+                .comment("Chance for Dried Crown to be added to big and small underwater ruin chest loot. 0.04 = 4%.")
+                .defineInRange("underwaterRuinChestChance", 0.04D, 0.0D, 1.0D);
+
+        DRIED_CROWN_BURIED_TREASURE_CHEST_CHANCE = BUILDER
+                .comment("Chance for Dried Crown to be added to buried treasure chest loot. 0.08 = 8%.")
+                .defineInRange("buriedTreasureChestChance", 0.08D, 0.0D, 1.0D);
+
+        DRIED_CROWN_OCEAN_RUIN_ARCHAEOLOGY_CHANCE = BUILDER
+                .comment("Chance for Dried Crown to be added to cold and warm ocean ruin archaeology loot. 0.024 = 2.4%.")
+                .defineInRange("oceanRuinArchaeologyChance", 0.024D, 0.0D, 1.0D);
 
         BUILDER.pop();
 
@@ -209,6 +280,26 @@ public final class ModServerConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("nereias_crown");
+
+        NEREIAS_CROWN_ACTIVE_DAMAGE_REDUCTION = BUILDER
+                .comment("Damage reduction while Nereia's Crown is active in water or exposed rain. 0.40 = -40%.")
+                .defineInRange("activeDamageReduction", 0.40D, 0.0D, 1.0D);
+
+        NEREIAS_CROWN_AQUATIC_AURA_RANGE = BUILDER
+                .comment("Range in blocks for Nereia's Crown to count nearby aquatic creatures for its attribute aura.")
+                .defineInRange("aquaticAuraRange", 24.0D, 0.0D, 128.0D);
+
+        NEREIAS_CROWN_AQUATIC_ATTACK_DAMAGE_SHARE = BUILDER
+                .comment("Share of nearby aquatic creatures' total attack damage added to the wearer. 0.30 = 30%.")
+                .defineInRange("aquaticAttackDamageShare", 0.30D, 0.0D, 10.0D);
+
+        NEREIAS_CROWN_AQUATIC_MAX_HEALTH_ARMOR_SHARE = BUILDER
+                .comment("Share of nearby aquatic creatures' total max health added as armor to the wearer. 0.10 = 10%.")
+                .defineInRange("aquaticMaxHealthArmorShare", 0.10D, 0.0D, 10.0D);
+
+        BUILDER.pop();
+
         BUILDER.push("dreamcatcher_box");
 
         DREAMCATCHER_BOX_SLEEP_RANGE = BUILDER
@@ -216,9 +307,45 @@ public final class ModServerConfig {
                 .defineInRange("sleepRange", 8.0D, 0.0D, 64.0D);
 
         BUILDER.pop();
+
+        BUILDER.push("tempest_sprint");
+
+        TEMPEST_SPRINT_SPEED_BONUS = BUILDER
+                .comment("Movement speed bonus for vanilla Horses under Tempest Sprint. 0.40 = +40%.")
+                .defineInRange("speedBonus", 0.40D, 0.0D, 10.0D);
+
+        TEMPEST_SPRINT_DAMAGE_REDUCTION = BUILDER
+                .comment("Damage reduction for vanilla Horses under Tempest Sprint. 0.60 = -60%.")
+                .defineInRange("damageReduction", 0.60D, 0.0D, 1.0D);
+
+        TEMPEST_SPRINT_COLLISION_KNOCKBACK = BUILDER
+                .comment("Base knockback to hostile mobs when colliding.")
+                .defineInRange("collisionKnockback", 2.0D, 0.0D, 64.0D);
+
+        TEMPEST_SPRINT_COLLISION_DAMAGE = BUILDER
+                .comment("Base damage to hostile mobs when colliding.")
+                .defineInRange("collisionDamage", 8.0D, 0.0D, 1024.0D);
+
+        TEMPEST_SPRINT_FULL_JUMP_SHOCKWAVE_RANGE = BUILDER
+                .comment("Range of full jump shockwave.")
+                .defineInRange("fullJumpShockwaveRange", 12.0D, 0.0D, 64.0D);
+
+        TEMPEST_SPRINT_FULL_JUMP_SHOCKWAVE_DAMAGE = BUILDER
+                .comment("Damage applied when full jump under Tempest Sprint.")
+                .defineInRange("fullJumpShockwaveDamage", 18.0D, 0.0D, 1024.0D);
+
+        TEMPEST_SPRINT_FULL_JUMP_SHOCKWAVE_KNOCKBACK = BUILDER
+                .comment("Knockback applied when full jump under Tempest Sprint.")
+                .defineInRange("fullJumpShockwaveKnockback", 2.5D, 0.0D, 64.0D);
+
+        BUILDER.pop();
         SPEC = BUILDER.build();
     }
 
-    private ModServerConfig() {
+    private ModCommonConfig() {
+    }
+
+    private static boolean isValidResourceLocation(Object value) {
+        return value instanceof String string && ResourceLocation.isValidResourceLocation(string);
     }
 }

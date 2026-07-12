@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.curio;
 
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import java.util.UUID;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +42,7 @@ public final class StriderSpursEffects {
             return;
         }
 
-        double speedBonus = ModServerConfig.STRIDER_SPURS_SPEED_BONUS.get();
+        double speedBonus = ModCommonConfig.STRIDER_SPURS_SPEED_BONUS.get();
         if (speedBonus <= 0.0D) {
             removeModifier(movementSpeed);
             return;

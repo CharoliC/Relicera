@@ -2,7 +2,7 @@ package com.yukari.relicera.common.loot;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModLootModifiers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -39,7 +39,7 @@ public class AddFeysilverIngotLootModifier extends LootModifier {
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (OVERWORLD_CHEST_LOOT_TABLES.contains(context.getQueriedLootTableId())
-                && context.getRandom().nextDouble() < ModServerConfig.FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE.get()) {
+                && context.getRandom().nextDouble() < ModCommonConfig.FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE.get()) {
             generatedLoot.add(new ItemStack(ModItems.FEYSILVER_INGOT.get()));
         }
 

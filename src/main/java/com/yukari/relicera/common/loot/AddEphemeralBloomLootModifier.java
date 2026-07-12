@@ -2,7 +2,7 @@ package com.yukari.relicera.common.loot;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.yukari.relicera.config.ModServerConfig;
+import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModLootModifiers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -73,8 +73,8 @@ public class AddEphemeralBloomLootModifier extends LootModifier {
 
         private double chance() {
             return switch (this) {
-                case SNIFFER_DIGGING_NEW_MOON -> ModServerConfig.EPHEMERAL_BLOOM_SNIFFER_DIGGING_NEW_MOON_CHANCE.get();
-                case STRONGHOLD_LIBRARY_CHEST -> ModServerConfig.EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE.get();
+                case SNIFFER_DIGGING_NEW_MOON -> ModCommonConfig.EPHEMERAL_BLOOM_SNIFFER_DIGGING_NEW_MOON_CHANCE.get();
+                case STRONGHOLD_LIBRARY_CHEST -> ModCommonConfig.EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE.get();
             };
         }
 
