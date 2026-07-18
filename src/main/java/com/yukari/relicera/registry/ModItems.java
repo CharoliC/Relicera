@@ -4,6 +4,7 @@ import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.item.AstralLensItem;
 import com.yukari.relicera.common.item.AshenTouchItem;
 import com.yukari.relicera.common.item.BrutalPlunderBadgeItem;
+import com.yukari.relicera.common.item.DivineSeveranceRingItem;
 import com.yukari.relicera.common.item.EphemeralBloomItem;
 import com.yukari.relicera.common.item.EphemeralBloomPendantItem;
 import com.yukari.relicera.common.item.ForgottenThreadItem;
@@ -63,11 +64,6 @@ public final class ModItems {
                     .stacksTo(64)
                     .rarity(Rarity.UNCOMMON)));
 
-    public static final RegistryObject<Item> DRIED_CROWN = ITEMS.register("dried_crown", () ->
-            new Item(new Item.Properties()
-                    .stacksTo(1)
-                    .rarity(Rarity.UNCOMMON)));
-
     public static final RegistryObject<Item> TEMPESTS_REINS = ITEMS.register("tempests_reins", () ->
             new TempestsReinsItem(new Item.Properties()
                     .stacksTo(1)
@@ -116,6 +112,11 @@ public final class ModItems {
                     .stacksTo(1)
                     .rarity(Rarity.RARE)));
 
+    public static final RegistryObject<Item> FOURFOLD_SHERD_PENDANT = ITEMS.register("fourfold_sherd_pendant", () ->
+            new FourfoldSherdPendantItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> NIGHT_GLOVES = ITEMS.register("night_gloves", () ->
             new NightGlovesItem(new Item.Properties()
                     .stacksTo(1)
@@ -126,13 +127,13 @@ public final class ModItems {
                     .stacksTo(1)
                     .rarity(Rarity.RARE)));
 
+    public static final RegistryObject<Item> DIVINE_SEVERANCE_RING = ITEMS.register("divine_severance_ring", () ->
+            new DivineSeveranceRingItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)));
+
     public static final RegistryObject<Item> BRUTAL_PLUNDER_BADGE = ITEMS.register("brutal_plunder_badge", () ->
             new BrutalPlunderBadgeItem(new Item.Properties()
-                    .stacksTo(1)
-                    .rarity(Rarity.EPIC)));
-
-    public static final RegistryObject<Item> FOURFOLD_SHERD_PENDANT = ITEMS.register("fourfold_sherd_pendant", () ->
-            new FourfoldSherdPendantItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.EPIC)));
 
@@ -147,6 +148,11 @@ public final class ModItems {
                     .rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> WITHERED_LIFE_CHALICE = ITEMS.register("withered_life_chalice", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> DRIED_CROWN = ITEMS.register("dried_crown", () ->
             new Item(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.UNCOMMON)));

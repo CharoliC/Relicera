@@ -1,28 +1,28 @@
+#### 1.1.1
+
+- Added Ring of Judgment.
+- Changed some item textures.
+- Changed GUI of relic repair table, now ghost item will not be showed after broken relic/relic put in.
+- Fixed some tooltip error.
+
+
+
+
+
 #### 1.1.0
 
 + **[Important] Migrated all server configuration options to the common configuration. If you already have an existing world and have modified this mod’s configuration files, please apply the same changes to the common configuration for them to take effect.**
-
-  Added the relics Nereia’s Crown, Dryed Crown.
-
-  Added the horse armor Tempest’s Reins.
-
-  Added the items Stormscale and Rippleheart Pearl.
-
-  Added the beneficial effect Storm Sprint.
-
-  Added new advancements related to Nereia’s Crown.
-
-  Updated the texture of Granbell’s Furnace.
-
-  Added particle effects to Iluthia’s Blessing.
-
-  Added particle and sound effects when Ashen Touch triggers its damage boost.
-
-  Expanded the drop conditions for Warfire fragment. Additional illager types can now be added to its drop checks through the common configuration file.
-
-  The effect that prevents smithing templates from being consumed is now compatible with Sophisticated Backpacks.
-
-  Fixed incorrect tooltip rendering when LibTooltips is installed.
++ Added the relics Nereia’s Crown, Dryed Crown.
++ Added the horse armor Tempest’s Reins.
++ Added the items Stormscale and Rippleheart Pearl.
++ Added the beneficial effect Storm Sprint.
++ Added new advancements related to Nereia’s Crown.
++ Updated the texture of Granbell’s Furnace.
++ Added particle effects to Iluthia’s Blessing.
++ Added particle and sound effects when Ashen Touch triggers its damage boost.
++ Expanded the drop conditions for Warfire fragment. Additional illager types can now be added to its drop checks through the common configuration file.
++ The effect that prevents smithing templates from being consumed is now compatible with Sophisticated Backpacks.
++ Fixed incorrect tooltip rendering when LibTooltips is installed.
 
 
 

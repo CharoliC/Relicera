@@ -102,6 +102,10 @@ public final class ClientTooltipEvents {
         if (event.getItemStack().is(ModItems.TEMPESTS_REINS.get())) {
             appendTempestsReinsTooltip(event);
         }
+
+        if (event.getItemStack().is(ModItems.DIVINE_SEVERANCE_RING.get())) {
+            appendDivineSeveranceRingTooltip(event);
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -370,6 +374,18 @@ public final class ClientTooltipEvents {
 
         event.getToolTip().add(tooltipLine("rippleheart_pearl", 2));
         event.getToolTip().add(tooltipLine("rippleheart_pearl", 3));
+    }
+
+    private static void appendDivineSeveranceRingTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("divine_severance_ring", 0));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("divine_severance_ring", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("divine_severance_ring", 2));
     }
 
     private static String formatSignedNumber(int value) {

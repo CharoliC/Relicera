@@ -1,4 +1,9 @@
 {
+  "item.relicera.divine_severance_ring": "Ring of Judgment",
+  "tooltip.relicera.divine_severance_ring.0": "§5The marked dead cannot escape judgment.",
+  "tooltip.relicera.divine_severance_ring.1": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.divine_severance_ring.2": "§5- Behead §6glowing§5 undead creatures.",
+
   "item.relicera.brutal_plunder_badge": "Brutal Plunder Badge",
   "tooltip.relicera.brutal_plunder_badge.0": "§5Hold %1$s§5 to see details.",
   "tooltip.relicera.brutal_plunder_badge.1": "%1$s§5 Looting level",
@@ -117,7 +122,7 @@
   "tooltip.relicera.nereias_crown.2": "§5- Immune to §6lightning§5 and §6drowning§5 damage",
   "tooltip.relicera.nereias_crown.3": "§5- Greatly increases swim speed",
   "tooltip.relicera.nereias_crown.4": "§5- Gain §6Conduit Power§5 while touching water",
-  "tooltip.relicera.nereias_crown.5": "§5- Damage taken %1$s while touching water or rain",
+  "tooltip.relicera.nereias_crown.5": "§5- Damage taken %1$s§5 while touching water or rain",
   "tooltip.relicera.nereias_crown.6": "§5- §6Drowned§5 are friendly to you, you can command them to surrender their held items",
   "tooltip.relicera.nereias_crown.7": "§5- §6Guardians§5 and §6Elder Guardians§5 are friendly to you. They will fight for you",
   "tooltip.relicera.nereias_crown.8": "§5- Adds %1$s§5 of nearby aquatic creatures' total attack damage to your attack damage",
@@ -247,7 +252,7 @@
   "jei.relicera.info.withered_life_chalice.line_2": "Low probability appears in desert pyramid chests.",
   "jei.relicera.info.withered_life_chalice.line_3": "Very rarely appears in dungeon chests.",
 
-  "itemGroup.relicera": "§5Relicera",
+  "itemGroup.relicera": "Relicera",
 
   "tooltip.relicera.spyglass.observed_moon_phases": "Observed moon phases",
 

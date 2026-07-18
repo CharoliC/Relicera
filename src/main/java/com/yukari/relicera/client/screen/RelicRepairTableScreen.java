@@ -7,6 +7,7 @@ import com.yukari.relicera.common.menu.RelicRepairTableMenu;
 import com.yukari.relicera.common.recipe.RelicRepairRecipe;
 import com.yukari.relicera.common.recipe.RelicRepairRecipes;
 import java.util.List;
+import net.minecraft.util.Mth;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.ChatFormatting;
@@ -22,6 +23,14 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
     private static final int ARROW_V = 166;
     private static final int ARROW_WIDTH = 13;
     private static final int ARROW_HEIGHT = 14;
+    private static final int GHOST_RELIC_SLOT_X = 79;
+    private static final int GHOST_RELIC_SLOT_Y = 11;
+    private static final int GHOST_RELIC_SLOT_U_START = 0;
+    private static final int GHOST_RELIC_SLOT_V = 180;
+    private static final int GHOST_RELIC_SLOT_SIZE = 18;
+    private static final int GHOST_RELIC_SLOT_FRAMES = 6;
+    private static final int GHOST_RELIC_FRAME_TICKS = 40;
+    private static final int GHOST_RELIC_FADE_TICKS = 14;
     private static final int MATERIAL_SLOT_FRAME_SIZE = 18;
     private static final int[] MATERIAL_SLOT_FRAME_X = {105, 44, 114};
     private static final int[] MATERIAL_SLOT_FRAME_Y = {20, 44, 44};
@@ -47,6 +56,7 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
         int x = this.leftPos;
         int y = this.topPos;
         guiGraphics.blit(TEXTURE, x, y, 0, 0, this.imageWidth, this.imageHeight);
+        renderEmptyRelicSlotGhost(guiGraphics, x, y, partialTick);
         renderRepairProgress(guiGraphics, x, y);
     }
 
@@ -60,6 +70,43 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
         if (height > 0) {
             guiGraphics.blit(TEXTURE, x + ARROW_X, y + ARROW_Y, ARROW_U, ARROW_V, ARROW_WIDTH, height);
         }
+    }
+
+    private void renderEmptyRelicSlotGhost(GuiGraphics guiGraphics, int x, int y, float partialTick) {
+        if (!this.menu.getRepairSlotItem(RelicRepairTableBlockEntity.SLOT_RELIC).isEmpty() || this.minecraft == null || this.minecraft.level == null) {
+            return;
+        }
+
+        float time = this.minecraft.level.getGameTime() + partialTick;
+        int frame = Mth.floor(time / GHOST_RELIC_FRAME_TICKS) % GHOST_RELIC_SLOT_FRAMES;
+        float frameTime = time % GHOST_RELIC_FRAME_TICKS;
+        float fadeProgress = Mth.clamp((frameTime - (GHOST_RELIC_FRAME_TICKS - GHOST_RELIC_FADE_TICKS)) / GHOST_RELIC_FADE_TICKS, 0.0F, 1.0F);
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        blitGhostRelicFrame(guiGraphics, x, y, frame, 1.0F - fadeProgress);
+        if (fadeProgress > 0.0F) {
+            blitGhostRelicFrame(guiGraphics, x, y, (frame + 1) % GHOST_RELIC_SLOT_FRAMES, fadeProgress);
+        }
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.disableBlend();
+    }
+
+    private void blitGhostRelicFrame(GuiGraphics guiGraphics, int x, int y, int frame, float alpha) {
+        if (alpha <= 0.0F) {
+            return;
+        }
+
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
+        guiGraphics.blit(
+                TEXTURE,
+                x + GHOST_RELIC_SLOT_X,
+                y + GHOST_RELIC_SLOT_Y,
+                GHOST_RELIC_SLOT_U_START + frame * GHOST_RELIC_SLOT_SIZE,
+                GHOST_RELIC_SLOT_V,
+                GHOST_RELIC_SLOT_SIZE,
+                GHOST_RELIC_SLOT_SIZE
+        );
     }
 
     private void renderMaterialHintTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {

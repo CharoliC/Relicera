@@ -21,7 +21,8 @@
   ],
   "rewards": {
     "recipes": [
-      "relicera:chalice_lining"
+      "relicera:chalice_lining",
+      "relicera:divine_severance_ring"
     ]
   }
 }

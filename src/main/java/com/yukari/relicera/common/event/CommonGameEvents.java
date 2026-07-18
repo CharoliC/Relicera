@@ -7,6 +7,7 @@ import com.yukari.relicera.common.astral.AstralObservationTracker;
 import com.yukari.relicera.common.block.DreamcatcherBoxSleepRewards;
 import com.yukari.relicera.common.curio.AshenTouchEffects;
 import com.yukari.relicera.common.curio.BrutalPlunderBadgeEffects;
+import com.yukari.relicera.common.curio.DivineSeveranceRingEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
 import com.yukari.relicera.common.curio.GranbellsFurnaceEffects;
 import com.yukari.relicera.common.curio.IluthiasChaliceEffects;
@@ -198,6 +199,7 @@ public final class CommonGameEvents {
         }
         RottenTuskEffects.addZoglinDrop(event);
         BrutalPlunderBadgeEffects.addPiglinBarterDrop(event);
+        DivineSeveranceRingEffects.addGlowingUndeadHeadDrop(event);
         StormscaleDrops.addElderGuardianThunderstormDrop(event);
     }
 

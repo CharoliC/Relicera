@@ -38,6 +38,7 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.IntValue BRUTAL_PLUNDER_BADGE_LOOTING_BONUS;
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL;
     public static final ForgeConfigSpec.DoubleValue ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DIVINE_SEVERANCE_RING_HEAD_DROPS;
     public static final ForgeConfigSpec.DoubleValue STRIDER_SPURS_SPEED_BONUS;
     public static final ForgeConfigSpec.DoubleValue GRANBELLS_FURNACE_DAMAGE_BONUS;
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_PRESERVE_SMITHING_TEMPLATES;
@@ -244,6 +245,22 @@ public final class ModCommonConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("divine_severance_ring");
+
+        DIVINE_SEVERANCE_RING_HEAD_DROPS = BUILDER
+                .comment("Head drops for Ring of Judgment when the wearer kills a glowing configured undead entity. Format: entity_id|item_id")
+                .defineList("headDrops", List.of(
+                        "minecraft:zombie|minecraft:zombie_head",
+                        "minecraft:zombie_villager|minecraft:zombie_head",
+                        "minecraft:drowned|minecraft:zombie_head",
+                        "minecraft:husk|minecraft:zombie_head",
+                        "minecraft:skeleton|minecraft:skeleton_skull",
+                        "minecraft:stray|minecraft:skeleton_skull",
+                        "minecraft:wither_skeleton|minecraft:wither_skeleton_skull"
+                ), ModCommonConfig::isValidHeadDropEntry);
+
+        BUILDER.pop();
+
         BUILDER.push("strider_spurs");
 
         STRIDER_SPURS_SPEED_BONUS = BUILDER
@@ -347,5 +364,16 @@ public final class ModCommonConfig {
 
     private static boolean isValidResourceLocation(Object value) {
         return value instanceof String string && ResourceLocation.isValidResourceLocation(string);
+    }
+
+    private static boolean isValidHeadDropEntry(Object value) {
+        if (!(value instanceof String string)) {
+            return false;
+        }
+
+        String[] parts = string.split("\\|");
+        return parts.length == 2
+                && ResourceLocation.isValidResourceLocation(parts[0].trim())
+                && ResourceLocation.isValidResourceLocation(parts[1].trim());
     }
 }

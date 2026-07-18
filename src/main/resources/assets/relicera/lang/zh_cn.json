@@ -1,4 +1,9 @@
 {
+  "item.relicera.divine_severance_ring": "亡者审判之戒",
+  "tooltip.relicera.divine_severance_ring.0": "§5被圣光标记的亡者，无法逃离审判。",
+  "tooltip.relicera.divine_severance_ring.1": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.divine_severance_ring.2": "§5- 斩首带有§6发光§5效果的亡灵生物。",
+
   "item.relicera.brutal_plunder_badge": "残暴掠夺徽章",
   "tooltip.relicera.brutal_plunder_badge.0": "§5按住 %1$s§5 查看详情。",
   "tooltip.relicera.brutal_plunder_badge.1": "%1$s§5 抢夺等级",
@@ -131,6 +136,18 @@
   "tooltip.relicera.nereias_crown.10": "§d当前效果：",
   "tooltip.relicera.nereias_crown.11": "%1$s§5 攻击伤害",
   "tooltip.relicera.nereias_crown.12": "%1$s§5 护甲值",
+
+  "item.relicera.weathered_mountain_covenant": "风化的山脉契约",
+  "item.relicera.baroms_covenant stone": "巴洛姆的契约石",
+
+  "item.relicera.forgotten_night_veil": "诺克提斯的黑夜面纱",
+  "item.relicera.noctiss_veil": "诺克提斯的面纱",
+
+  "item.relicera.dim_stargazing_lens": "黯淡的观星镜",
+  "item.relicera.luminass_stargazing_lens": "露米娜斯的观星镜",
+
+  "item.relicera.stopped_chronometer": "停摆的银白怀表",
+  "item.relicera.aultias_chronometer": "奥尔缇娅的怀表",
 
   "item.relicera.revival_nectar": "复苏花蜜",
 
