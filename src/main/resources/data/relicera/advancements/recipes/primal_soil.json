@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_primal_soil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:primal_soil"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "relicera:primal_soil_to_torchflower",
+      "relicera:primal_soil_to_pitcher_plant",
+      "relicera:pastoral_melody"
+    ]
+  }
+}

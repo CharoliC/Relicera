@@ -139,6 +139,11 @@
 
   "item.relicera.revival_nectar": "Revival Nectar",
 
+  "item.relicera.primal_soil": "Primal Soil",
+
+  "item.relicera.pastoral_melody": "Pastoral Melody",
+  "tooltip.relicera.pastoral_melody.0": "When played, makes nearby animals breed.",
+
   "item.relicera.raw_hallowed_enamel": "Raw Hallowed Enamel",
 
   "item.relicera.rippleheart_pearl": "Rippleheart Pearl",

@@ -70,7 +70,7 @@ public enum RelicRepairParticleStyle {
             double y = particleY(pos);
             double z = particleZ(pos);
             level.sendParticles(ParticleTypes.GLOW, x, y, z, COMPLETE_GLOW_COUNT, COMPLETE_PARTICLE_SPREAD, COMPLETE_PARTICLE_SPREAD, COMPLETE_PARTICLE_SPREAD, COMPLETE_PARTICLE_SPEED);
-            level.sendParticles(ParticleTypes.FALLING_SPORE_BLOSSOM, x, y, z, COMPLETE_SPORE_BLOSSOM_COUNT, COMPLETE_PARTICLE_SPREAD * 0.65D, COMPLETE_PARTICLE_SPREAD * 0.4D, COMPLETE_PARTICLE_SPREAD * 0.65D, COMPLETE_PARTICLE_SPEED);
+            level.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, x, y, z, COMPLETE_TOTEM_COUNT, COMPLETE_PARTICLE_SPREAD * 0.65D, COMPLETE_PARTICLE_SPREAD * 0.4D, COMPLETE_PARTICLE_SPREAD * 0.65D, COMPLETE_PARTICLE_SPEED);
         }
     },
     NEREIAS_CROWN {
@@ -95,7 +95,7 @@ public enum RelicRepairParticleStyle {
     private static final int COMPLETE_FLAME_COUNT = 20;
     private static final int COMPLETE_LAVA_COUNT = 8;
     private static final int COMPLETE_GLOW_COUNT = 20;
-    private static final int COMPLETE_SPORE_BLOSSOM_COUNT = 8;
+    private static final int COMPLETE_TOTEM_COUNT = 8;
     private static final int NEREIA_ACTIVE_PARTICLE_INTERVAL = 2;
     private static final int ACTIVE_NAUTILUS_COUNT = 3;
     private static final int COMPLETE_SPLASH_COUNT = 44;

@@ -24,6 +24,7 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue STORMSCALE_ELDER_GUARDIAN_THUNDERSTORM_DROP_CHANCE;
     public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_PEARL_AXOLOTL_ASSIST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_PEARL_WARM_OCEAN_RUIN_ARCHAEOLOGY_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue PASTORAL_MELODY_ANIMAL_RANGE;
     public static final ForgeConfigSpec.DoubleValue EXTINGUISHED_SOLAR_FURNACE_BASTION_TREASURE_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EXTINGUISHED_SOLAR_FURNACE_NETHER_FORTRESS_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EXTINGUISHED_SOLAR_FURNACE_WEAPONSMITH_CHEST_CHANCE;
@@ -166,6 +167,14 @@ public final class ModCommonConfig {
         RIPPLEHEART_PEARL_WARM_OCEAN_RUIN_ARCHAEOLOGY_CHANCE = BUILDER
                 .comment("Chance for Rippleheart Pearl to be added to warm ocean ruin archaeology loot. 0.036 = 3.6%.")
                 .defineInRange("warmOceanRuinArchaeologyChance", 0.036D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("pastoral_melody");
+
+        PASTORAL_MELODY_ANIMAL_RANGE = BUILDER
+                .comment("Range in blocks for Pastoral Melody to put nearby adult animals into love mode.")
+                .defineInRange("animalRange", 36.0D, 0.0D, 128.0D);
 
         BUILDER.pop();
 

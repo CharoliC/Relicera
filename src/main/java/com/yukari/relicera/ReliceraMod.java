@@ -13,6 +13,7 @@ import com.yukari.relicera.registry.ModLootModifiers;
 import com.yukari.relicera.registry.ModMenuTypes;
 import com.yukari.relicera.registry.ModParticleTypes;
 import com.yukari.relicera.registry.ModRecipeSerializers;
+import com.yukari.relicera.registry.ModSoundEvents;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -39,6 +40,7 @@ public class ReliceraMod {
         ModMenuTypes.register(modEventBus);
         ModParticleTypes.register(modEventBus);
         ModRecipeSerializers.register(modEventBus);
+        ModSoundEvents.register(modEventBus);
         ModNetworking.register();
 
         modEventBus.addListener(this::commonSetup);

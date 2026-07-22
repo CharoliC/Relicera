@@ -1,8 +1,15 @@
+#### 1.1.2
+
++ Added Primal Soil, Pastoral Melody.
++ Changed model of Relic Repair Table.
+
+
+
 #### 1.1.1
 
 - Added Ring of Judgment.
 - Changed some item textures.
-- Changed GUI of relic repair table, now ghost item will not be showed after broken relic/relic put in.
+- Changed GUI of Relic Repair Table, now ghost item will not be showed after broken relic/relic put in.
 - Fixed some tooltip error.
 
 

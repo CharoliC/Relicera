@@ -2,6 +2,7 @@ package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.recipe.NoRemainderShapelessRecipe;
+import com.yukari.relicera.common.recipe.WaterBottleShapelessRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,6 +14,9 @@ public final class ModRecipeSerializers {
 
     public static final RegistryObject<RecipeSerializer<NoRemainderShapelessRecipe>> NO_REMAINDER_SHAPELESS =
             RECIPE_SERIALIZERS.register("no_remainder_shapeless", NoRemainderShapelessRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<WaterBottleShapelessRecipe>> WATER_BOTTLE_SHAPELESS =
+            RECIPE_SERIALIZERS.register("water_bottle_shapeless", WaterBottleShapelessRecipe.Serializer::new);
 
     private ModRecipeSerializers() {
     }

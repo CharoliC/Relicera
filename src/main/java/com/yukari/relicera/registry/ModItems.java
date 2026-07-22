@@ -11,6 +11,7 @@ import com.yukari.relicera.common.item.ForgottenThreadItem;
 import com.yukari.relicera.common.item.FourfoldSherdPendantItem;
 import com.yukari.relicera.common.item.IluthiasChaliceItem;
 import com.yukari.relicera.common.item.NightGlovesItem;
+import com.yukari.relicera.common.item.PastoralMelodyItem;
 import com.yukari.relicera.common.item.RelicCurioItem;
 import com.yukari.relicera.common.item.RevivalNectarItem;
 import com.yukari.relicera.common.item.SolarEmberItem;
@@ -53,6 +54,16 @@ public final class ModItems {
             new Item(new Item.Properties()
                     .stacksTo(64)
                     .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> PRIMAL_SOIL = ITEMS.register("primal_soil", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> PASTORAL_MELODY = ITEMS.register("pastoral_melody", () ->
+            new PastoralMelodyItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> STORMSCALE = ITEMS.register("stormscale", () ->
             new Item(new Item.Properties()

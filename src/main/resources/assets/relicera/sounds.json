@@ -1,0 +1,7 @@
+{
+  "item.pastoral_melody.play": {
+    "sounds": [
+      "relicera:item/pastoral_melody"
+    ]
+  }
+}

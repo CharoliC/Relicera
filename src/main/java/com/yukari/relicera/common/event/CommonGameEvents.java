@@ -16,6 +16,7 @@ import com.yukari.relicera.common.curio.NereiasCrownEffects;
 import com.yukari.relicera.common.curio.StriderSpursEffects;
 import com.yukari.relicera.common.effect.IluthiasBlessingEffects;
 import com.yukari.relicera.common.effect.TempestSprintEffects;
+import com.yukari.relicera.common.item.PastoralMelodyEffects;
 import com.yukari.relicera.common.item.RottenTuskEffects;
 import com.yukari.relicera.common.item.RippleheartPearlEffects;
 import com.yukari.relicera.common.item.SolarEmberEffects;
@@ -75,6 +76,7 @@ public final class CommonGameEvents {
         if (event.phase == TickEvent.Phase.END && event.level instanceof ServerLevel serverLevel) {
             AshenTouchEffects.clearQueuedFires(serverLevel);
             DreamcatcherBoxSleepRewards.tickLevel(serverLevel);
+            PastoralMelodyEffects.tickLevel(serverLevel);
         }
     }
 
@@ -221,6 +223,11 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onLivingUseItemFinish(LivingEntityUseItemEvent.Finish event) {
         FourfoldSherdPendantEffects.applyConsumptionBonuses(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingUseItemStart(LivingEntityUseItemEvent.Start event) {
+        PastoralMelodyEffects.shareCooldownWithGoatHorn(event);
     }
 
     @SubscribeEvent

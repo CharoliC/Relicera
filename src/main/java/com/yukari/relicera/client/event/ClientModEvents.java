@@ -10,9 +10,12 @@ import com.yukari.relicera.client.screen.RelicRepairTableScreen;
 import com.yukari.relicera.client.tooltip.ClientIluthiasChaliceTooltip;
 import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
 import com.yukari.relicera.registry.ModBlockEntities;
+import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModMenuTypes;
 import com.yukari.relicera.registry.ModParticleTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.entity.HorseRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,6 +36,8 @@ public final class ClientModEvents {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenuTypes.RELIC_REPAIR_TABLE.get(), RelicRepairTableScreen::new);
             MenuScreens.register(ModMenuTypes.FOURFOLD_SHERD_PENDANT.get(), FourfoldSherdPendantScreen::new);
+            ItemProperties.register(ModItems.PASTORAL_MELODY.get(), ResourceLocation.fromNamespaceAndPath("minecraft", "tooting"),
+                    (stack, level, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
         });
     }
 
