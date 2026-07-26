@@ -34,6 +34,11 @@
   "tooltip.relicera.astral_lens.3": "%1$s§5 damage from Endermen",
   "tooltip.relicera.astral_lens.4": "%1$s§5 magic damage",
 
+  "item.relicera.luminas_celestial_lens": "Luminas's Celestial Lens",
+  "tooltip.relicera.luminas_celestial_lens.0": "§4A magical tool belonging to a certain god. It will not be lost after death.",
+  "tooltip.relicera.luminas_celestial_lens.1": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.luminas_celestial_lens.2": "§5- A small moon orbits the wearer.",
+
   "item.relicera.ephemeral_bloom": "Ephemeral Bloom",
   "tooltip.relicera.ephemeral_bloom.0": "§5A miracle flower that blooms only during an eclipse.",
 
@@ -76,7 +81,7 @@
   "tooltip.relicera.fourfold_sherd_pendant.25": "§5- [%1$s§5] Positive effect duration from food/potions %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.26": "§5- [%1$s§5] Experience dropped by enemies %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.27": "§5- [%1$s§5] Movement speed %2$s",
-  "tooltip.relicera.fourfold_sherd_pendant.28": "§5- [%1$s§5] Attack damage while below 30% health %2$s",
+  "tooltip.relicera.fourfold_sherd_pendant.28": "§5- [%1$s§5] Attack damage while below %2$s§5 health %3$s",
   "tooltip.relicera.fourfold_sherd_pendant.29": "§5- [%1$s§5] Block interaction range %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.30": "§5- [%1$s§5] Bow damage %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.31": "§5- [%1$s§5] Explosion damage taken %2$s",
@@ -232,6 +237,7 @@
   "advancements.relicera.luminas_extra_1.description": "Get a cake from a maid's dream.",
 
   "effect.relicera.iluthias_blessing": "Iluthia's Blessing",
+  "effect.relicera.iluthias_blessing.description": "immune to damage, and convert it into equal absorption.",
   "effect.relicera.tempest_sprint": "Tempest Sprint",
 
   "jei.relicera.info.astral_lens.line_1": "Obtained after observing every moon phase with a spyglass.",

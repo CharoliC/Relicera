@@ -38,6 +38,7 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_OCEAN_RUIN_ARCHAEOLOGY_CHANCE;
     public static final ForgeConfigSpec.IntValue BRUTAL_PLUNDER_BADGE_LOOTING_BONUS;
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL;
+    public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_MAX_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DIVINE_SEVERANCE_RING_HEAD_DROPS;
     public static final ForgeConfigSpec.DoubleValue STRIDER_SPURS_SPEED_BONUS;
@@ -165,8 +166,8 @@ public final class ModCommonConfig {
                 .defineInRange("axolotlAssistChance", 0.06D, 0.0D, 1.0D);
 
         RIPPLEHEART_PEARL_WARM_OCEAN_RUIN_ARCHAEOLOGY_CHANCE = BUILDER
-                .comment("Chance for Rippleheart Pearl to be added to warm ocean ruin archaeology loot. 0.036 = 3.6%.")
-                .defineInRange("warmOceanRuinArchaeologyChance", 0.036D, 0.0D, 1.0D);
+                .comment("Chance for Rippleheart Pearl to be added to warm ocean ruin archaeology loot. 0.15 = 15%.")
+                .defineInRange("warmOceanRuinArchaeologyChance", 0.15D, 0.0D, 1.0D);
 
         BUILDER.pop();
 
@@ -243,6 +244,10 @@ public final class ModCommonConfig {
         BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL = BUILDER
                 .comment("Damage bonus per effective Looting level while Brutal Plunder Badge is equipped. 0.06D = 6%.")
                 .defineInRange("damageBonusPerLootingLevel", 0.06D, 0.0D, 10.0D);
+
+        BRUTAL_PLUNDER_BADGE_MAX_DAMAGE_BONUS = BUILDER
+                .comment("Maximum total damage bonus from Brutal Plunder Badge. 6.0 = +600%, for up to 7x total damage.")
+                .defineInRange("maxDamageBonus", 6.0D, 0.0D, 100.0D);
 
         BUILDER.pop();
 

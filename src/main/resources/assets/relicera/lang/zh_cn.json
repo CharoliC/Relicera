@@ -34,6 +34,11 @@
   "tooltip.relicera.astral_lens.3": "%1$s§5 来自末影人的伤害",
   "tooltip.relicera.astral_lens.4": "%1$s§5 魔法伤害",
 
+  "item.relicera.luminas_celestial_lens": "露米娜斯的观星镜",
+  "tooltip.relicera.luminas_celestial_lens.0": "§4属于某位神明的魔法道具，不会在死亡后丢失。",
+  "tooltip.relicera.luminas_celestial_lens.1": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.luminas_celestial_lens.2": "§5- 一颗小型月球环绕佩戴者运行。",
+
   "item.relicera.ephemeral_bloom": "一夜花",
   "tooltip.relicera.ephemeral_bloom.0": "§5仅在日食绽放的奇迹之花。",
 
@@ -76,7 +81,7 @@
   "tooltip.relicera.fourfold_sherd_pendant.25": "§5- [%1$s§5] 从食物/药水获得的正面效果时长 %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.26": "§5- [%1$s§5] 击杀敌人掉落的经验 %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.27": "§5- [%1$s§5] 移动速度 %2$s",
-  "tooltip.relicera.fourfold_sherd_pendant.28": "§5- [%1$s§5] 生命值低于 30% 时，攻击伤害 %2$s",
+  "tooltip.relicera.fourfold_sherd_pendant.28": "§5- [%1$s§5] 生命值低于 %2$s§5 时，攻击伤害 %3$s",
   "tooltip.relicera.fourfold_sherd_pendant.29": "§5- [%1$s§5] 方块交互范围 %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.30": "§5- [%1$s§5] 弓箭伤害 %2$s",
   "tooltip.relicera.fourfold_sherd_pendant.31": "§5- [%1$s§5] 受到的爆炸伤害 %2$s",
@@ -138,13 +143,10 @@
   "tooltip.relicera.nereias_crown.12": "%1$s§5 护甲值",
 
   "item.relicera.weathered_mountain_covenant": "风化的山脉契约",
-  "item.relicera.baroms_covenant stone": "巴洛姆的契约石",
+  "item.relicera.baroms_covenant_stone": "巴洛姆的契约石",
 
-  "item.relicera.forgotten_night_veil": "诺克提斯的黑夜面纱",
+  "item.relicera.forgotten_night_veil": "被遗忘的黑夜面纱",
   "item.relicera.noctiss_veil": "诺克提斯的面纱",
-
-  "item.relicera.dim_stargazing_lens": "黯淡的观星镜",
-  "item.relicera.luminass_stargazing_lens": "露米娜斯的观星镜",
 
   "item.relicera.stopped_chronometer": "停摆的银白怀表",
   "item.relicera.aultias_chronometer": "奥尔缇娅的怀表",
@@ -244,6 +246,7 @@
   "advancements.relicera.luminas_extra_1.description": "从女仆的梦境中拿到蛋糕",
 
   "effect.relicera.iluthias_blessing": "伊露缇雅的庇佑",
+  "effect.relicera.iluthias_blessing.description": "免疫受到的伤害，将其转化为等量生命吸收。",
   "effect.relicera.tempest_sprint": "雷暴冲刺",
 
   "jei.relicera.info.astral_lens.line_1": "使用望远镜观察所有的月相后获得。",

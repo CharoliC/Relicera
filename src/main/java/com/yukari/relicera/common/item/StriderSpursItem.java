@@ -1,8 +1,6 @@
 package com.yukari.relicera.common.item;
 
-import net.minecraft.world.item.Item;
-
-public class StriderSpursItem extends Item {
+public class StriderSpursItem extends QuickEquipCurioItem {
     public StriderSpursItem(Properties properties) {
         super(properties);
     }

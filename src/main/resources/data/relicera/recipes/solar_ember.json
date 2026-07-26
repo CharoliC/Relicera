@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "EBE",
-    "RDR",
-    "EBE"
+    "   ",
+    "EDE",
+    "RCR"
   ],
   "key": {
     "E": {
       "item": "relicera:torchflower_ember"
     },
-    "B": {
-      "item": "minecraft:blaze_powder"
-    },
     "R": {
       "item": "minecraft:blaze_rod"
+    },
+    "C": {
+      "item": "minecraft:coal_block"
     },
     "D": {
       "item": "minecraft:dragon_breath"

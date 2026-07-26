@@ -95,9 +95,9 @@ public final class AstralObservationTracker {
                 player.getX(),
                 player.getY(),
                 player.getZ(),
-                SoundEvents.EXPERIENCE_ORB_PICKUP,
+                SoundEvents.PLAYER_LEVELUP,
                 SoundSource.PLAYERS,
-                0.1F,
+                1.0F,
                 (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F
         );
     }

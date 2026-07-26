@@ -8,6 +8,7 @@ import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -42,6 +43,7 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
 
     private static final String ITEMS_TAG = "Items";
     private static final String REPAIR_PROGRESS_TAG = "RepairProgress";
+    private static final int AMBIENT_WITCH_PARTICLE_AVERAGE_INTERVAL = 80;
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(SLOT_COUNT) {
         @Override
@@ -175,10 +177,25 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
             return;
         }
 
+        if (level instanceof ServerLevel serverLevel) {
+            spawnAmbientParticles(serverLevel, pos);
+        }
+
         boolean changed = blockEntity.tickRepair();
         if (changed) {
             setChanged(level, pos, state);
         }
+    }
+
+    private static void spawnAmbientParticles(ServerLevel level, BlockPos pos) {
+        if (level.random.nextInt(AMBIENT_WITCH_PARTICLE_AVERAGE_INTERVAL) != 0) {
+            return;
+        }
+
+        double x = pos.getX() + 0.35D + level.random.nextDouble() * 0.3D;
+        double y = pos.getY() + 1.05D + level.random.nextDouble() * 0.25D;
+        double z = pos.getZ() + 0.35D + level.random.nextDouble() * 0.3D;
+        level.sendParticles(ParticleTypes.WITCH, x, y, z, 1, 0.02D, 0.02D, 0.02D, 0.0D);
     }
 
     private boolean tickRepair() {

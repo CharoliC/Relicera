@@ -91,6 +91,10 @@ public final class ClientTooltipEvents {
             appendNereiasCrownTooltip(event);
         }
 
+        if (event.getItemStack().is(ModItems.LUMINAS_CELESTIAL_LENS.get())) {
+            appendLuminasCelestialLensTooltip(event);
+        }
+
         if (event.getItemStack().is(ModItems.DREAMCATCHER_BOX.get())) {
             event.getToolTip().add(tooltipLine("dreamcatcher_box", 0));
         }
@@ -254,7 +258,7 @@ public final class ClientTooltipEvents {
             case BREWER -> fourfoldEffectLine(5, 25, "+20%");
             case MOURNER -> fourfoldEffectLine(6, 26, "+50%");
             case EXPLORER -> fourfoldEffectLine(7, 27, "+20%");
-            case HEARTBREAK -> fourfoldEffectLine(8, 28, "+25%");
+            case HEARTBREAK -> fourfoldEffectLine(8, 28, "30%", "+25%");
             case ARMS_UP -> fourfoldEffectLine(9, 29, "+1");
             case ARCHER -> fourfoldEffectLine(10, 30, "+20%");
             case DANGER -> fourfoldEffectLine(11, 31, "-50%");
@@ -273,10 +277,13 @@ public final class ClientTooltipEvents {
         };
     }
 
-    private static Component fourfoldEffectLine(int patternLine, int effectLine, String value) {
-        return tooltipLine("fourfold_sherd_pendant", effectLine,
-                tooltipLine("fourfold_sherd_pendant", patternLine).copy().withStyle(ChatFormatting.DARK_PURPLE),
-                gold(value));
+    private static Component fourfoldEffectLine(int patternLine, int effectLine, String... goldValues) {
+        Object[] args = new Object[goldValues.length + 1];
+        args[0] = tooltipLine("fourfold_sherd_pendant", patternLine).copy().withStyle(ChatFormatting.DARK_PURPLE);
+        for (int index = 0; index < goldValues.length; index++) {
+            args[index + 1] = gold(goldValues[index]);
+        }
+        return tooltipLine("fourfold_sherd_pendant", effectLine, args);
     }
 
     private static void appendGranbellsFurnaceTooltip(ItemTooltipEvent event) {
@@ -344,6 +351,19 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("nereias_crown", 10));
         event.getToolTip().add(tooltipLine("nereias_crown", 11, gold(formatSignedNumber(getNereiasCrownAttackDamageBonus(event)))));
         event.getToolTip().add(tooltipLine("nereias_crown", 12, gold(formatSignedNumber(getNereiasCrownArmorBonus(event)))));
+    }
+
+    private static void appendLuminasCelestialLensTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("luminas_celestial_lens", 0));
+        event.getToolTip().add(Component.empty());
+
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("luminas_celestial_lens", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("luminas_celestial_lens", 2));
     }
 
     private static void appendTempestsReinsTooltip(ItemTooltipEvent event) {

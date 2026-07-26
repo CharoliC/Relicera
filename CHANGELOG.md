@@ -1,3 +1,16 @@
+#### 1.1.3
+
++ Added a config item for Brutal Plunder Badge's damage bonus limitation.
++ Fixed Dreamcatcher Box, now it only generate items from Relicera's loot table.
++ Fixed tooltip of Fourfold sherd pendent.
++ Changed some item textures.
++ Changed the default probability of obtaining Rippleheart Pearl from warm ocean archeology.
++ Changed the sound effect of moon observation.
++ Changed the crafting of Solar Ember.
++ Curios can be equipped by use.
+
+
+
 #### 1.1.2
 
 + Added Primal Soil, Pastoral Melody.

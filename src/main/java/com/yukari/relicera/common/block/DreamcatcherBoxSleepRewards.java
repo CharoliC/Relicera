@@ -26,6 +26,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -266,7 +267,14 @@ public final class DreamcatcherBoxSleepRewards {
         LootParams lootParams = new LootParams.Builder(level)
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(origin))
                 .create(LootContextParamSets.CHEST);
-        return lootTable.getRandomItems(lootParams);
+        List<ItemStack> loot = new ArrayList<>();
+        getRandomItemsWithoutGlobalLootModifiers(lootTable, lootParams, loot::add);
+        return loot;
+    }
+
+    @SuppressWarnings("deprecation")
+    private static void getRandomItemsWithoutGlobalLootModifiers(LootTable lootTable, LootParams lootParams, java.util.function.Consumer<ItemStack> output) {
+        lootTable.getRandomItemsRaw(lootParams, output);
     }
 
     private static boolean hasNearbyDreamcatcherBox(ServerLevel level, BlockPos origin, double range) {

@@ -19,6 +19,7 @@ public final class ModCreativeModeTabs {
                     .icon(() -> ModItems.ASTRAL_LENS.get().getDefaultInstance())
                     .displayItems((parameters, output) -> ModItems.ITEMS.getEntries().stream()
                             .map(RegistryObject::get)
+                            .filter(item -> item != ModItems.LUMINAS_CELESTIAL_LENS.get())
                             .map(Item::getDefaultInstance)
                             .forEach(output::accept))
                     .build());

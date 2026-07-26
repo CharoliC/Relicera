@@ -1,8 +1,6 @@
 package com.yukari.relicera.common.item;
 
-import net.minecraft.world.item.Item;
-
-public class AshenTouchItem extends Item {
+public class AshenTouchItem extends QuickEquipCurioItem {
     public AshenTouchItem(Properties properties) {
         super(properties);
     }

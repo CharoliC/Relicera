@@ -50,7 +50,8 @@ public final class BrutalPlunderBadgeEffects {
             return;
         }
 
-        float multiplier = 1.0F + (float) (ModCommonConfig.BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL.get() * lootingLevel);
+        double damageBonus = ModCommonConfig.BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL.get() * lootingLevel;
+        float multiplier = 1.0F + (float) Math.min(damageBonus, ModCommonConfig.BRUTAL_PLUNDER_BADGE_MAX_DAMAGE_BONUS.get());
         event.setAmount(event.getAmount() * multiplier);
     }
 

@@ -10,6 +10,7 @@ import com.yukari.relicera.common.item.EphemeralBloomPendantItem;
 import com.yukari.relicera.common.item.ForgottenThreadItem;
 import com.yukari.relicera.common.item.FourfoldSherdPendantItem;
 import com.yukari.relicera.common.item.IluthiasChaliceItem;
+import com.yukari.relicera.common.item.LuminasCelestialLensItem;
 import com.yukari.relicera.common.item.NightGlovesItem;
 import com.yukari.relicera.common.item.PastoralMelodyItem;
 import com.yukari.relicera.common.item.RelicCurioItem;
@@ -180,6 +181,11 @@ public final class ModItems {
 
     public static final RegistryObject<Item> NEREIAS_CROWN = ITEMS.register("nereias_crown", () ->
             new RelicCurioItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> LUMINAS_CELESTIAL_LENS = ITEMS.register("luminas_celestial_lens", () ->
+            new LuminasCelestialLensItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.EPIC)));
 

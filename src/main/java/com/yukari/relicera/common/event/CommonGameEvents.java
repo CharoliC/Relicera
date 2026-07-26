@@ -11,6 +11,7 @@ import com.yukari.relicera.common.curio.DivineSeveranceRingEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
 import com.yukari.relicera.common.curio.GranbellsFurnaceEffects;
 import com.yukari.relicera.common.curio.IluthiasChaliceEffects;
+import com.yukari.relicera.common.curio.LuminasCelestialLensEffects;
 import com.yukari.relicera.common.curio.NightGlovesEffects;
 import com.yukari.relicera.common.curio.NereiasCrownEffects;
 import com.yukari.relicera.common.curio.StriderSpursEffects;
@@ -42,6 +43,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -69,6 +71,7 @@ public final class CommonGameEvents {
             SolarEmberEffects.tick(serverPlayer);
         }
         GranbellsFurnaceEffects.tickPlayer(event.player);
+        LuminasCelestialLensEffects.tickPlayerFlight(event.player);
     }
 
     @SubscribeEvent
@@ -261,6 +264,7 @@ public final class CommonGameEvents {
         GranbellsFurnaceEffects.tickLavaStanding(event.getEntity());
         FourfoldSherdPendantEffects.tickAttributes(event.getEntity());
         IluthiasChaliceEffects.tickImmunities(event.getEntity());
+        LuminasCelestialLensEffects.tickImmunities(event.getEntity());
         NereiasCrownEffects.tick(event);
         TempestsReinsEffects.tickHorse(event);
         TempestSprintEffects.tickHorse(event);
@@ -276,5 +280,10 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onVanillaGameEvent(VanillaGameEvent event) {
         NightGlovesEffects.suppressContainerVibrations(event);
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
+        LuminasCelestialLensEffects.preventDarknessAndBlindness(event);
     }
 }

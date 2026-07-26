@@ -2,13 +2,11 @@ package com.yukari.relicera.common.item;
 
 import javax.annotation.Nonnull;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class RelicCurioItem extends Item implements ICurioItem {
+public class RelicCurioItem extends QuickEquipCurioItem {
     public RelicCurioItem(Properties properties) {
         super(properties);
     }

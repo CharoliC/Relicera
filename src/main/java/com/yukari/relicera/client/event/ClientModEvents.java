@@ -1,6 +1,7 @@
 package com.yukari.relicera.client.event;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.client.renderer.LuminasMoonRenderer;
 import com.yukari.relicera.client.particle.ElectricSparkParticle;
 import com.yukari.relicera.client.particle.GoldHeartParticle;
 import com.yukari.relicera.client.renderer.TempestSprintHorseLayer;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.entity.HorseRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,6 +53,11 @@ public final class ClientModEvents {
         if (event.getRenderer(EntityType.HORSE) instanceof HorseRenderer renderer) {
             renderer.addLayer(new TempestSprintHorseLayer(renderer, event.getEntityModels()));
         }
+    }
+
+    @SubscribeEvent
+    public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
+        event.register(LuminasMoonRenderer.MOON_MODEL);
     }
 
     @SubscribeEvent
