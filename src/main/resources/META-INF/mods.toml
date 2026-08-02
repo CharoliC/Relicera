@@ -39,3 +39,10 @@ mandatory=false
 versionRange="${jei_version_range}"
 ordering="AFTER"
 side="CLIENT"
+
+[[dependencies.${mod_id}]]
+modId="lootr"
+mandatory=false
+versionRange="${lootr_version_range}"
+ordering="AFTER"
+side="BOTH"

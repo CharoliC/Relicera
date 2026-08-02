@@ -1,10 +1,12 @@
 package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.curio.CovenantTabletEffects;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -20,11 +22,18 @@ public final class ModCreativeModeTabs {
                     .displayItems((parameters, output) -> ModItems.ITEMS.getEntries().stream()
                             .map(RegistryObject::get)
                             .filter(item -> item != ModItems.LUMINAS_CELESTIAL_LENS.get())
-                            .map(Item::getDefaultInstance)
+                            .map(ModCreativeModeTabs::getCreativeTabStack)
                             .forEach(output::accept))
                     .build());
 
     private ModCreativeModeTabs() {
+    }
+
+    private static ItemStack getCreativeTabStack(Item item) {
+        if (item == ModItems.COVENANT_TABLET.get()) {
+            return CovenantTabletEffects.createFullyUnlockedStack();
+        }
+        return item.getDefaultInstance();
     }
 
     public static void register(IEventBus eventBus) {

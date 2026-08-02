@@ -12,7 +12,9 @@
     "FishingHookMixin",
     "FoxAccessor",
     "LivingEntityMixin",
-    "PlayerAccessor"
+    "PlayerAccessor",
+    "RandomizableContainerBlockEntityMixin",
+    "VillagerMixin"
   ],
   "client": [],
   "injectors": {

@@ -1,6 +1,7 @@
 package com.yukari.relicera;
 
 import com.mojang.logging.LogUtils;
+import com.yukari.relicera.common.compat.lootr.LootrTreasureHuntersGlovesCompat;
 import com.yukari.relicera.common.network.ModNetworking;
 import com.yukari.relicera.config.ModClientConfig;
 import com.yukari.relicera.config.ModCommonConfig;
@@ -15,6 +16,8 @@ import com.yukari.relicera.registry.ModParticleTypes;
 import com.yukari.relicera.registry.ModRecipeSerializers;
 import com.yukari.relicera.registry.ModSoundEvents;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -42,6 +45,10 @@ public class ReliceraMod {
         ModRecipeSerializers.register(modEventBus);
         ModSoundEvents.register(modEventBus);
         ModNetworking.register();
+
+        if (ModList.get().isLoaded("lootr")) {
+            MinecraftForge.EVENT_BUS.register(LootrTreasureHuntersGlovesCompat.class);
+        }
 
         modEventBus.addListener(this::commonSetup);
     }

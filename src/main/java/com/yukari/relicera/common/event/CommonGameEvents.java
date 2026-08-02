@@ -7,6 +7,7 @@ import com.yukari.relicera.common.astral.AstralObservationTracker;
 import com.yukari.relicera.common.block.DreamcatcherBoxSleepRewards;
 import com.yukari.relicera.common.curio.AshenTouchEffects;
 import com.yukari.relicera.common.curio.BrutalPlunderBadgeEffects;
+import com.yukari.relicera.common.curio.CovenantTabletEffects;
 import com.yukari.relicera.common.curio.DivineSeveranceRingEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
 import com.yukari.relicera.common.curio.GranbellsFurnaceEffects;
@@ -15,6 +16,7 @@ import com.yukari.relicera.common.curio.LuminasCelestialLensEffects;
 import com.yukari.relicera.common.curio.NightGlovesEffects;
 import com.yukari.relicera.common.curio.NereiasCrownEffects;
 import com.yukari.relicera.common.curio.StriderSpursEffects;
+import com.yukari.relicera.common.curio.TreasureHuntersGlovesEffects;
 import com.yukari.relicera.common.effect.IluthiasBlessingEffects;
 import com.yukari.relicera.common.effect.TempestSprintEffects;
 import com.yukari.relicera.common.item.PastoralMelodyEffects;
@@ -48,6 +50,7 @@ import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.TradeWithVillagerEvent;
 import net.minecraftforge.event.level.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -69,6 +72,7 @@ public final class CommonGameEvents {
             AstralObservationTracker.tick(serverPlayer);
             RottenTuskEffects.repelPiglins(serverPlayer);
             SolarEmberEffects.tick(serverPlayer);
+            TreasureHuntersGlovesEffects.tickPlayerLuck(serverPlayer);
         }
         GranbellsFurnaceEffects.tickPlayer(event.player);
         LuminasCelestialLensEffects.tickPlayerFlight(event.player);
@@ -130,6 +134,11 @@ public final class CommonGameEvents {
         }
     }
 
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onLivingHurtHighest(LivingHurtEvent event) {
+        CovenantTabletEffects.rememberHighDamageCandidate(event);
+    }
+
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
         if (TempestsReinsEffects.preventDamage(event)) {
@@ -164,6 +173,7 @@ public final class CommonGameEvents {
 
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
+        CovenantTabletEffects.completeHighDamageTask(event);
         IluthiasChaliceEffects.applyRegeneration(event);
     }
 
@@ -174,6 +184,9 @@ public final class CommonGameEvents {
 
     @SubscribeEvent
     public static void onLivingAttack(LivingAttackEvent event) {
+        if (CovenantTabletEffects.preventFallDamage(event)) {
+            return;
+        }
         if (TempestsReinsEffects.preventDamage(event)) {
             return;
         }
@@ -221,6 +234,7 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         FourfoldSherdPendantEffects.applyBreakSpeedBonus(event);
+        CovenantTabletEffects.applyMiningSpeed(event);
     }
 
     @SubscribeEvent
@@ -240,6 +254,16 @@ public final class CommonGameEvents {
             return;
         }
         RippleheartPearlEffects.feedEntity(event);
+    }
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        TreasureHuntersGlovesEffects.refreshLootContainer(event);
+    }
+
+    @SubscribeEvent
+    public static void onTradeWithVillager(TradeWithVillagerEvent event) {
+        CovenantTabletEffects.completeToolsmithTradeTask(event);
     }
 
     @SubscribeEvent
@@ -285,5 +309,10 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         LuminasCelestialLensEffects.preventDarknessAndBlindness(event);
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectAdded(MobEffectEvent.Added event) {
+        CovenantTabletEffects.completeRaidTask(event);
     }
 }

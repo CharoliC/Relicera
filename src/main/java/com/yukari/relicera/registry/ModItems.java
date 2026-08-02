@@ -2,8 +2,10 @@ package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.item.AstralLensItem;
+import com.yukari.relicera.common.item.AstralStorybookItem;
 import com.yukari.relicera.common.item.AshenTouchItem;
 import com.yukari.relicera.common.item.BrutalPlunderBadgeItem;
+import com.yukari.relicera.common.item.CovenantTabletItem;
 import com.yukari.relicera.common.item.DivineSeveranceRingItem;
 import com.yukari.relicera.common.item.EphemeralBloomItem;
 import com.yukari.relicera.common.item.EphemeralBloomPendantItem;
@@ -19,6 +21,7 @@ import com.yukari.relicera.common.item.SolarEmberItem;
 import com.yukari.relicera.common.item.TempestsReinsItem;
 import com.yukari.relicera.common.item.StriderSpursItem;
 import com.yukari.relicera.common.item.TorchflowerEmberItem;
+import com.yukari.relicera.common.item.TreasureHuntersGlovesItem;
 import com.yukari.relicera.common.item.WarfireFragmentItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -113,6 +116,11 @@ public final class ModItems {
                     .rarity(Rarity.EPIC)
                     .fireResistant()));
 
+    public static final RegistryObject<Item> ASTRAL_STORYBOOK = ITEMS.register("astral_storybook", () ->
+            new AstralStorybookItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> REVIVAL_NECTAR = ITEMS.register("revival_nectar", () ->
             new RevivalNectarItem(new Item.Properties()
                     .stacksTo(1)
@@ -134,6 +142,11 @@ public final class ModItems {
                     .stacksTo(1)
                     .rarity(Rarity.RARE)));
 
+    public static final RegistryObject<Item> TREASURE_HUNTERS_GLOVES = ITEMS.register("treasure_hunters_gloves", () ->
+            new TreasureHuntersGlovesItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> ASHEN_TOUCH = ITEMS.register("ashen_touch", () ->
             new AshenTouchItem(new Item.Properties()
                     .stacksTo(1)
@@ -151,6 +164,11 @@ public final class ModItems {
 
     public static final RegistryObject<Item> STRIDER_SPURS = ITEMS.register("strider_spurs", () ->
             new StriderSpursItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> COVENANT_TABLET = ITEMS.register("covenant_tablet", () ->
+            new CovenantTabletItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.RARE)));
 

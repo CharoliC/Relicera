@@ -2,6 +2,7 @@ package com.yukari.relicera.registry;
 
 import com.mojang.serialization.Codec;
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.loot.AddAstralStorybookLootModifier;
 import com.yukari.relicera.common.loot.AddDriedCrownLootModifier;
 import com.yukari.relicera.common.loot.AddEphemeralBloomLootModifier;
 import com.yukari.relicera.common.loot.AddExtinguishedSolarFurnaceLootModifier;
@@ -27,6 +28,9 @@ public final class ModLootModifiers {
 
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_FEYSILVER_INGOT =
             LOOT_MODIFIER_SERIALIZERS.register("add_feysilver_ingot", () -> AddFeysilverIngotLootModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_ASTRAL_STORYBOOK =
+            LOOT_MODIFIER_SERIALIZERS.register("add_astral_storybook", () -> AddAstralStorybookLootModifier.CODEC);
 
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_EXTINGUISHED_SOLAR_FURNACE =
             LOOT_MODIFIER_SERIALIZERS.register("add_extinguished_solar_furnace", () -> AddExtinguishedSolarFurnaceLootModifier.CODEC);

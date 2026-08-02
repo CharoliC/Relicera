@@ -1,3 +1,10 @@
+#### 1.1.4
+
++ Added Covenant Tablet, Astral Storybook, Treasure Hunter Gloves.
++ Changed some item textures.
+
+
+
 #### 1.1.3
 
 + Added a config item for Brutal Plunder Badge's damage bonus limitation.

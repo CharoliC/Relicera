@@ -9,6 +9,7 @@ import com.yukari.relicera.client.screen.FourfoldSherdPendantScreen;
 import com.yukari.relicera.client.renderer.RelicRepairTableRenderer;
 import com.yukari.relicera.client.screen.RelicRepairTableScreen;
 import com.yukari.relicera.client.tooltip.ClientIluthiasChaliceTooltip;
+import com.yukari.relicera.common.curio.CovenantTabletEffects;
 import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
 import com.yukari.relicera.registry.ModBlockEntities;
 import com.yukari.relicera.registry.ModItems;
@@ -40,6 +41,8 @@ public final class ClientModEvents {
             MenuScreens.register(ModMenuTypes.FOURFOLD_SHERD_PENDANT.get(), FourfoldSherdPendantScreen::new);
             ItemProperties.register(ModItems.PASTORAL_MELODY.get(), ResourceLocation.fromNamespaceAndPath("minecraft", "tooting"),
                     (stack, level, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.COVENANT_TABLET.get(), ResourceLocation.fromNamespaceAndPath(ReliceraMod.MOD_ID, "completed"),
+                    (stack, level, entity, seed) -> CovenantTabletEffects.isFullyUnlocked(stack) ? 1.0F : 0.0F);
         });
     }
 

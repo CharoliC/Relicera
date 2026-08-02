@@ -16,6 +16,11 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_SNIFFER_DIGGING_NEW_MOON_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.DoubleValue TREASURE_HUNTERS_GLOVES_LUCK_PER_CHEST;
+    public static final ForgeConfigSpec.IntValue TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH;
+    public static final ForgeConfigSpec.IntValue ASTRAL_STORYBOOK_EXPERIENCE_POINT_COST;
+    public static final ForgeConfigSpec.DoubleValue ASTRAL_STORYBOOK_ABOVE_MAX_LEVEL_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue ASTRAL_STORYBOOK_ADVANCED_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_ALLAY_AURA_RANGE;
@@ -42,6 +47,9 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DIVINE_SEVERANCE_RING_HEAD_DROPS;
     public static final ForgeConfigSpec.DoubleValue STRIDER_SPURS_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_DAMAGE_TASK_THRESHOLD;
+    public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_MINING_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_VILLAGER_TRADE_DISCOUNT;
     public static final ForgeConfigSpec.DoubleValue GRANBELLS_FURNACE_DAMAGE_BONUS;
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_PRESERVE_SMITHING_TEMPLATES;
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_KEEP_INVENTORY_IN_FIRE_OR_LAVA;
@@ -111,6 +119,34 @@ public final class ModCommonConfig {
         NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS = BUILDER
                 .comment("Melee attack damage bonus while Night Gloves are equipped at night. 0.20 = 20%.")
                 .defineInRange("nightAttackDamageBonus", 0.20D, 0.0D, 10.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("treasure_hunters_gloves");
+
+        TREASURE_HUNTERS_GLOVES_LUCK_PER_CHEST = BUILDER
+                .comment("Luck gained for each first-opened loot container. 0.05 = +0.05 Luck.")
+                .defineInRange("luckPerChest", 0.05D, 0.0D, 1024.0D);
+
+        TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH = BUILDER
+                .comment("Max items that can be removed before refresh.")
+                .defineInRange("maxItemsTakenBeforeRefresh", 2, 0, Integer.MAX_VALUE);
+
+        BUILDER.pop();
+
+        BUILDER.push("astral_storybook");
+
+        ASTRAL_STORYBOOK_EXPERIENCE_POINT_COST = BUILDER
+                .comment("Experience points(not level) consumed by using Astral Storybook.")
+                .defineInRange("experiencePointCost", 1200, 0, Integer.MAX_VALUE);
+
+        ASTRAL_STORYBOOK_ABOVE_MAX_LEVEL_CHANCE = BUILDER
+                .comment("Chance for enchantments with max level >= 2 to get max + 1 level. 0.20 = 20%.")
+                .defineInRange("aboveMaxLevelChance", 0.20D, 0.0D, 1.0D);
+
+        ASTRAL_STORYBOOK_ADVANCED_CHEST_CHANCE = BUILDER
+                .comment("Chance for Astral Storybook to be added to certain chest. 0.016 = 1.6%.")
+                .defineInRange("advancedChestChance", 0.016D, 0.0D, 1.0D);
 
         BUILDER.pop();
 
@@ -280,6 +316,22 @@ public final class ModCommonConfig {
         STRIDER_SPURS_SPEED_BONUS = BUILDER
                 .comment("Movement speed bonus for ridden Striders while the rider has Strider Spurs equipped and holds a Warped Fungus on a Stick. 1.5 = +150%.")
                 .defineInRange("speedBonus", 1.5D, 0.0D, 10.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("covenant_tablet");
+
+        COVENANT_TABLET_DAMAGE_TASK_THRESHOLD = BUILDER
+                .comment("Damage threshold for first task.")
+                .defineInRange("damageTaskThreshold", 100.0D, 0.0D, 1000000.0D);
+
+        COVENANT_TABLET_MINING_SPEED_BONUS = BUILDER
+                .comment("Mining speed bonus for second task. 0.20 = +20%.")
+                .defineInRange("miningSpeedBonus", 0.20D, 0.0D, 10.0D);
+
+        COVENANT_TABLET_VILLAGER_TRADE_DISCOUNT = BUILDER
+                .comment("Villager discount for third task. 0.15 = -15%.")
+                .defineInRange("villagerTradeDiscount", 0.15D, 0.0D, 1.0D);
 
         BUILDER.pop();
 

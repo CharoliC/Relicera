@@ -16,7 +16,8 @@
   },
   "rewards": {
     "recipes": [
-      "relicera:relic_repair_table"
+      "relicera:relic_repair_table",
+      "relicera:treasure_hunters_gloves"
     ]
   }
 }

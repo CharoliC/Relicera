@@ -1,4 +1,11 @@
 {
+  "item.relicera.astral_storybook": "Astral Storybook",
+  "tooltip.relicera.astral_storybook.0": "§5Written enchantment: %1$s",
+  "tooltip.relicera.astral_storybook.1": "§8This book still awaits its first words...",
+  "tooltip.relicera.astral_storybook.2": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.astral_storybook.3": "§5- When used, consumes experience to \nroll a §6high-level enchantment",
+  "tooltip.relicera.astral_storybook.4": "§5- In your §6inventory§5, pick up \nthe Storybook and right-click \nanother item to enchant it. \nThe Storybook is not consumed",
+
   "item.relicera.divine_severance_ring": "Ring of Judgment",
   "tooltip.relicera.divine_severance_ring.0": "§5The marked dead cannot escape judgment.",
   "tooltip.relicera.divine_severance_ring.1": "§5Hold %1$s§5 to see details.",
@@ -14,6 +21,16 @@
   "tooltip.relicera.brutal_plunder_badge.6": "%1$s§5 attack damage",
 
   "item.relicera.chalice_lining": "Chalice Lining",
+
+  "item.relicera.covenant_tablet": "Covenant Tablet",
+  "tooltip.relicera.covenant_tablet.0": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.covenant_tablet.1": "§5Complete tasks to unlock effects.",
+  "tooltip.relicera.covenant_tablet.2": "§8- Fully endure initial damage greater than %1$s",
+  "tooltip.relicera.covenant_tablet.3": "§5- Immune to §6fall§5 damage",
+  "tooltip.relicera.covenant_tablet.4": "§8- Trade with a master toolsmith",
+  "tooltip.relicera.covenant_tablet.5": "§5- Mining speed %1$s",
+  "tooltip.relicera.covenant_tablet.6": "§8- Defend against a raid",
+  "tooltip.relicera.covenant_tablet.7": "§5- Villager trade prices %1$s",
 
   "item.relicera.dried_crown": "Dried Crown",
 
@@ -142,6 +159,14 @@
   "tooltip.relicera.night_gloves.2": "§5- Highlights nearby §6sculk shriekers",
   "tooltip.relicera.night_gloves.3": "§5- Opening chests will not alert §6sculk sensors",
 
+  "item.relicera.treasure_hunters_gloves": "Treasure Hunter's Gloves",
+  "tooltip.relicera.treasure_hunters_gloves.0": "§5Hold %1$s§5 to see details.",
+  "tooltip.relicera.treasure_hunters_gloves.1": "§5- Gain §6Luck§5 based on \nthe number of chests opened",
+  "tooltip.relicera.treasure_hunters_gloves.2": "§5- Sneak-use a chest with empty hands \nto refresh its loot only once",
+  "tooltip.relicera.treasure_hunters_gloves.3": "§5- Before refreshing, you can \ntake at most %1$s§5 items out",
+  "tooltip.relicera.treasure_hunters_gloves.4": "§dCurrent effect:",
+  "tooltip.relicera.treasure_hunters_gloves.5": "%1$s§5 Luck",
+
   "item.relicera.revival_nectar": "Revival Nectar",
 
   "item.relicera.primal_soil": "Primal Soil",
@@ -242,6 +267,7 @@
 
   "jei.relicera.info.astral_lens.line_1": "Obtained after observing every moon phase with a spyglass.",
   "jei.relicera.info.astral_lens.line_2": "This item cannot be obtained again. Please take care of it.",
+  "jei.relicera.info.astral_storybook.line_1": "Low probability appears in buried treasure, woodland mansion chest, ancient city chest and end city chest.",
   "jei.relicera.info.dried_crown.line_1": "Low probability appears in shipwreck treasure chests and buried treasure.",
   "jei.relicera.info.dried_crown.line_2": "Low probability appears in underwater ruin chests.",
   "jei.relicera.info.dried_crown.line_3": "May be found while brushing suspicious blocks in ocean ruins.",

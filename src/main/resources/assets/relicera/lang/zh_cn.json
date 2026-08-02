@@ -1,4 +1,11 @@
 {
+  "item.relicera.astral_storybook": "星之神的童话书",
+  "tooltip.relicera.astral_storybook.0": "§5书写的魔咒：%1$s",
+  "tooltip.relicera.astral_storybook.1": "§8此书仍待落笔……",
+  "tooltip.relicera.astral_storybook.2": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.astral_storybook.3": "§5- 使用时，消耗大量经验，刷新§6高等级魔咒",
+  "tooltip.relicera.astral_storybook.4": "§5- 在§6物品栏§5中，拿起童话书右键另一件物品 \n为其附魔。童话书不会被消耗",
+
   "item.relicera.divine_severance_ring": "亡者审判之戒",
   "tooltip.relicera.divine_severance_ring.0": "§5被圣光标记的亡者，无法逃离审判。",
   "tooltip.relicera.divine_severance_ring.1": "§5按住 %1$s§5 查看详情。",
@@ -14,6 +21,16 @@
   "tooltip.relicera.brutal_plunder_badge.6": "%1$s§5 攻击伤害",
 
   "item.relicera.chalice_lining": "圣杯内衬",
+
+  "item.relicera.covenant_tablet": "契约石板",
+  "tooltip.relicera.covenant_tablet.0": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.covenant_tablet.1": "§5完成任务以解锁效果。",
+  "tooltip.relicera.covenant_tablet.2": "§8- 完整承受一次减伤前大于 %1$s§8 点的伤害",
+  "tooltip.relicera.covenant_tablet.3": "§5- 免疫§6摔落§5伤害",
+  "tooltip.relicera.covenant_tablet.4": "§8- 和工具匠（大师）交易一次",
+  "tooltip.relicera.covenant_tablet.5": "§5- 挖掘速度 %1$s",
+  "tooltip.relicera.covenant_tablet.6": "§8- 抵御一次袭击",
+  "tooltip.relicera.covenant_tablet.7": "§5- 村民交易价格 %1$s",
 
   "item.relicera.dried_crown": "干涸的深海王冠",
 
@@ -114,6 +131,14 @@
   "tooltip.relicera.night_gloves.1": "%1$s§5 夜间近战伤害",
   "tooltip.relicera.night_gloves.2": "§5- 高亮附近的§6幽匿尖啸体",
   "tooltip.relicera.night_gloves.3": "§5- 打开箱子不会惊动§6幽匿感测体",
+
+  "item.relicera.treasure_hunters_gloves": "寻宝者的手套",
+  "tooltip.relicera.treasure_hunters_gloves.0": "§5按住 %1$s§5 查看详情。",
+  "tooltip.relicera.treasure_hunters_gloves.1": "§5- 根据开启的宝箱个数提升§6幸运§5值",
+  "tooltip.relicera.treasure_hunters_gloves.2": "§5- 潜行空手与宝箱交互，仅限一次刷新其战利品",
+  "tooltip.relicera.treasure_hunters_gloves.3": "§5- 在刷新前，你可以取出至多 %1$s§5 件物品",
+  "tooltip.relicera.treasure_hunters_gloves.4": "§d当前效果：",
+  "tooltip.relicera.treasure_hunters_gloves.5": "%1$s§5 幸运值",
 
   "item.relicera.hallowed_enamel": "神圣珐琅",
 
@@ -251,6 +276,7 @@
 
   "jei.relicera.info.astral_lens.line_1": "使用望远镜观察所有的月相后获得。",
   "jei.relicera.info.astral_lens.line_2": "虽然不会被常规方法摧毁。但无法获取第二次，请妥善保管。",
+  "jei.relicera.info.astral_storybook.line_1": "低概率出现在埋藏的宝箱，林地府邸宝箱，远古城市宝箱，末地城宝箱。",
   "jei.relicera.info.dried_crown.line_1": "低概率出现在沉船宝藏箱和埋藏的宝藏中。",
   "jei.relicera.info.dried_crown.line_2": "低概率出现在海底废墟宝箱中。",
   "jei.relicera.info.dried_crown.line_3": "低概率在海底废墟考古获得。",

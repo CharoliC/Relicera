@@ -2,8 +2,10 @@ package com.yukari.relicera.client.event;
 
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.astral.AstralObservationClientData;
+import com.yukari.relicera.common.curio.CovenantTabletEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
 import com.yukari.relicera.common.curio.NereiasCrownEffects;
+import com.yukari.relicera.common.item.AstralStorybookItem;
 import com.yukari.relicera.common.item.TempestsReinsEffects;
 import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
@@ -51,6 +53,10 @@ public final class ClientTooltipEvents {
             appendAstralLensTooltip(event);
         }
 
+        if (event.getItemStack().is(ModItems.ASTRAL_STORYBOOK.get())) {
+            appendAstralStorybookTooltip(event);
+        }
+
         if (event.getItemStack().is(ModItems.WARFIRE_FRAGMENT.get())) {
             appendWarfireFragmentTooltip(event);
         }
@@ -59,12 +65,20 @@ public final class ClientTooltipEvents {
             appendNightGlovesTooltip(event);
         }
 
+        if (event.getItemStack().is(ModItems.TREASURE_HUNTERS_GLOVES.get())) {
+            appendTreasureHuntersGlovesTooltip(event);
+        }
+
         if (event.getItemStack().is(ModItems.ASHEN_TOUCH.get())) {
             appendAshenTouchTooltip(event);
         }
 
         if (event.getItemStack().is(ModItems.STRIDER_SPURS.get())) {
             appendStriderSpursTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.COVENANT_TABLET.get())) {
+            appendCovenantTabletTooltip(event);
         }
 
         if (event.getItemStack().is(ModItems.EPHEMERAL_BLOOM_PENDANT.get())) {
@@ -150,6 +164,24 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("astral_lens", 4, gold("-30%")));
     }
 
+    private static void appendAstralStorybookTooltip(ItemTooltipEvent event) {
+        AstralStorybookItem.getRecordedEnchantment(event.getItemStack()).ifPresentOrElse(recorded ->
+                        event.getToolTip().add(tooltipLine(
+                                "astral_storybook",
+                                0,
+                                AstralStorybookItem.getEnchantmentDisplayName(recorded)
+                        )),
+                () -> event.getToolTip().add(tooltipLine("astral_storybook", 1)));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("astral_storybook", 2));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("astral_storybook", 3));
+        event.getToolTip().add(tooltipLine("astral_storybook", 4));
+    }
+
     private static void appendNightGlovesTooltip(ItemTooltipEvent event) {
         event.getToolTip().add(Component.empty());
         if (!Screen.hasShiftDown()) {
@@ -161,6 +193,23 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(Component.empty());
         event.getToolTip().add(tooltipLine("night_gloves", 2));
         event.getToolTip().add(tooltipLine("night_gloves", 3));
+    }
+
+    private static void appendTreasureHuntersGlovesTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("treasure_hunters_gloves"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("treasure_hunters_gloves", 1));
+        event.getToolTip().add(tooltipLine("treasure_hunters_gloves", 2));
+        event.getToolTip().add(tooltipLine("treasure_hunters_gloves", 3,
+                gold(String.valueOf(ModCommonConfig.TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH.get()))));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("treasure_hunters_gloves", 4));
+        event.getToolTip().add(tooltipLine("treasure_hunters_gloves", 5,
+                gold(formatSignedDecimal(com.yukari.relicera.common.curio.TreasureHuntersGlovesEffects.getLuckBonus(event.getItemStack())))));
     }
 
     private static void appendAshenTouchTooltip(ItemTooltipEvent event) {
@@ -182,6 +231,27 @@ public final class ClientTooltipEvents {
         }
 
         event.getToolTip().add(tooltipLine("strider_spurs", 1, gold(formatStriderSpursSpeedBonus())));
+    }
+
+    private static void appendCovenantTabletTooltip(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("covenant_tablet"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("covenant_tablet", 1));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(CovenantTabletEffects.hasFallImmunity(stack)
+                ? tooltipLine("covenant_tablet", 3)
+                : tooltipLine("covenant_tablet", 2, darkGray(formatUnsignedNumber(ModCommonConfig.COVENANT_TABLET_DAMAGE_TASK_THRESHOLD.get()))));
+        event.getToolTip().add(CovenantTabletEffects.hasMiningSpeed(stack)
+                ? tooltipLine("covenant_tablet", 5, gold(formatSignedPercent(ModCommonConfig.COVENANT_TABLET_MINING_SPEED_BONUS.get())))
+                : tooltipLine("covenant_tablet", 4));
+        event.getToolTip().add(CovenantTabletEffects.hasVillagerDiscount(stack)
+                ? tooltipLine("covenant_tablet", 7, gold(formatNegativePercent(ModCommonConfig.COVENANT_TABLET_VILLAGER_TRADE_DISCOUNT.get())))
+                : tooltipLine("covenant_tablet", 6));
     }
 
     private static void appendEphemeralBloomPendantTooltip(ItemTooltipEvent event) {
@@ -419,6 +489,20 @@ public final class ClientTooltipEvents {
         return (value >= 0.0D ? "+" : "") + String.format(java.util.Locale.ROOT, "%.1f", value);
     }
 
+    private static String formatUnsignedNumber(double value) {
+        if (Math.abs(value - Math.rint(value)) < 0.0001D) {
+            return String.valueOf((int) Math.rint(value));
+        }
+        return String.format(java.util.Locale.ROOT, "%.1f", value);
+    }
+
+    private static String formatSignedDecimal(double value) {
+        String formatted = String.format(java.util.Locale.ROOT, "%.2f", Math.abs(value))
+                .replaceAll("0+$", "")
+                .replaceAll("\\.$", "");
+        return (value >= 0.0D ? "+" : "-") + formatted;
+    }
+
     private static String formatNightGlovesDamageBonus() {
         return "+" + Math.round(ModCommonConfig.NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS.get() * 100.0D) + "%";
     }
@@ -501,6 +585,10 @@ public final class ClientTooltipEvents {
 
     private static Component gold(String text) {
         return Component.literal(text).withStyle(ChatFormatting.GOLD);
+    }
+
+    private static Component darkGray(String text) {
+        return Component.literal(text).withStyle(ChatFormatting.DARK_GRAY);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -586,9 +674,7 @@ public final class ClientTooltipEvents {
 
     private static boolean isReliceraModNameLine(String text) {
         return ReliceraMod.MOD_ID.equals(text)
-                || "Relicera".equals(text)
-                || text.contains(ReliceraMod.MOD_ID)
-                || text.contains("Relicera");
+                || "Relicera".equals(text);
     }
 
     private static boolean isReliceraItem(RenderTooltipEvent.GatherComponents event) {

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:polished_deepslate"
+  },
+  "result": "relicera:covenant_tablet",
+  "count": 1
+}
