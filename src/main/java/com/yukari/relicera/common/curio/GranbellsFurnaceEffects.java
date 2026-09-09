@@ -51,8 +51,8 @@ public final class GranbellsFurnaceEffects {
     private GranbellsFurnaceEffects() {
     }
 
-    public static boolean isEquipped(Player player) {
-        return CuriosApi.getCuriosInventory(player)
+    public static boolean isEquipped(LivingEntity entity) {
+        return CuriosApi.getCuriosInventory(entity)
                 .resolve()
                 .map(handler -> handler.isEquipped(ModItems.GRANBELLS_FURNACE.get()))
                 .orElse(false);

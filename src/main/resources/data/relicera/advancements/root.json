@@ -16,15 +16,8 @@
     "hidden": false
   },
   "criteria": {
-    "has_relicera_item": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "relicera:relicera_items"
-          }
-        ]
-      }
+    "entered_world": {
+      "trigger": "minecraft:tick"
     }
   }
 }

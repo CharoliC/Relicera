@@ -1,7 +1,6 @@
 package com.yukari.relicera.common.item;
 
 import com.yukari.relicera.registry.ModSoundEvents;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -60,6 +59,6 @@ public class PastoralMelodyItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.relicera.pastoral_melody.0").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("tooltip.relicera.pastoral_melody.0"));
     }
 }

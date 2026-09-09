@@ -15,6 +15,8 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.IntValue ILUTHIAS_BLESSING_MAX_ABSORPTION;
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_SNIFFER_DIGGING_NEW_MOON_CHANCE;
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE;
+    public static final ForgeConfigSpec.IntValue EPHEMERAL_BLOOM_ABSORPTION_INTERVAL_TICKS;
+    public static final ForgeConfigSpec.IntValue EPHEMERAL_BLOOM_MAX_ABSORPTION;
     public static final ForgeConfigSpec.DoubleValue NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue TREASURE_HUNTERS_GLOVES_LUCK_PER_CHEST;
     public static final ForgeConfigSpec.IntValue TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH;
@@ -22,10 +24,23 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue ASTRAL_STORYBOOK_ABOVE_MAX_LEVEL_CHANCE;
     public static final ForgeConfigSpec.DoubleValue ASTRAL_STORYBOOK_ADVANCED_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_ALLAY_AURA_RANGE;
     public static final ForgeConfigSpec.DoubleValue ROTTEN_TUSK_PIGLIN_REPEL_RANGE;
     public static final ForgeConfigSpec.DoubleValue FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE;
+    public static final ForgeConfigSpec.IntValue FEYSILVER_FORGING_ART_VOLUME_ONE_EXPERIENCE_LEVEL_COST;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FEYSILVER_FORGING_ART_VOLUME_ONE_ITEM_BLACKLIST;
+    public static final ForgeConfigSpec.DoubleValue MASTER_SMITHS_BROOCH_ARMOR_TOUGHNESS_PER_TRIMMED_ARMOR;
+    public static final ForgeConfigSpec.DoubleValue MASTER_SMITHS_BROOCH_DAMAGE_REDUCTION_PER_COATED_ARMOR;
+    public static final ForgeConfigSpec.DoubleValue TWO_HANDED_SWORD_BROOCH_SWORD_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.DoubleValue TWO_HANDED_SWORD_BROOCH_ATTACK_SPEED_PENALTY;
+    public static final ForgeConfigSpec.DoubleValue TWO_HANDED_SWORD_BROOCH_ENTITY_REACH_BONUS;
+    public static final ForgeConfigSpec.DoubleValue VINDICATORS_MEDAL_AXE_ATTACK_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue VINDICATORS_MEDAL_VINDICATOR_DROP_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue VINDICATORS_MEDAL_STRUCTURE_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue TURNCOATS_MEDAL_HERO_DAMAGE_BONUS_PER_LEVEL;
+    public static final ForgeConfigSpec.DoubleValue TURNCOATS_MEDAL_BAD_OMEN_LIFE_STEAL_PER_LEVEL;
+    public static final ForgeConfigSpec.IntValue TURNCOATS_MEDAL_BANNER_EFFECT_EXTENSION_TICKS;
+    public static final ForgeConfigSpec.IntValue TURNCOATS_MEDAL_PATROL_ATTEMPT_INTERVAL_TICKS;
     public static final ForgeConfigSpec.DoubleValue STORMSCALE_ELDER_GUARDIAN_THUNDERSTORM_DROP_CHANCE;
     public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_PEARL_AXOLOTL_ASSIST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_PEARL_WARM_OCEAN_RUIN_ARCHAEOLOGY_CHANCE;
@@ -45,8 +60,19 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL;
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_MAX_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue ASHEN_TOUCH_BURNING_TARGET_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_RINGS_ACTIVATION_RANGE;
+    public static final ForgeConfigSpec.IntValue RIPPLEHEART_RINGS_COMBAT_EFFECT_DURATION_TICKS;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_RINGS_RED_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_RINGS_RED_ATTACK_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_RINGS_BLUE_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_RINGS_BLUE_HEALING_BONUS;
+    public static final ForgeConfigSpec.DoubleValue LITTLE_TAILORS_BELT_REACTION_RANGE;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LITTLE_TAILORS_BELT_INSTANT_KILL_ENTITY_TYPES;
+    public static final ForgeConfigSpec.DoubleValue DEVILS_BEARSKIN_MAX_HEALTH_LOSS;
+    public static final ForgeConfigSpec.IntValue RABBITS_POCKET_WATCH_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DIVINE_SEVERANCE_RING_HEAD_DROPS;
     public static final ForgeConfigSpec.DoubleValue STRIDER_SPURS_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue WARP_CRYSTAL_DODGE_CHANCE;
     public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_DAMAGE_TASK_THRESHOLD;
     public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_MINING_SPEED_BONUS;
     public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_VILLAGER_TRADE_DISCOUNT;
@@ -55,6 +81,7 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_KEEP_INVENTORY_IN_FIRE_OR_LAVA;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.IntValue ILUTHIAS_CHALICE_ENHANCED_TOTEM_ILUTHIAS_BLESSING_DURATION;
     public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_ACTIVE_DAMAGE_REDUCTION;
     public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_AQUATIC_AURA_RANGE;
     public static final ForgeConfigSpec.DoubleValue NEREIAS_CROWN_AQUATIC_ATTACK_DAMAGE_SHARE;
@@ -112,6 +139,14 @@ public final class ModCommonConfig {
                 .comment("Chance for Ephemeral Bloom to be added to stronghold library chest loot.")
                 .defineInRange("strongholdLibraryChestChance", 0.52D, 0.0D, 1.0D);
 
+        EPHEMERAL_BLOOM_ABSORPTION_INTERVAL_TICKS = BUILDER
+                .comment("Interval of absorption grants from placed Ephemeral Blooms and Pendants. 120 ticks = 6 seconds.")
+                .defineInRange("absorptionIntervalTicks", 120, 1, Integer.MAX_VALUE);
+
+        EPHEMERAL_BLOOM_MAX_ABSORPTION = BUILDER
+                .comment("Maximum absorption from Ephemeral Blooms and Pendants.")
+                .defineInRange("maxAbsorption", 20, 0, 1024);
+
         BUILDER.pop();
 
         BUILDER.push("night_gloves");
@@ -153,17 +188,8 @@ public final class ModCommonConfig {
         BUILDER.push("warfire_fragment");
 
         WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE = BUILDER
-                .comment("Chance for Warfire Fragment to drop when an iron golem is killed during a raid by a configured entity type. 0.42 = 42%.")
+                .comment("Chance for Warfire Fragment to drop when an iron golem is killed during a raid by a raider, Vex, or eligible medal wearer. 0.42 = 42%.")
                 .defineInRange("ironGolemDropChance", 0.42D, 0.0D, 1.0D);
-
-        WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES = BUILDER
-                .comment("Entity type ids that can trigger Warfire Fragment drops when killing an iron golem during a raid.")
-                .defineList("ironGolemKillerEntityTypes", List.of(
-                        "minecraft:ravager",
-                        "minecraft:vindicator",
-                        "minecraft:pillager",
-                        "minecraft:evoker"
-                ), ModCommonConfig::isValidResourceLocation);
 
         WARFIRE_FRAGMENT_ALLAY_AURA_RANGE = BUILDER
                 .comment("Range in blocks for Allays holding a Warfire Fragment to grant Strength II and Resistance I.")
@@ -184,6 +210,82 @@ public final class ModCommonConfig {
         FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE = BUILDER
                 .comment("Chance for Feysilver Ingot to be added to selected overworld chest loot. 0.067 = 6.7%.")
                 .defineInRange("overworldChestChance", 0.067D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("feysilver_forging_art_volume_one");
+
+        FEYSILVER_FORGING_ART_VOLUME_ONE_EXPERIENCE_LEVEL_COST = BUILDER
+                .comment("Experience levels consumed of feysilver coating.")
+                .defineInRange("experienceLevelCost", 50, 0, Integer.MAX_VALUE);
+
+        FEYSILVER_FORGING_ART_VOLUME_ONE_ITEM_BLACKLIST = BUILDER
+                .comment("Blacklist of feysilver coating.")
+                .defineList("itemBlacklist", List.of("twilightforest:glass_sword"), ModCommonConfig::isValidResourceLocation);
+
+        BUILDER.pop();
+
+        BUILDER.push("master_smiths_brooch");
+
+        MASTER_SMITHS_BROOCH_ARMOR_TOUGHNESS_PER_TRIMMED_ARMOR = BUILDER
+                .comment("Armor toughness added per trimmed armor.")
+                .defineInRange("armorToughnessPerTrimmedArmor", 2.0D, 0.0D, 20.0D);
+
+        MASTER_SMITHS_BROOCH_DAMAGE_REDUCTION_PER_COATED_ARMOR = BUILDER
+                .comment("Damage reduction per armor with feysilver coating. 0.06 = -6%.")
+                .defineInRange("damageReductionPerCoatedArmor", 0.06D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("two_handed_sword_brooch");
+
+        TWO_HANDED_SWORD_BROOCH_SWORD_DAMAGE_BONUS = BUILDER
+                .comment("Attack damage bonus while holding #minecraft:swords. 0.40 = +40%.")
+                .defineInRange("swordDamageBonus", 0.40D, 0.0D, 10.0D);
+
+        TWO_HANDED_SWORD_BROOCH_ATTACK_SPEED_PENALTY = BUILDER
+                .comment("Attack speed penalty while holding #minecraft:swords. 0.20 = -20%.")
+                .defineInRange("attackSpeedPenalty", 0.20D, 0.0D, 1.0D);
+
+        TWO_HANDED_SWORD_BROOCH_ENTITY_REACH_BONUS = BUILDER
+                .comment("Entity reach bonus.")
+                .defineInRange("entityReachBonus", 1.0D, 0.0D, 64.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("vindicators_medal");
+
+        VINDICATORS_MEDAL_AXE_ATTACK_SPEED_BONUS = BUILDER
+                .comment("Attack speed bonus while holding #minecraft:axes. 0.20 = +20%.")
+                .defineInRange("axeAttackSpeedBonus", 0.20D, 0.0D, 10.0D);
+
+        VINDICATORS_MEDAL_VINDICATOR_DROP_CHANCE = BUILDER
+                .comment("Chance for Vindicator's Medal to be added to Vindicator loot. 0.031 = 3.1%.")
+                .defineInRange("vindicatorDropChance", 0.031D, 0.0D, 1.0D);
+
+        VINDICATORS_MEDAL_STRUCTURE_CHEST_CHANCE = BUILDER
+                .comment("Chance for Vindicator's Medal to be added to Pillager Outpost or Woodland Mansion chest. 0.16 = 16%.")
+                .defineInRange("structureChestChance", 0.16D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("turncoats_medal");
+
+        TURNCOATS_MEDAL_HERO_DAMAGE_BONUS_PER_LEVEL = BUILDER
+                .comment("Damage bonus per level of Hero of the Village. 0.25 = +25% per level.")
+                .defineInRange("heroDamageBonusPerLevel", 0.25D, 0.0D, 10.0D);
+
+        TURNCOATS_MEDAL_BAD_OMEN_LIFE_STEAL_PER_LEVEL = BUILDER
+                .comment("Life steal per level of Bad Omen. 0.15 = 15% per level.")
+                .defineInRange("badOmenLifeStealPerLevel", 0.15D, 0.0D, 10.0D);
+
+        TURNCOATS_MEDAL_BANNER_EFFECT_EXTENSION_TICKS = BUILDER
+                .comment("Ticks added to Hero of the Village and Bad Omen when consuming an Ominous Banner. 12000 ticks = 600 seconds.")
+                .defineInRange("bannerEffectExtensionTicks", 12000, 0, Integer.MAX_VALUE);
+
+        TURNCOATS_MEDAL_PATROL_ATTEMPT_INTERVAL_TICKS = BUILDER
+                .comment("Base interval in ticks between extra patrol spawn attempts for each Turncoat's Medal wearer. 18000 ticks = 15 minutes. Set to 0 to disable extra patrols.")
+                .defineInRange("patrolAttemptIntervalTicks", 18000, 0, Integer.MAX_VALUE);
 
         BUILDER.pop();
 
@@ -295,6 +397,65 @@ public final class ModCommonConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("rippleheart_rings");
+
+        RIPPLEHEART_RINGS_ACTIVATION_RANGE = BUILDER
+                .comment("Maximum distance in blocks for a matching pair of Rippleheart Rings to remain active.")
+                .defineInRange("activationRange", 32.0D, 0.0D, 256.0D);
+
+        RIPPLEHEART_RINGS_COMBAT_EFFECT_DURATION_TICKS = BUILDER
+                .comment("Duration in ticks of Resistance/Strength granted. 160 ticks = 8 seconds.")
+                .defineInRange("combatEffectDurationTicks", 8 * 20, 1, 20 * 60 * 60);
+
+        RIPPLEHEART_RINGS_RED_DAMAGE_BONUS = BUILDER
+                .comment("Damage bonus of Red Ring. 0.20 = +20%.")
+                .defineInRange("redDamageBonus", 0.20D, 0.0D, 100.0D);
+
+        RIPPLEHEART_RINGS_RED_ATTACK_SPEED_BONUS = BUILDER
+                .comment("Attack speed bonus of Red Ring. 0.20 = +20%.")
+                .defineInRange("redAttackSpeedBonus", 0.20D, 0.0D, 100.0D);
+
+        RIPPLEHEART_RINGS_BLUE_DAMAGE_REDUCTION = BUILDER
+                .comment("Damage reduction of Blue Ring. 0.20 = -20%.")
+                .defineInRange("blueDamageReduction", 0.20D, 0.0D, 1.0D);
+
+        RIPPLEHEART_RINGS_BLUE_HEALING_BONUS = BUILDER
+                .comment("Healing bonus of Blue Ring. 0.20 = +20%.")
+                .defineInRange("blueHealingBonus", 0.20D, 0.0D, 100.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("little_tailors_belt");
+
+        LITTLE_TAILORS_BELT_REACTION_RANGE = BUILDER
+                .comment("Range in blocks in which humanoids afraid the wearer, or witness a failed one-hit.")
+                .defineInRange("reactionRange", 16.0D, 0.0D, 128.0D);
+
+        LITTLE_TAILORS_BELT_INSTANT_KILL_ENTITY_TYPES = BUILDER
+                .comment("Entity types auto killed within 4 blocks.")
+                .defineList("instantKillEntityTypes", List.of(
+                        "alexsmobs:fly",
+                        "alexsmobs:crimson_mosquito"
+                ), ModCommonConfig::isValidResourceLocation);
+
+        BUILDER.pop();
+
+        BUILDER.push("devils_bearskin");
+
+        DEVILS_BEARSKIN_MAX_HEALTH_LOSS = BUILDER
+                .comment("Maximum health loss if wearer dies. 0.40 = -40%.")
+                .defineInRange("maximumHealthLoss", 0.40D, 0.0D, 0.95D);
+
+        BUILDER.pop();
+
+        BUILDER.push("rabbits_pocket_watch");
+
+        RABBITS_POCKET_WATCH_COOLDOWN_TICKS = BUILDER
+                .comment("Cooldown in ticks after using Rabbit's Pocket Watch, 400 ticks = 20 seconds.")
+                .defineInRange("cooldownTicks", 20 * 20, 0, Integer.MAX_VALUE);
+
+        BUILDER.pop();
+
         BUILDER.push("divine_severance_ring");
 
         DIVINE_SEVERANCE_RING_HEAD_DROPS = BUILDER
@@ -316,6 +477,14 @@ public final class ModCommonConfig {
         STRIDER_SPURS_SPEED_BONUS = BUILDER
                 .comment("Movement speed bonus for ridden Striders while the rider has Strider Spurs equipped and holds a Warped Fungus on a Stick. 1.5 = +150%.")
                 .defineInRange("speedBonus", 1.5D, 0.0D, 10.0D);
+
+        BUILDER.pop();
+
+        BUILDER.push("warp_crystal");
+
+        WARP_CRYSTAL_DODGE_CHANCE = BUILDER
+                .comment("Chance to dodge an eligible attack while Warp Crystal is equipped. 0.08 = 8%.")
+                .defineInRange("dodgeChance", 0.08D, 0.0D, 1.0D);
 
         BUILDER.pop();
 
@@ -360,6 +529,10 @@ public final class ModCommonConfig {
         ILUTHIAS_CHALICE_UNDEAD_DAMAGE_REDUCTION = BUILDER
                 .comment("Damage reduction against damage from undead creatures while Iluthia's Chalice is equipped. 0.30 = -30%.")
                 .defineInRange("undeadDamageReduction", 0.30D, 0.0D, 1.0D);
+
+        ILUTHIAS_CHALICE_ENHANCED_TOTEM_ILUTHIAS_BLESSING_DURATION = BUILDER
+                .comment("Duration in ticks for Iluthia's Blessing granted by Totems of Undying. 100 ticks = 5 seconds.")
+                .defineInRange("enhancedTotemIluthiasBlessingDuration", 5 * 20, 1, 20 * 60 * 60);
 
         BUILDER.pop();
 
@@ -422,6 +595,7 @@ public final class ModCommonConfig {
                 .defineInRange("fullJumpShockwaveKnockback", 2.5D, 0.0D, 64.0D);
 
         BUILDER.pop();
+
         SPEC = BUILDER.build();
     }
 

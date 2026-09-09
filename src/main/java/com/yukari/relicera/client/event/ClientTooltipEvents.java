@@ -4,9 +4,16 @@ import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.astral.AstralObservationClientData;
 import com.yukari.relicera.common.curio.CovenantTabletEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
+import com.yukari.relicera.common.curio.MasterSmithsBroochEffects;
 import com.yukari.relicera.common.curio.NereiasCrownEffects;
+import com.yukari.relicera.common.curio.RippleheartRingClientData;
+import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
+import com.yukari.relicera.common.item.feysilver.FeysilverForgingClientData;
 import com.yukari.relicera.common.item.AstralStorybookItem;
+import com.yukari.relicera.common.item.RippleheartRingItem;
+import com.yukari.relicera.common.item.RippleheartRingItem.RingSide;
 import com.yukari.relicera.common.item.TempestsReinsEffects;
+import com.yukari.relicera.common.item.armor.devilsbearskin.DevilsBearskinEffects;
 import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
 import com.mojang.datafixers.util.Either;
@@ -19,6 +26,8 @@ import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +44,9 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = ReliceraMod.MOD_ID, value = Dist.CLIENT)
 public final class ClientTooltipEvents {
@@ -55,6 +66,14 @@ public final class ClientTooltipEvents {
 
         if (event.getItemStack().is(ModItems.ASTRAL_STORYBOOK.get())) {
             appendAstralStorybookTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.FEYSILVER_FORGING_ART_VOLUME_ONE.get())) {
+            appendFeysilverForgingArtVolumeOneTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.SILK_OF_NIGHT.get())) {
+            appendSilkOfNightTooltip(event);
         }
 
         if (event.getItemStack().is(ModItems.WARFIRE_FRAGMENT.get())) {
@@ -77,6 +96,10 @@ public final class ClientTooltipEvents {
             appendStriderSpursTooltip(event);
         }
 
+        if (event.getItemStack().is(ModItems.WARP_CRYSTAL.get())) {
+            appendWarpCrystalTooltip(event);
+        }
+
         if (event.getItemStack().is(ModItems.COVENANT_TABLET.get())) {
             appendCovenantTabletTooltip(event);
         }
@@ -87,6 +110,22 @@ public final class ClientTooltipEvents {
 
         if (event.getItemStack().is(ModItems.BRUTAL_PLUNDER_BADGE.get())) {
             appendBrutalPlunderBadgeTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.MASTER_SMITHS_BROOCH.get())) {
+            appendMasterSmithsBroochTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.TWO_HANDED_SWORD_BROOCH.get())) {
+            appendTwoHandedSwordBroochTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.VINDICATORS_MEDAL.get())) {
+            appendVindicatorsMedalTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.TURNCOATS_MEDAL.get())) {
+            appendTurncoatsMedalTooltip(event);
         }
 
         if (event.getItemStack().is(ModItems.FOURFOLD_SHERD_PENDANT.get())) {
@@ -123,6 +162,30 @@ public final class ClientTooltipEvents {
 
         if (event.getItemStack().is(ModItems.DIVINE_SEVERANCE_RING.get())) {
             appendDivineSeveranceRingTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.RING_OF_SATIETY.get())) {
+            appendRingOfSatietyTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.LITTLE_TAILORS_BELT.get())) {
+            appendLittleTailorsBeltTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.DEVILS_BEARSKIN.get())) {
+            appendDevilsBearskinTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.RABBITS_POCKET_WATCH.get())) {
+            appendRabbitsPocketWatchTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.RIPPLEHEART_RINGS.get())) {
+            appendRippleheartRingsTooltip(event);
+        }
+
+        if (event.getItemStack().getItem() instanceof RippleheartRingItem ringItem) {
+            appendRippleheartRingTooltip(event, ringItem.getSide());
         }
     }
 
@@ -182,6 +245,35 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("astral_storybook", 4));
     }
 
+    private static void appendFeysilverForgingArtVolumeOneTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(tooltipLine("feysilver_forging_art_volume_one", 0));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("feysilver_forging_art_volume_one", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("feysilver_forging_art_volume_one", 2));
+        event.getToolTip().add(tooltipLine("feysilver_forging_art_volume_one", 3));
+        if (FeysilverForgingClientData.hasVolumeOne()) {
+            event.getToolTip().add(Component.empty());
+            event.getToolTip().add(tooltipLine("feysilver_forging_art_volume_one", 4));
+        }
+    }
+
+    private static void appendSilkOfNightTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(tooltipLine("silk_of_night", 0));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("silk_of_night", 1));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("silk_of_night", 2));
+        event.getToolTip().add(tooltipLine("silk_of_night", 3));
+        event.getToolTip().add(tooltipLine("silk_of_night", 4));
+    }
+
     private static void appendNightGlovesTooltip(ItemTooltipEvent event) {
         event.getToolTip().add(Component.empty());
         if (!Screen.hasShiftDown()) {
@@ -231,6 +323,18 @@ public final class ClientTooltipEvents {
         }
 
         event.getToolTip().add(tooltipLine("strider_spurs", 1, gold(formatStriderSpursSpeedBonus())));
+    }
+
+    private static void appendWarpCrystalTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("warp_crystal"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("warp_crystal", 1,
+                gold(formatUnsignedPercent(ModCommonConfig.WARP_CRYSTAL_DODGE_CHANCE.get()))));
+        event.getToolTip().add(tooltipLine("warp_crystal", 2));
     }
 
     private static void appendCovenantTabletTooltip(ItemTooltipEvent event) {
@@ -294,6 +398,117 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(Component.empty());
         event.getToolTip().add(tooltipLine("brutal_plunder_badge", 5));
         event.getToolTip().add(tooltipLine("brutal_plunder_badge", 6, gold(formatDamageBonus(event))));
+    }
+
+    private static void appendMasterSmithsBroochTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("master_smiths_brooch"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine(
+                "master_smiths_brooch",
+                1,
+                gold(formatSignedNumber(ModCommonConfig.MASTER_SMITHS_BROOCH_ARMOR_TOUGHNESS_PER_TRIMMED_ARMOR.get()))
+        ));
+        event.getToolTip().add(tooltipLine(
+                "master_smiths_brooch",
+                2,
+                gold(formatSignedPercent(ModCommonConfig.MASTER_SMITHS_BROOCH_DAMAGE_REDUCTION_PER_COATED_ARMOR.get()))
+        ));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("master_smiths_brooch", 3));
+        event.getToolTip().add(tooltipLine(
+                "master_smiths_brooch",
+                4,
+                gold(formatSignedNumber(getMasterSmithsBroochArmorToughnessBonus(event)))
+        ));
+        event.getToolTip().add(tooltipLine(
+                "master_smiths_brooch",
+                5,
+                gold(formatSignedPercent(getMasterSmithsBroochDamageReduction(event)))
+        ));
+    }
+
+    private static void appendTwoHandedSwordBroochTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("two_handed_sword_brooch"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("two_handed_sword_brooch", 1));
+        event.getToolTip().add(tooltipLine(
+                "two_handed_sword_brooch",
+                2,
+                gold(formatSignedPercent(ModCommonConfig.TWO_HANDED_SWORD_BROOCH_SWORD_DAMAGE_BONUS.get())),
+                gold(formatSignedPercent(-ModCommonConfig.TWO_HANDED_SWORD_BROOCH_ATTACK_SPEED_PENALTY.get()))
+        ));
+        event.getToolTip().add(tooltipLine("two_handed_sword_brooch", 3));
+        event.getToolTip().add(tooltipLine(
+                "two_handed_sword_brooch",
+                4,
+                gold(formatSignedNumber(ModCommonConfig.TWO_HANDED_SWORD_BROOCH_ENTITY_REACH_BONUS.get()))
+        ));
+    }
+
+    private static void appendVindicatorsMedalTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("vindicators_medal"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine(
+                "vindicators_medal",
+                1,
+                gold(formatSignedPercent(ModCommonConfig.VINDICATORS_MEDAL_AXE_ATTACK_SPEED_BONUS.get()))
+        ));
+        event.getToolTip().add(tooltipLine("vindicators_medal", 2));
+        event.getToolTip().add(tooltipLine("vindicators_medal", 3));
+    }
+
+    private static void appendTurncoatsMedalTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("turncoats_medal"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine(
+                "turncoats_medal",
+                1
+        ));
+        event.getToolTip().add(tooltipLine(
+                "turncoats_medal",
+                2,
+                gold(formatSignedPercent(ModCommonConfig.TURNCOATS_MEDAL_HERO_DAMAGE_BONUS_PER_LEVEL.get()))
+        ));
+        event.getToolTip().add(tooltipLine(
+                "turncoats_medal",
+                3,
+                gold(formatSignedPercent(ModCommonConfig.TURNCOATS_MEDAL_BAD_OMEN_LIFE_STEAL_PER_LEVEL.get()))
+        ));
+        event.getToolTip().add(tooltipLine("turncoats_medal", 4));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("turncoats_medal", 5));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("turncoats_medal", 6));
+
+        Player player = event.getEntity();
+        double damageBonus = player == null ? 0.0D : TurncoatsMedalEffects.getHeroDamageBonus(player);
+        double lifeSteal = player == null ? 0.0D : TurncoatsMedalEffects.getBadOmenLifeSteal(player);
+        event.getToolTip().add(tooltipLine(
+                "turncoats_medal",
+                7,
+                gold(formatSignedDecimal(damageBonus * 100.0D) + "%")
+        ));
+        event.getToolTip().add(tooltipLine(
+                "turncoats_medal",
+                8,
+                gold(formatSignedDecimal(lifeSteal * 100.0D) + "%")
+        ));
     }
 
     private static void appendFourfoldSherdPendantTooltip(ItemTooltipEvent event) {
@@ -374,6 +589,7 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("granbells_furnace", 6));
         event.getToolTip().add(tooltipLine("granbells_furnace", 7));
         event.getToolTip().add(tooltipLine("granbells_furnace", 8));
+        event.getToolTip().add(tooltipLine("granbells_furnace", 9));
     }
 
     private static void appendIluthiasChaliceTooltip(ItemTooltipEvent event) {
@@ -467,8 +683,8 @@ public final class ClientTooltipEvents {
     }
 
     private static void appendDivineSeveranceRingTooltip(ItemTooltipEvent event) {
-        event.getToolTip().add(Component.empty());
-        event.getToolTip().add(tooltipLine("divine_severance_ring", 0));
+        //event.getToolTip().add(Component.empty());
+        //event.getToolTip().add(tooltipLine("divine_severance_ring", 0));
         event.getToolTip().add(Component.empty());
         if (!Screen.hasShiftDown()) {
             event.getToolTip().add(holdShiftLine("divine_severance_ring", 1));
@@ -476,6 +692,154 @@ public final class ClientTooltipEvents {
         }
 
         event.getToolTip().add(tooltipLine("divine_severance_ring", 2));
+    }
+
+    private static void appendRingOfSatietyTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("ring_of_satiety"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("ring_of_satiety", 1));
+        event.getToolTip().add(tooltipLine("ring_of_satiety", 2));
+        event.getToolTip().add(tooltipLine("ring_of_satiety", 3));
+    }
+
+    private static void appendLittleTailorsBeltTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("little_tailors_belt"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("little_tailors_belt", 1));
+        event.getToolTip().add(tooltipLine("little_tailors_belt", 2));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("little_tailors_belt", 3));
+    }
+
+    private static void appendDevilsBearskinTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("devils_bearskin"));
+            return;
+        }
+
+        ItemStack stack = event.getItemStack();
+        if (DevilsBearskinEffects.isReleased(stack)) {
+            event.getToolTip().add(tooltipLine("devils_bearskin", 9));
+            event.getToolTip().add(Component.empty());
+            event.getToolTip().add(tooltipLine("devils_bearskin", 10));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("devils_bearskin", 1));
+        event.getToolTip().add(tooltipLine("devils_bearskin", 2));
+        event.getToolTip().add(tooltipLine("devils_bearskin", 3));
+        event.getToolTip().add(tooltipLine("devils_bearskin", 4));
+        if (DevilsBearskinEffects.hasReachedTradeRefusalStage(stack)) {
+            event.getToolTip().add(tooltipLine("devils_bearskin", 5));
+        }
+        if (DevilsBearskinEffects.hasReachedNauseaStage(stack)) {
+            event.getToolTip().add(tooltipLine("devils_bearskin", 6));
+        }
+        event.getToolTip().add(tooltipLine(
+                "devils_bearskin",
+                7,
+                gold(formatUnsignedPercent(ModCommonConfig.DEVILS_BEARSKIN_MAX_HEALTH_LOSS.get()))
+        ));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("devils_bearskin", 8));
+    }
+
+    private static void appendRabbitsPocketWatchTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(tooltipLine("rabbits_pocket_watch", 0));
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine("rabbits_pocket_watch", 1));
+    }
+
+    private static void appendRippleheartRingsTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(tooltipLine(
+                "rippleheart_rings",
+                0,
+                gold(Component.translatable("tooltip.relicera.rippleheart_ring.side.red").getString()),
+                gold(Component.translatable("tooltip.relicera.rippleheart_ring.side.blue").getString())
+        ));
+    }
+
+    private static void appendRippleheartRingTooltip(ItemTooltipEvent event, RingSide side) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("rippleheart_ring"));
+            return;
+        }
+
+        String sideId = side == RingSide.RED ? "rippleheart_ring.red" : "rippleheart_ring.blue";
+        event.getToolTip().add(tooltipLine(
+                sideId,
+                0,
+                gold(formatUnsignedNumber(ModCommonConfig.RIPPLEHEART_RINGS_ACTIVATION_RANGE.get()))
+        ));
+
+        if (side == RingSide.RED) {
+            event.getToolTip().add(tooltipLine(sideId, 1, goldEffect(MobEffects.DAMAGE_RESISTANCE, "III")));
+            event.getToolTip().add(tooltipLine(sideId, 2));
+            event.getToolTip().add(tooltipLine(
+                    sideId,
+                    3,
+                    gold(formatSignedPercent(ModCommonConfig.RIPPLEHEART_RINGS_RED_DAMAGE_BONUS.get()))
+            ));
+            event.getToolTip().add(tooltipLine(
+                    sideId,
+                    4,
+                    gold(formatSignedPercent(ModCommonConfig.RIPPLEHEART_RINGS_RED_ATTACK_SPEED_BONUS.get()))
+            ));
+        } else {
+            event.getToolTip().add(tooltipLine(sideId, 1, goldEffect(MobEffects.DAMAGE_BOOST, "III")));
+            event.getToolTip().add(tooltipLine(sideId, 2));
+            event.getToolTip().add(tooltipLine(
+                    sideId,
+                    3,
+                    gold(formatSignedPercent(ModCommonConfig.RIPPLEHEART_RINGS_BLUE_DAMAGE_REDUCTION.get()))
+            ));
+            event.getToolTip().add(tooltipLine(
+                    sideId,
+                    4,
+                    gold(formatSignedPercent(ModCommonConfig.RIPPLEHEART_RINGS_BLUE_HEALING_BONUS.get()))
+            ));
+        }
+
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine(sideId, 5, getRippleheartCounterpartName(event.getItemStack(), side)));
+    }
+
+    private static Component getRippleheartCounterpartName(ItemStack stack, RingSide side) {
+        Optional<UUID> stackPairId = RippleheartRingItem.getPairId(stack);
+        if (stackPairId.isEmpty()) {
+            return Component.translatable("tooltip.relicera.rippleheart_ring.status.unbound")
+                    .withStyle(ChatFormatting.DARK_GRAY);
+        }
+
+        if (!stackPairId.equals(RippleheartRingClientData.getPairId())) {
+            return Component.translatable("tooltip.relicera.rippleheart_ring.status.not_detected")
+                    .withStyle(ChatFormatting.DARK_GRAY);
+        }
+
+        Component wearerName = side == RingSide.RED
+                ? RippleheartRingClientData.getBlueWearerName()
+                : RippleheartRingClientData.getRedWearerName();
+        if (wearerName.getString().isBlank()) {
+            return Component.translatable("tooltip.relicera.rippleheart_ring.status.not_detected")
+                    .withStyle(ChatFormatting.DARK_GRAY);
+        }
+        return gold(wearerName.getString());
+    }
+
+    private static Component goldEffect(MobEffect effect, String amplifier) {
+        return Component.translatable(effect.getDescriptionId())
+                .append(" " + amplifier)
+                .withStyle(ChatFormatting.GOLD);
     }
 
     private static String formatSignedNumber(int value) {
@@ -541,6 +905,16 @@ public final class ClientTooltipEvents {
     private static double getNereiasCrownArmorBonus(ItemTooltipEvent event) {
         Player player = event.getEntity();
         return player == null ? 0.0D : NereiasCrownEffects.getAquaticArmorBonus(player);
+    }
+
+    private static double getMasterSmithsBroochArmorToughnessBonus(ItemTooltipEvent event) {
+        Player player = event.getEntity();
+        return player == null ? 0.0D : MasterSmithsBroochEffects.getArmorToughnessBonus(player);
+    }
+
+    private static double getMasterSmithsBroochDamageReduction(ItemTooltipEvent event) {
+        Player player = event.getEntity();
+        return player == null ? 0.0D : MasterSmithsBroochEffects.getDamageReduction(player);
     }
 
     private static String formatDamageBonus(ItemTooltipEvent event) {

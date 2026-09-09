@@ -3,5 +3,10 @@
     "sounds": [
       "relicera:item/pastoral_melody"
     ]
+  },
+  "item.rabbits_pocket_watch.use": {
+    "sounds": [
+      "relicera:item/rabbits_pocket_watch"
+    ]
   }
 }

@@ -1,11 +1,9 @@
 package com.yukari.relicera.common.block;
 
 import com.yukari.relicera.common.menu.RelicRepairTableMenu;
-import com.yukari.relicera.common.recipe.RelicRepairRecipe;
-import com.yukari.relicera.common.recipe.RelicRepairRecipes;
+import com.yukari.relicera.common.recipe.relicrepair.RelicRepairRecipe;
+import com.yukari.relicera.common.recipe.relicrepair.RelicRepairRecipes;
 import com.yukari.relicera.registry.ModBlockEntities;
-import com.yukari.relicera.registry.ModItems;
-import com.yukari.relicera.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,7 +32,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProvider {
-    public static final int SLOT_FEYSILVER = 0;
+    public static final int SLOT_CATALYST = 0;
     public static final int SLOT_RELIC = 1;
     public static final int SLOT_MATERIAL_1 = 2;
     public static final int SLOT_MATERIAL_2 = 3;
@@ -43,14 +42,15 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
 
     private static final String ITEMS_TAG = "Items";
     private static final String REPAIR_PROGRESS_TAG = "RepairProgress";
+    private static final String ACTIVE_RECIPE_TAG = "ActiveRecipe";
     private static final int AMBIENT_WITCH_PARTICLE_AVERAGE_INTERVAL = 80;
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(SLOT_COUNT) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return switch (slot) {
-                case SLOT_FEYSILVER -> stack.is(ModItems.FEYSILVER_INGOT.get());
-                case SLOT_RELIC -> stack.is(ModTags.BROKEN_RELICS) || stack.is(ModTags.REPAIRED_RELICS);
+                case SLOT_CATALYST -> acceptsCatalyst(stack);
+                case SLOT_RELIC -> acceptsRelic(stack);
                 case SLOT_MATERIAL_1, SLOT_MATERIAL_2, SLOT_MATERIAL_3 -> true;
                 case SLOT_OUTPUT -> false;
                 default -> super.isItemValid(slot, stack);
@@ -87,6 +87,8 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
     };
     private LazyOptional<IItemHandler> itemHandlerCapability = LazyOptional.of(() -> itemHandler);
     private int repairProgress;
+    @Nullable
+    private ResourceLocation activeRecipeId;
 
     public RelicRepairTableBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.RELIC_REPAIR_TABLE.get(), pos, state);
@@ -98,6 +100,14 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
 
     public ContainerData getDataAccess() {
         return dataAccess;
+    }
+
+    private boolean acceptsCatalyst(ItemStack stack) {
+        return level != null && RelicRepairRecipes.acceptsCatalyst(level, stack);
+    }
+
+    private boolean acceptsRelic(ItemStack stack) {
+        return level != null && RelicRepairRecipes.acceptsRelic(level, stack);
     }
 
     @Override
@@ -118,6 +128,9 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
             itemHandler.deserializeNBT(tag.getCompound(ITEMS_TAG));
         }
         repairProgress = tag.getInt(REPAIR_PROGRESS_TAG);
+        activeRecipeId = tag.contains(ACTIVE_RECIPE_TAG)
+                ? ResourceLocation.tryParse(tag.getString(ACTIVE_RECIPE_TAG))
+                : null;
     }
 
     @Override
@@ -125,6 +138,9 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
         super.saveAdditional(tag);
         tag.put(ITEMS_TAG, itemHandler.serializeNBT());
         tag.putInt(REPAIR_PROGRESS_TAG, repairProgress);
+        if (activeRecipeId != null) {
+            tag.putString(ACTIVE_RECIPE_TAG, activeRecipeId.toString());
+        }
     }
 
     @Override
@@ -199,9 +215,14 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
     }
 
     private boolean tickRepair() {
-        var recipe = RelicRepairRecipes.findForRelic(itemHandler.getStackInSlot(SLOT_RELIC)).orElse(null);
+        var recipe = RelicRepairRecipes.findMatching(level, itemHandler).orElse(null);
         if (recipe == null || !canRepair(recipe)) {
             return resetProgress();
+        }
+
+        if (!recipe.getId().equals(activeRecipeId)) {
+            repairProgress = 0;
+            activeRecipeId = recipe.getId();
         }
 
         if (level instanceof ServerLevel serverLevel) {
@@ -211,12 +232,13 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
         if (repairProgress >= recipe.repairTime()) {
             completeRepair(recipe);
             repairProgress = 0;
+            activeRecipeId = null;
         }
         return true;
     }
 
     private boolean canRepair(RelicRepairRecipe recipe) {
-        if (itemHandler.getStackInSlot(SLOT_FEYSILVER).getCount() < recipe.feysilverCost()) {
+        if (!recipe.catalyst().test(itemHandler.getStackInSlot(SLOT_CATALYST))) {
             return false;
         }
 
@@ -232,9 +254,9 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
 
     private void completeRepair(RelicRepairRecipe recipe) {
         itemHandler.getStackInSlot(SLOT_RELIC).shrink(1);
-        itemHandler.getStackInSlot(SLOT_FEYSILVER).shrink(recipe.feysilverCost());
-        for (int index = SLOT_MATERIAL_1; index <= SLOT_MATERIAL_3; index++) {
-            itemHandler.getStackInSlot(index).shrink(1);
+        itemHandler.getStackInSlot(SLOT_CATALYST).shrink(recipe.catalyst().count());
+        for (int index = 0; index < RelicRepairRecipe.MATERIAL_COUNT; index++) {
+            itemHandler.getStackInSlot(SLOT_MATERIAL_1 + index).shrink(recipe.materialCost(index));
         }
         itemHandler.setStackInSlot(SLOT_OUTPUT, recipe.output());
         if (level instanceof ServerLevel serverLevel) {
@@ -243,15 +265,19 @@ public class RelicRepairTableBlockEntity extends BlockEntity implements MenuProv
     }
 
     private boolean resetProgress() {
-        if (repairProgress == 0) {
+        if (repairProgress == 0 && activeRecipeId == null) {
             return false;
         }
         repairProgress = 0;
+        activeRecipeId = null;
         return true;
     }
 
     private int getCurrentRepairTime() {
-        return RelicRepairRecipes.findForRelic(itemHandler.getStackInSlot(SLOT_RELIC))
+        if (level == null) {
+            return 0;
+        }
+        return RelicRepairRecipes.findForRelic(level, itemHandler.getStackInSlot(SLOT_RELIC))
                 .map(RelicRepairRecipe::repairTime)
                 .orElse(0);
     }

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "relicera:master_smiths_brooch",
+    "relicera:two_handed_sword_brooch",
+    "relicera:vindicators_medal",
+    "relicera:turncoats_medal"
+  ]
+}

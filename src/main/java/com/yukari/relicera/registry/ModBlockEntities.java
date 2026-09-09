@@ -2,6 +2,7 @@ package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.block.DreamcatcherBoxBlockEntity;
+import com.yukari.relicera.common.block.EphemeralBloomBlockEntity;
 import com.yukari.relicera.common.block.RelicRepairTableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,6 +21,11 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<DreamcatcherBoxBlockEntity>> DREAMCATCHER_BOX =
             BLOCK_ENTITIES.register("dreamcatcher_box", () ->
                     BlockEntityType.Builder.of(DreamcatcherBoxBlockEntity::new, ModBlocks.DREAMCATCHER_BOX.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EphemeralBloomBlockEntity>> EPHEMERAL_BLOOM =
+            BLOCK_ENTITIES.register("ephemeral_bloom", () ->
+                    BlockEntityType.Builder.of(EphemeralBloomBlockEntity::new,
+                            ModBlocks.EPHEMERAL_BLOOM.get(), ModBlocks.POTTED_EPHEMERAL_BLOOM.get()).build(null));
 
     private ModBlockEntities() {
     }

@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentMap;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.TradeWithVillagerEvent;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -138,12 +136,7 @@ public final class CovenantTabletEffects {
         }
     }
 
-    public static void completeRaidTask(MobEffectEvent.Added event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)
-                || event.getEffectInstance().getEffect() != MobEffects.HERO_OF_THE_VILLAGE) {
-            return;
-        }
-
+    public static void completeRaidTask(ServerPlayer player) {
         getEquippedTablet(player).ifPresent(CovenantTabletEffects::unlockVillagerDiscount);
     }
 

@@ -1,7 +1,7 @@
 package com.yukari.relicera.mixin;
 
-import com.yukari.relicera.common.effect.TempestSprintEffects;
-import com.yukari.relicera.common.effect.TempestSprintVisualState;
+import com.yukari.relicera.common.effect.tempestsprint.TempestSprintEffects;
+import com.yukari.relicera.common.effect.tempestsprint.TempestSprintVisualState;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

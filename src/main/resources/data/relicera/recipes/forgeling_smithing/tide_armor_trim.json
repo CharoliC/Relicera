@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "minecraft:prismarine" },
+  "second": { "item": "minecraft:diamond" },
+  "result": { "item": "minecraft:tide_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

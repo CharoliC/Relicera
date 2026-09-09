@@ -1,6 +1,6 @@
 package com.yukari.relicera.common.item;
 
-import com.yukari.relicera.common.effect.TempestSprintEffects;
+import com.yukari.relicera.common.effect.tempestsprint.TempestSprintEffects;
 import com.yukari.relicera.registry.ModEffects;
 import com.yukari.relicera.registry.ModItems;
 import net.minecraft.core.BlockPos;

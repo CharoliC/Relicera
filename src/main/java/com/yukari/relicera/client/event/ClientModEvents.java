@@ -1,8 +1,11 @@
 package com.yukari.relicera.client.event;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.client.model.DevilsBearskinModel;
 import com.yukari.relicera.client.renderer.LuminasMoonRenderer;
+import com.yukari.relicera.client.renderer.ForgelingRenderer;
 import com.yukari.relicera.client.particle.ElectricSparkParticle;
+import com.yukari.relicera.client.particle.FlyParticle;
 import com.yukari.relicera.client.particle.GoldHeartParticle;
 import com.yukari.relicera.client.renderer.TempestSprintHorseLayer;
 import com.yukari.relicera.client.screen.FourfoldSherdPendantScreen;
@@ -13,6 +16,7 @@ import com.yukari.relicera.common.curio.CovenantTabletEffects;
 import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
 import com.yukari.relicera.registry.ModBlockEntities;
 import com.yukari.relicera.registry.ModItems;
+import com.yukari.relicera.registry.ModEntityTypes;
 import com.yukari.relicera.registry.ModMenuTypes;
 import com.yukari.relicera.registry.ModParticleTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -49,6 +53,12 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.RELIC_REPAIR_TABLE.get(), RelicRepairTableRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.FORGELING.get(), ForgelingRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(DevilsBearskinModel.LAYER_LOCATION, DevilsBearskinModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -74,5 +84,6 @@ public final class ClientModEvents {
         event.registerSpriteSet(ModParticleTypes.GOLDHEART_0.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.1F));
         event.registerSpriteSet(ModParticleTypes.GOLDHEART_1.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.35F));
         event.registerSpriteSet(ModParticleTypes.GOLDHEART_2.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.65F));
+        event.registerSpriteSet(ModParticleTypes.FLY.get(), FlyParticle.Provider::new);
     }
 }

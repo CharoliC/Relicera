@@ -12,46 +12,69 @@ import com.yukari.relicera.common.curio.DivineSeveranceRingEffects;
 import com.yukari.relicera.common.curio.FourfoldSherdPendantEffects;
 import com.yukari.relicera.common.curio.GranbellsFurnaceEffects;
 import com.yukari.relicera.common.curio.IluthiasChaliceEffects;
+import com.yukari.relicera.common.curio.IllagerMedalAxeEffects;
 import com.yukari.relicera.common.curio.LuminasCelestialLensEffects;
+import com.yukari.relicera.common.curio.LittleTailorsBeltEffects;
+import com.yukari.relicera.common.curio.MasterSmithsBroochEffects;
 import com.yukari.relicera.common.curio.NightGlovesEffects;
 import com.yukari.relicera.common.curio.NereiasCrownEffects;
+import com.yukari.relicera.common.curio.RippleheartRingEffects;
 import com.yukari.relicera.common.curio.StriderSpursEffects;
 import com.yukari.relicera.common.curio.TreasureHuntersGlovesEffects;
-import com.yukari.relicera.common.effect.IluthiasBlessingEffects;
-import com.yukari.relicera.common.effect.TempestSprintEffects;
+import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
+import com.yukari.relicera.common.curio.TwoHandedSwordBroochEffects;
+import com.yukari.relicera.common.curio.VindicatorsMedalEffects;
+import com.yukari.relicera.common.curio.WarpCrystalEffects;
+import com.yukari.relicera.common.effect.furnaceofwar.FurnaceOfWarEffects;
+import com.yukari.relicera.common.effect.iluthiasblessing.IluthiasBlessingEffects;
+import com.yukari.relicera.common.effect.tempestsprint.TempestSprintEffects;
+import com.yukari.relicera.common.entity.forgeling.ForgelingWorksiteManager;
+import com.yukari.relicera.common.item.feysilver.FeysilverForgingKnowledge;
 import com.yukari.relicera.common.item.PastoralMelodyEffects;
 import com.yukari.relicera.common.item.RottenTuskEffects;
 import com.yukari.relicera.common.item.RippleheartPearlEffects;
 import com.yukari.relicera.common.item.SolarEmberEffects;
 import com.yukari.relicera.common.item.StormscaleDrops;
 import com.yukari.relicera.common.item.TempestsReinsEffects;
+import com.yukari.relicera.common.item.armor.devilsbearskin.DevilsBearskinEffects;
+import com.yukari.relicera.common.raid.IllagerMedalAdvancements;
+import com.yukari.relicera.common.raid.TurncoatPatrolSpawner;
 import com.yukari.relicera.common.raid.WarfireFragmentAllayEffects;
 import com.yukari.relicera.common.raid.WarfireFragmentDrops;
+import com.yukari.relicera.common.item.silkofnight.SilkOfNightDecoration;
+import com.yukari.relicera.common.item.silkofnight.SilkOfNightEffects;
 import com.yukari.relicera.registry.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.VanillaGameEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingConversionEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.living.LivingSwapItemsEvent;
+import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.TradeWithVillagerEvent;
 import net.minecraftforge.event.level.SleepFinishedTimeEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -69,10 +92,13 @@ public final class CommonGameEvents {
         }
 
         if (event.player instanceof ServerPlayer serverPlayer) {
+            DevilsBearskinEffects.tickPlayer(serverPlayer);
             AstralObservationTracker.tick(serverPlayer);
             RottenTuskEffects.repelPiglins(serverPlayer);
             SolarEmberEffects.tick(serverPlayer);
             TreasureHuntersGlovesEffects.tickPlayerLuck(serverPlayer);
+            TwoHandedSwordBroochEffects.tickPlayer(serverPlayer);
+            RippleheartRingEffects.tickPlayer(serverPlayer);
         }
         GranbellsFurnaceEffects.tickPlayer(event.player);
         LuminasCelestialLensEffects.tickPlayerFlight(event.player);
@@ -84,7 +110,25 @@ public final class CommonGameEvents {
             AshenTouchEffects.clearQueuedFires(serverLevel);
             DreamcatcherBoxSleepRewards.tickLevel(serverLevel);
             PastoralMelodyEffects.tickLevel(serverLevel);
+            if (serverLevel.getGameTime() % 20L == 0L) {
+                ForgelingWorksiteManager.cleanupInvalidBindings(serverLevel);
+            }
+            TurncoatPatrolSpawner.tickLevel(serverLevel);
         }
+    }
+
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        FurnaceOfWarEffects.processPendingWeaponBurns(event);
+        LittleTailorsBeltEffects.processPendingReveals(event);
+    }
+
+    @SubscribeEvent
+    public static void onServerStopped(ServerStoppedEvent event) {
+        DevilsBearskinEffects.onServerStopped();
+        FurnaceOfWarEffects.clearPendingWeaponBurns();
+        LittleTailorsBeltEffects.clearPendingReveals();
+        TurncoatPatrolSpawner.clear();
     }
 
     @SubscribeEvent
@@ -95,13 +139,17 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
         AstralObservationData.copy(event.getOriginal(), event.getEntity());
+        FeysilverForgingKnowledge.copy(event.getOriginal(), event.getEntity());
         GranbellsFurnaceEffects.restoreKeptInventory(event);
+        DevilsBearskinEffects.handlePlayerClone(event);
     }
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             AstralObservationData.sync(serverPlayer);
+            FeysilverForgingKnowledge.sync(serverPlayer);
+            RippleheartRingEffects.forceSync(serverPlayer);
         }
     }
 
@@ -109,6 +157,8 @@ public final class CommonGameEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             AstralObservationData.sync(serverPlayer);
+            FeysilverForgingKnowledge.sync(serverPlayer);
+            RippleheartRingEffects.forceSync(serverPlayer);
         }
     }
 
@@ -116,6 +166,18 @@ public final class CommonGameEvents {
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             AstralObservationData.sync(serverPlayer);
+            FeysilverForgingKnowledge.sync(serverPlayer);
+            RippleheartRingEffects.forceSync(serverPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            DevilsBearskinEffects.onPlayerLoggedOut(serverPlayer);
+            RippleheartRingEffects.forgetPlayer(serverPlayer);
+            TreasureHuntersGlovesEffects.forgetPlayer(serverPlayer);
+            TurncoatPatrolSpawner.forgetPlayer(serverPlayer);
         }
     }
 
@@ -160,30 +222,58 @@ public final class CommonGameEvents {
             return;
         }
         NereiasCrownEffects.reduceActiveDamage(event);
+        MasterSmithsBroochEffects.reduceDamage(event);
         AstralLensDamageProtection.apply(event);
         NightGlovesEffects.applyNightMeleeDamageBonus(event);
         BrutalPlunderBadgeEffects.applyDamageBonus(event);
+        TurncoatsMedalEffects.applyHeroDamageBonus(event);
         AshenTouchEffects.applyMeleeFireEffects(event);
         GranbellsFurnaceEffects.applyOutgoingDamageBonus(event);
+        RippleheartRingEffects.modifyCombatDamage(event);
         FourfoldSherdPendantEffects.applyDamageEffects(event);
         IluthiasChaliceEffects.applyDamageEffects(event);
         NereiasCrownEffects.rememberWearerTarget(event);
         WarfireFragmentAllayEffects.preventAllayDamage(event);
     }
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLivingHurtLowest(LivingHurtEvent event) {
+        RippleheartRingEffects.applyCombatTriggers(event);
+    }
+
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
+        LittleTailorsBeltEffects.rememberFailedOneShotCandidate(event);
         CovenantTabletEffects.completeHighDamageTask(event);
         IluthiasChaliceEffects.applyRegeneration(event);
+        TurncoatsMedalEffects.applyBadOmenLifeSteal(event);
+        IllagerMedalAxeEffects.applyAxeHitEffects(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLivingDamageLowest(LivingDamageEvent event) {
+        WarpCrystalEffects.preventLethalDamage(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLivingHeal(LivingHealEvent event) {
+        RippleheartRingEffects.applyHealingEffects(event);
     }
 
     @SubscribeEvent
     public static void onAttackEntity(AttackEntityEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            TwoHandedSwordBroochEffects.tickPlayer(serverPlayer);
+        }
         AshenTouchEffects.rememberPreAttackFireState(event);
     }
 
     @SubscribeEvent
     public static void onLivingAttack(LivingAttackEvent event) {
+        if (LittleTailorsBeltEffects.preventIntimidatedAttack(event)) {
+            return;
+        }
+        FurnaceOfWarEffects.scheduleWeaponBurn(event);
         if (CovenantTabletEffects.preventFallDamage(event)) {
             return;
         }
@@ -204,9 +294,21 @@ public final class CommonGameEvents {
         WarfireFragmentAllayEffects.preventAllayAttack(event);
     }
 
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public static void onLivingAttackLowest(LivingAttackEvent event) {
+        WarpCrystalEffects.tryRandomDodge(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingSwapHands(LivingSwapItemsEvent.Hands event) {
+        TwoHandedSwordBroochEffects.preventHandSwap(event);
+    }
+
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
+        DevilsBearskinEffects.rememberDoomedBearskin(event);
         GranbellsFurnaceEffects.rememberInventoryForFireOrLavaDeath(event);
+        IllagerMedalAdvancements.onLivingDeath(event);
         WarfireFragmentDrops.onLivingDeath(event);
     }
 
@@ -215,6 +317,7 @@ public final class CommonGameEvents {
         if (GranbellsFurnaceEffects.cancelKeptInventoryDrops(event)) {
             return;
         }
+        DevilsBearskinEffects.removeDoomedBearskinDrop(event);
         RottenTuskEffects.addZoglinDrop(event);
         BrutalPlunderBadgeEffects.addPiglinBarterDrop(event);
         DivineSeveranceRingEffects.addGlowingUndeadHeadDrop(event);
@@ -240,6 +343,7 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onLivingUseItemFinish(LivingEntityUseItemEvent.Finish event) {
         FourfoldSherdPendantEffects.applyConsumptionBonuses(event);
+        DevilsBearskinEffects.applyPostConsumptionNausea(event);
     }
 
     @SubscribeEvent
@@ -249,11 +353,24 @@ public final class CommonGameEvents {
 
     @SubscribeEvent
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        DevilsBearskinEffects.refuseVillagerTrade(event);
+        if (event.isCanceled()) {
+            return;
+        }
         NereiasCrownEffects.takeDrownedHeldItems(event);
         if (event.isCanceled()) {
             return;
         }
+        TreasureHuntersGlovesEffects.handleMinecartInteraction(event);
+        if (event.isCanceled()) {
+            return;
+        }
         RippleheartPearlEffects.feedEntity(event);
+    }
+
+    @SubscribeEvent
+    public static void onContainerOpen(PlayerContainerEvent.Open event) {
+        TreasureHuntersGlovesEffects.onContainerOpen(event);
     }
 
     @SubscribeEvent
@@ -269,11 +386,18 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
         NereiasCrownEffects.redirectAquaticAllyTarget(event);
+        LittleTailorsBeltEffects.preventIntimidatedTarget(event);
     }
 
     @SubscribeEvent
     public static void onAnvilRepair(AnvilRepairEvent event) {
         GranbellsFurnaceEffects.preventAnvilDamage(event);
+    }
+
+    @SubscribeEvent
+    public static void onAnvilUpdate(AnvilUpdateEvent event) {
+        FeysilverForgingKnowledge.updateAnvilResult(event);
+        SilkOfNightDecoration.updateAnvilResult(event);
     }
 
     @SubscribeEvent
@@ -283,15 +407,24 @@ public final class CommonGameEvents {
 
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+        LittleTailorsBeltEffects.clearIntimidatedTarget(event.getEntity());
+        FurnaceOfWarEffects.updateGrantedEffect(event.getEntity());
         WarfireFragmentAllayEffects.tickAllayAura(event);
         StriderSpursEffects.tickStrider(event);
         GranbellsFurnaceEffects.tickLavaStanding(event.getEntity());
         FourfoldSherdPendantEffects.tickAttributes(event.getEntity());
+        MasterSmithsBroochEffects.tickAttributes(event.getEntity());
+        IllagerMedalAxeEffects.tickAttackSpeed(event.getEntity());
         IluthiasChaliceEffects.tickImmunities(event.getEntity());
         LuminasCelestialLensEffects.tickImmunities(event.getEntity());
         NereiasCrownEffects.tick(event);
         TempestsReinsEffects.tickHorse(event);
         TempestSprintEffects.tickHorse(event);
+    }
+
+    @SubscribeEvent
+    public static void onProjectileImpact(ProjectileImpactEvent event) {
+        FurnaceOfWarEffects.handleProjectileImpact(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -304,15 +437,24 @@ public final class CommonGameEvents {
     @SubscribeEvent
     public static void onVanillaGameEvent(VanillaGameEvent event) {
         NightGlovesEffects.suppressContainerVibrations(event);
+        SilkOfNightEffects.suppressMovementVibrations(event);
     }
 
     @SubscribeEvent
     public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         LuminasCelestialLensEffects.preventDarknessAndBlindness(event);
+        RippleheartRingEffects.transferHarmfulEffect(event);
     }
 
     @SubscribeEvent
-    public static void onMobEffectAdded(MobEffectEvent.Added event) {
-        CovenantTabletEffects.completeRaidTask(event);
+    public static void onLivingConversion(LivingConversionEvent.Post event) {
+        DevilsBearskinEffects.rewardVillagerCure(event);
+        LittleTailorsBeltEffects.copySeenThrough(event);
     }
+
+    @SubscribeEvent
+    public static void onStartTracking(PlayerEvent.StartTracking event) {
+        LittleTailorsBeltEffects.syncSeenThrough(event);
+    }
+
 }

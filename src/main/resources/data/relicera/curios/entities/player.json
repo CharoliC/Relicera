@@ -5,8 +5,10 @@
   "slots": [
     "necklace",
     "hands",
+    "belt",
     "charm",
     "ring",
+    "relicera_brooch",
     "relicera_relic"
   ]
 }

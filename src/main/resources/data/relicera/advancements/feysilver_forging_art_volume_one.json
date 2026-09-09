@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:ancient_forge",
+  "display": {
+    "icon": {
+      "item": "relicera:feysilver_forging_art_volume_one"
+    },
+    "title": {
+      "translate": "advancements.relicera.feysilver_forging_art_volume_one.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.feysilver_forging_art_volume_one.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_feysilver_forging_art_volume_one": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:feysilver_forging_art_volume_one"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

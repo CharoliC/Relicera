@@ -1,0 +1,7 @@
+{
+  "type": "relicera:ancient_forge",
+  "biomes": "#relicera:has_structure/ancient_forge",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none"
+}

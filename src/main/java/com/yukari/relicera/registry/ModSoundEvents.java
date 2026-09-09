@@ -13,6 +13,7 @@ public final class ModSoundEvents {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ReliceraMod.MOD_ID);
 
     public static final RegistryObject<SoundEvent> PASTORAL_MELODY_PLAY = register("item.pastoral_melody.play");
+    public static final RegistryObject<SoundEvent> RABBITS_POCKET_WATCH_USE = register("item.rabbits_pocket_watch.use");
 
     private ModSoundEvents() {
     }

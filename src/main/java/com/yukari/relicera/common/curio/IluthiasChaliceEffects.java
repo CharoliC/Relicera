@@ -28,7 +28,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 public final class IluthiasChaliceEffects {
     private static final int REGENERATION_DURATION_TICKS = 5 * 20;
     private static final int ENHANCED_TOTEM_FIRE_RESISTANCE_TICKS = 120 * 20;
-    private static final int ENHANCED_TOTEM_ILUTHIAS_BLESSING_TICKS = 5 * 20;
 
     private IluthiasChaliceEffects() {
     }
@@ -156,7 +155,11 @@ public final class IluthiasChaliceEffects {
         entity.setHealth(1.0F);
         entity.removeAllEffects();
         entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, ENHANCED_TOTEM_FIRE_RESISTANCE_TICKS, 0));
-        entity.addEffect(new MobEffectInstance(ModEffects.ILUTHIAS_BLESSING.get(), ENHANCED_TOTEM_ILUTHIAS_BLESSING_TICKS, 0));
+        entity.addEffect(new MobEffectInstance(
+                ModEffects.ILUTHIAS_BLESSING.get(),
+                ModCommonConfig.ILUTHIAS_CHALICE_ENHANCED_TOTEM_ILUTHIAS_BLESSING_DURATION.get(),
+                0
+        ));
         entity.level().broadcastEntityEvent(entity, (byte) 35);
     }
 

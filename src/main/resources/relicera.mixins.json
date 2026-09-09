@@ -6,17 +6,29 @@
   "refmap": "relicera.refmap.json",
   "mixins": [
     "AbstractHorseMixin",
+    "ArmorTrimMixin",
     "AxolotlMixin",
     "ElderGuardianMixin",
+    "EnchantmentHelperMixin",
     "EntityMixin",
     "FishingHookMixin",
+    "FoodDataMixin",
     "FoxAccessor",
+    "IronGolemMixin",
     "LivingEntityMixin",
+    "PlayerMixin",
     "PlayerAccessor",
     "RandomizableContainerBlockEntityMixin",
-    "VillagerMixin"
+    "RaidMixin",
+    "SlotMixin",
+    "VillagerMixin",
+    "VillagerHostilesSensorMixin",
+    "WardenEntitySensorMixin"
   ],
-  "client": [],
+  "client": [
+    "client.LivingEntityRendererMixin",
+    "client.PlayerItemInHandLayerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

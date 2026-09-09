@@ -3,7 +3,7 @@ package com.yukari.relicera.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.yukari.relicera.ReliceraMod;
-import com.yukari.relicera.common.effect.TempestSprintEffects;
+import com.yukari.relicera.common.effect.tempestsprint.TempestSprintEffects;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.EntityModelSet;

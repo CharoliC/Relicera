@@ -1,10 +1,9 @@
 package com.yukari.relicera.common.menu;
 
 import com.yukari.relicera.common.block.RelicRepairTableBlockEntity;
+import com.yukari.relicera.common.recipe.relicrepair.RelicRepairRecipes;
 import com.yukari.relicera.registry.ModBlocks;
-import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModMenuTypes;
-import com.yukari.relicera.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,6 +26,7 @@ public class RelicRepairTableMenu extends AbstractContainerMenu {
 
     private final ContainerLevelAccess access;
     private final ContainerData data;
+    private final Level level;
 
     public RelicRepairTableMenu(int containerId, Inventory playerInventory, FriendlyByteBuf extraData) {
         this(containerId, playerInventory, getBlockEntity(playerInventory.player.level(), extraData.readBlockPos()));
@@ -35,6 +35,7 @@ public class RelicRepairTableMenu extends AbstractContainerMenu {
     public RelicRepairTableMenu(int containerId, Inventory playerInventory, RelicRepairTableBlockEntity blockEntity) {
         super(ModMenuTypes.RELIC_REPAIR_TABLE.get(), containerId);
         this.data = blockEntity.getDataAccess();
+        this.level = playerInventory.player.level();
         this.access = ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos());
 
         ItemStackHandler itemHandler = blockEntity.getItemHandler();
@@ -44,17 +45,17 @@ public class RelicRepairTableMenu extends AbstractContainerMenu {
     }
 
     private void addBlockSlots(ItemStackHandler itemHandler) {
-        this.addSlot(new SlotItemHandler(itemHandler, RelicRepairTableBlockEntity.SLOT_FEYSILVER, 54, 21) {
+        this.addSlot(new SlotItemHandler(itemHandler, RelicRepairTableBlockEntity.SLOT_CATALYST, 54, 21) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.is(ModItems.FEYSILVER_INGOT.get());
+                return RelicRepairRecipes.acceptsCatalyst(level, stack);
             }
         });
 
         this.addSlot(new SlotItemHandler(itemHandler, RelicRepairTableBlockEntity.SLOT_RELIC, 80, 12) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return isRelicSlotItem(stack);
+                return RelicRepairRecipes.acceptsRelic(level, stack);
             }
         });
 
@@ -97,11 +98,11 @@ public class RelicRepairTableMenu extends AbstractContainerMenu {
             if (!this.moveItemStackTo(stack, PLAYER_INVENTORY_START, HOTBAR_END, true)) {
                 return ItemStack.EMPTY;
             }
-        } else if (stack.is(ModItems.FEYSILVER_INGOT.get())) {
-            if (!this.moveItemStackTo(stack, RelicRepairTableBlockEntity.SLOT_FEYSILVER, RelicRepairTableBlockEntity.SLOT_FEYSILVER + 1, false)) {
+        } else if (RelicRepairRecipes.acceptsCatalyst(level, stack)) {
+            if (!this.moveItemStackTo(stack, RelicRepairTableBlockEntity.SLOT_CATALYST, RelicRepairTableBlockEntity.SLOT_CATALYST + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (isRelicSlotItem(stack)) {
+        } else if (RelicRepairRecipes.acceptsRelic(level, stack)) {
             if (!this.moveItemStackTo(stack, RelicRepairTableBlockEntity.SLOT_RELIC, RelicRepairTableBlockEntity.SLOT_RELIC + 1, false)) {
                 return ItemStack.EMPTY;
             }
@@ -145,10 +146,6 @@ public class RelicRepairTableMenu extends AbstractContainerMenu {
             return 0;
         }
         return Math.min(size, getRepairProgress() * size / repairTime);
-    }
-
-    public static boolean isRelicSlotItem(ItemStack stack) {
-        return stack.is(ModTags.BROKEN_RELICS) || stack.is(ModTags.REPAIRED_RELICS);
     }
 
     private static RelicRepairTableBlockEntity getBlockEntity(Level level, BlockPos pos) {

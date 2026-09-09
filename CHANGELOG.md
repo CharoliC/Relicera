@@ -1,3 +1,33 @@
+#### 1.2.0
+
++ Added a structure, **Ancient Forge**.
++ Added a new mob, **Forgeling**.
++ Added several curios: 
+  + **Master Smiths Brooch**.
+  + **Two-handed Sword Brooch** (not available for now).
+  + **Vindicator's Medal**.
+  + **Turncoat's Medal**.
+  + **RippleHeart Rings**.
+  + **Ring of Satiety**.
+  + **Warp Crystal**.
+  + **Leather Gloves**.
++ Added items:
+  + **Feysilver Forging Book**.
+  + **Silk of Night**.
+  + **Bucket of Forgeling**.
+  + some WIP items.
++ Added a new effect, **Furnace of War**. It belongs to Granbell's Furnace.
++ Added several advancements.
++ Added JEI compat for relic repair recipe. It can be turned off in the client configuration file.
++ Added 2 configuration items for Ephemeral Bloom.
++ Added 1 configuration item for Iluthia's Chalice.
++ Treasure Hunter's Gloves now support Minecart with Chest and it Lootr variant.
++ Removed 1 configuration item for Warfire Fragment. Its drop now depend on raider tag.
++ Changed the crafting of Primal Soil, and it can be used to craft the Wither Rose.
++ Ephemeral Bloom can be placed as plants.
+
+
+
 #### 1.1.4
 
 + Added Covenant Tablet, Astral Storybook, Treasure Hunter Gloves.
@@ -31,8 +61,6 @@
 - Changed some item textures.
 - Changed GUI of Relic Repair Table, now ghost item will not be showed after broken relic/relic put in.
 - Fixed some tooltip error.
-
-
 
 
 

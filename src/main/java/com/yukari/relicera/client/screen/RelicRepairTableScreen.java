@@ -4,8 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.block.RelicRepairTableBlockEntity;
 import com.yukari.relicera.common.menu.RelicRepairTableMenu;
-import com.yukari.relicera.common.recipe.RelicRepairRecipe;
-import com.yukari.relicera.common.recipe.RelicRepairRecipes;
+import com.yukari.relicera.common.recipe.relicrepair.RelicRepairRecipe;
+import com.yukari.relicera.common.recipe.relicrepair.RelicRepairRecipes;
 import java.util.List;
 import net.minecraft.util.Mth;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,6 +23,11 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
     private static final int ARROW_V = 166;
     private static final int ARROW_WIDTH = 13;
     private static final int ARROW_HEIGHT = 14;
+    private static final int GHOST_CATALYST_SLOT_X = 53;
+    private static final int GHOST_CATALYST_SLOT_Y = 20;
+    private static final int GHOST_CATALYST_SLOT_U = 0;
+    private static final int GHOST_CATALYST_SLOT_V = 198;
+    private static final int GHOST_CATALYST_SLOT_SIZE = 18;
     private static final int GHOST_RELIC_SLOT_X = 79;
     private static final int GHOST_RELIC_SLOT_Y = 11;
     private static final int GHOST_RELIC_SLOT_U_START = 0;
@@ -56,6 +61,7 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
         int x = this.leftPos;
         int y = this.topPos;
         guiGraphics.blit(TEXTURE, x, y, 0, 0, this.imageWidth, this.imageHeight);
+        renderEmptyCatalystSlotGhost(guiGraphics, x, y);
         renderEmptyRelicSlotGhost(guiGraphics, x, y, partialTick);
         renderRepairProgress(guiGraphics, x, y);
     }
@@ -70,6 +76,25 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
         if (height > 0) {
             guiGraphics.blit(TEXTURE, x + ARROW_X, y + ARROW_Y, ARROW_U, ARROW_V, ARROW_WIDTH, height);
         }
+    }
+
+    private void renderEmptyCatalystSlotGhost(GuiGraphics guiGraphics, int x, int y) {
+        if (!this.menu.getRepairSlotItem(RelicRepairTableBlockEntity.SLOT_CATALYST).isEmpty()) {
+            return;
+        }
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        guiGraphics.blit(
+                TEXTURE,
+                x + GHOST_CATALYST_SLOT_X,
+                y + GHOST_CATALYST_SLOT_Y,
+                GHOST_CATALYST_SLOT_U,
+                GHOST_CATALYST_SLOT_V,
+                GHOST_CATALYST_SLOT_SIZE,
+                GHOST_CATALYST_SLOT_SIZE
+        );
+        RenderSystem.disableBlend();
     }
 
     private void renderEmptyRelicSlotGhost(GuiGraphics guiGraphics, int x, int y, float partialTick) {
@@ -114,9 +139,13 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
             for (int index = 0; index < RelicRepairRecipe.MATERIAL_COUNT; index++) {
                 if (this.menu.getRepairSlotItem(RelicRepairTableBlockEntity.SLOT_MATERIAL_1 + index).isEmpty()
                         && isHoveringMaterialSlot(index, mouseX, mouseY)) {
+                    Component hint = recipe.hint(index);
+                    if (hint.getString().isEmpty()) {
+                        return;
+                    }
                     guiGraphics.renderComponentTooltip(
                             this.font,
-                            List.of(recipe.hint(index).copy().withStyle(ChatFormatting.GRAY)),
+                            List.of(hint.copy().withStyle(ChatFormatting.GRAY)),
                             mouseX,
                             mouseY
                     );
@@ -136,6 +165,12 @@ public class RelicRepairTableScreen extends AbstractContainerScreen<RelicRepairT
     }
 
     private java.util.Optional<RelicRepairRecipe> getCurrentRecipe() {
-        return RelicRepairRecipes.findForRelic(this.menu.getRepairSlotItem(RelicRepairTableBlockEntity.SLOT_RELIC));
+        if (this.minecraft == null || this.minecraft.level == null) {
+            return java.util.Optional.empty();
+        }
+        return RelicRepairRecipes.findForRelic(
+                this.minecraft.level,
+                this.menu.getRepairSlotItem(RelicRepairTableBlockEntity.SLOT_RELIC)
+        );
     }
 }

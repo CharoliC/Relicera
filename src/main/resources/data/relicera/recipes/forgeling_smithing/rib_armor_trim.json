@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "minecraft:netherrack" },
+  "second": { "item": "minecraft:bone" },
+  "result": { "item": "minecraft:rib_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

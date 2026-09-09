@@ -16,7 +16,8 @@
   },
   "rewards": {
     "recipes": [
-      "relicera:night_gloves"
+      "relicera:night_gloves",
+      "relicera:silk_of_night"
     ]
   }
 }

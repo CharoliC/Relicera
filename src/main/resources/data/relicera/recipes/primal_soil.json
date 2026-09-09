@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "WCW",
-    "PMB",
-    "WEW"
+    "RCR",
+    "PEM",
+    "RBR"
   ],
   "key": {
-    "W": {
-      "item": "minecraft:wheat"
-    },
-    "M": {
-      "item": "minecraft:packed_mud"
+    "R": {
+      "item": "minecraft:hanging_roots"
     },
     "C": {
       "item": "minecraft:cobblestone"
@@ -19,11 +16,14 @@
     "P": {
       "item": "minecraft:prismarine"
     },
+    "E": {
+      "item": "minecraft:experience_bottle"
+    },
+    "M": {
+      "item": "minecraft:packed_mud"
+    },
     "B": {
       "item": "minecraft:blackstone"
-    },
-    "E": {
-      "item": "minecraft:end_stone"
     }
   },
   "result": {

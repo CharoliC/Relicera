@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "minecraft:blackstone" },
+  "second": { "item": "minecraft:diamond" },
+  "result": { "item": "minecraft:snout_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

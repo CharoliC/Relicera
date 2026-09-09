@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.MinecartChest;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,6 +42,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -50,10 +52,12 @@ public final class TreasureHuntersGlovesEffects {
     private static final String LOOT_TABLE_KEY = "LootTable";
     private static final String INITIAL_CONTENTS_KEY = "InitialContents";
     private static final String REFRESHED_KEY = "Refreshed";
+    private static final long PENDING_MINECART_OPEN_TIMEOUT_TICKS = 5L;
 
     private static final UUID LUCK_MODIFIER_ID = UUID.fromString("809da44f-7c5d-4cfb-bd77-72ad471d6d82");
     private static final String LUCK_MODIFIER_NAME = "Relicera treasure hunter's gloves luck";
     private static final Map<UUID, DoubleChestOpenKey> LAST_DOUBLE_CHEST_OPEN_BY_PLAYER = new HashMap<>();
+    private static final Map<UUID, PendingMinecartOpen> PENDING_MINECART_OPENS = new HashMap<>();
 
     private TreasureHuntersGlovesEffects() {
     }
@@ -155,6 +159,103 @@ public final class TreasureHuntersGlovesEffects {
                 .toList());
         event.setCancellationResult(InteractionResult.CONSUME);
         event.setCanceled(true);
+    }
+
+    public static void handleMinecartInteraction(PlayerInteractEvent.EntityInteract event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)
+                || !(player.level() instanceof ServerLevel level)
+                || event.getHand() != InteractionHand.MAIN_HAND
+                || !(event.getTarget() instanceof MinecartChest minecart)) {
+            return;
+        }
+
+        if (player.isShiftKeyDown()
+                && player.getMainHandItem().isEmpty()
+                && player.getOffhandItem().isEmpty()
+                && isEquipped(player)
+                && tryRefreshMinecart(level, player, minecart)) {
+            event.setCancellationResult(InteractionResult.CONSUME);
+            event.setCanceled(true);
+            return;
+        }
+
+        if (!player.isShiftKeyDown() && isEquipped(player) && minecart.getLootTable() != null) {
+            PENDING_MINECART_OPENS.put(player.getUUID(), new PendingMinecartOpen(
+                    level.dimension(),
+                    minecart.getUUID(),
+                    minecart.getLootTable(),
+                    level.getGameTime()
+            ));
+        }
+    }
+
+    public static void onContainerOpen(PlayerContainerEvent.Open event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)
+                || !(player.level() instanceof ServerLevel level)) {
+            return;
+        }
+
+        PendingMinecartOpen pending = PENDING_MINECART_OPENS.remove(player.getUUID());
+        if (pending == null
+                || !pending.dimension().equals(level.dimension())
+                || level.getGameTime() - pending.gameTime() > PENDING_MINECART_OPEN_TIMEOUT_TICKS
+                || !(level.getEntity(pending.minecartId()) instanceof MinecartChest minecart)
+                || minecart.getLootTable() != null
+                || !isEquipped(player)) {
+            return;
+        }
+
+        rememberMinecartRefreshData(minecart, pending.lootTableId());
+        incrementEquippedGloves(player);
+    }
+
+    public static void forgetPlayer(ServerPlayer player) {
+        UUID playerId = player.getUUID();
+        PENDING_MINECART_OPENS.remove(playerId);
+        LAST_DOUBLE_CHEST_OPEN_BY_PLAYER.remove(playerId);
+    }
+
+    private static void rememberMinecartRefreshData(MinecartChest minecart, ResourceLocation lootTableId) {
+        CompoundTag data = getOrCreateMinecartRefreshData(minecart);
+        data.putString(LOOT_TABLE_KEY, lootTableId.toString());
+        data.put(INITIAL_CONTENTS_KEY, TreasureHuntersGlovesContainerContents.createSignature(minecart));
+        data.putBoolean(REFRESHED_KEY, false);
+    }
+
+    private static boolean tryRefreshMinecart(ServerLevel level, ServerPlayer player, MinecartChest minecart) {
+        CompoundTag data = getMinecartRefreshData(minecart);
+        if (!data.contains(LOOT_TABLE_KEY, Tag.TAG_STRING)
+                || !data.contains(INITIAL_CONTENTS_KEY, Tag.TAG_LIST)
+                || data.getBoolean(REFRESHED_KEY)
+                || !TreasureHuntersGlovesContainerContents.canRefresh(
+                List.of(data.getList(INITIAL_CONTENTS_KEY, Tag.TAG_COMPOUND)),
+                List.of(minecart),
+                ModCommonConfig.TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH.get()
+        )) {
+            return false;
+        }
+
+        ResourceLocation lootTableId = ResourceLocation.tryParse(data.getString(LOOT_TABLE_KEY));
+        if (lootTableId == null) {
+            return false;
+        }
+
+        minecart.clearContent();
+        fillMinecartFromLootTable(level, player, minecart, lootTableId);
+        data.putBoolean(REFRESHED_KEY, true);
+        playRefreshEffects(level, minecart.position().add(0.0D, 0.5D, 0.0D));
+        return true;
+    }
+
+    private static void fillMinecartFromLootTable(ServerLevel level, ServerPlayer player, MinecartChest minecart,
+                                                   ResourceLocation lootTableId) {
+        LootTable lootTable = level.getServer().getLootData().getLootTable(lootTableId);
+        LootParams.Builder lootParams = new LootParams.Builder(level)
+                .withParameter(LootContextParams.ORIGIN, minecart.position())
+                .withParameter(LootContextParams.KILLER_ENTITY, minecart)
+                .withLuck(player.getLuck())
+                .withParameter(LootContextParams.THIS_ENTITY, player);
+        lootTable.fill(minecart, lootParams.create(LootContextParamSets.CHEST), level.random.nextLong());
     }
 
     private static void rememberRefreshData(RandomizableContainerBlockEntity container, ResourceLocation lootTableId) {
@@ -312,11 +413,20 @@ public final class TreasureHuntersGlovesEffects {
         double spreadZ = (maxZ - minZ + 1.0D) * 0.4D;
         int particleCount = positions.size() == 1 ? 32 : 48;
 
+        playRefreshEffects(level, new Vec3(centerX, centerY, centerZ), spreadX, spreadZ, particleCount);
+    }
+
+    public static void playRefreshEffects(ServerLevel level, Vec3 position) {
+        playRefreshEffects(level, position, 0.4D, 0.4D, 32);
+    }
+
+    private static void playRefreshEffects(ServerLevel level, Vec3 position, double spreadX, double spreadZ,
+                                           int particleCount) {
         level.sendParticles(
                 ParticleTypes.REVERSE_PORTAL,
-                centerX,
-                centerY,
-                centerZ,
+                position.x(),
+                position.y(),
+                position.z(),
                 particleCount,
                 spreadX,
                 0.4D,
@@ -325,9 +435,9 @@ public final class TreasureHuntersGlovesEffects {
         );
         level.playSound(
                 null,
-                centerX,
-                centerY,
-                centerZ,
+                position.x(),
+                position.y(),
+                position.z(),
                 SoundEvents.RESPAWN_ANCHOR_CHARGE,
                 SoundSource.BLOCKS,
                 1.0F,
@@ -341,6 +451,18 @@ public final class TreasureHuntersGlovesEffects {
 
     private static CompoundTag getOrCreateRefreshData(RandomizableContainerBlockEntity container) {
         CompoundTag persistentData = container.getPersistentData();
+        if (!persistentData.contains(BLOCK_DATA_TAG, Tag.TAG_COMPOUND)) {
+            persistentData.put(BLOCK_DATA_TAG, new CompoundTag());
+        }
+        return persistentData.getCompound(BLOCK_DATA_TAG);
+    }
+
+    private static CompoundTag getMinecartRefreshData(MinecartChest minecart) {
+        return minecart.getPersistentData().getCompound(BLOCK_DATA_TAG);
+    }
+
+    private static CompoundTag getOrCreateMinecartRefreshData(MinecartChest minecart) {
+        CompoundTag persistentData = minecart.getPersistentData();
         if (!persistentData.contains(BLOCK_DATA_TAG, Tag.TAG_COMPOUND)) {
             persistentData.put(BLOCK_DATA_TAG, new CompoundTag());
         }
@@ -361,6 +483,10 @@ public final class TreasureHuntersGlovesEffects {
     }
 
     private record RefreshTarget(RandomizableContainerBlockEntity container, ResourceLocation lootTableId) {
+    }
+
+    private record PendingMinecartOpen(ResourceKey<Level> dimension, UUID minecartId, ResourceLocation lootTableId,
+                                       long gameTime) {
     }
 
 }

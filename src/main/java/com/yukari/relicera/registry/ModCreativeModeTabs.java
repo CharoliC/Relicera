@@ -21,7 +21,9 @@ public final class ModCreativeModeTabs {
                     .icon(() -> ModItems.ASTRAL_LENS.get().getDefaultInstance())
                     .displayItems((parameters, output) -> ModItems.ITEMS.getEntries().stream()
                             .map(RegistryObject::get)
-                            .filter(item -> item != ModItems.LUMINAS_CELESTIAL_LENS.get())
+                            .filter(item -> item != ModItems.LUMINAS_CELESTIAL_LENS.get()
+                                    && item != ModItems.FORGELING_SPAWN_EGG.get()
+                                    && item != ModItems.RABBITS_POCKET_WATCH.get())
                             .map(ModCreativeModeTabs::getCreativeTabStack)
                             .forEach(output::accept))
                     .build());

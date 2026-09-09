@@ -1,15 +1,18 @@
 package com.yukari.relicera.common.raid;
 
+import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
+import com.yukari.relicera.common.curio.VindicatorsMedalEffects;
 import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public final class WarfireFragmentDrops {
     private WarfireFragmentDrops() {
@@ -19,7 +22,7 @@ public final class WarfireFragmentDrops {
         if (!(event.getEntity() instanceof IronGolem golem)
                 || !(golem.level() instanceof ServerLevel level)
                 || !isDuringRaid(level, golem)
-                || !isConfiguredKiller(event.getSource().getEntity())
+                || !isEligibleKiller(event.getSource().getEntity())
                 || level.random.nextDouble() >= ModCommonConfig.WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE.get()) {
             return;
         }
@@ -39,13 +42,17 @@ public final class WarfireFragmentDrops {
         return level.getRaidAt(golem.blockPosition()) != null;
     }
 
-    private static boolean isConfiguredKiller(Entity entity) {
+    private static boolean isEligibleKiller(Entity entity) {
         if (entity == null) {
             return false;
         }
 
-        ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-        return entityId != null
-                && ModCommonConfig.WARFIRE_FRAGMENT_IRON_GOLEM_KILLER_ENTITY_TYPES.get().contains(entityId.toString());
+        if (entity instanceof LivingEntity livingEntity
+                && (VindicatorsMedalEffects.isEquipped(livingEntity)
+                || TurncoatsMedalEffects.isEquipped(livingEntity))) {
+            return true;
+        }
+
+        return entity.getType().is(EntityTypeTags.RAIDERS) || entity.getType() == EntityType.VEX;
     }
 }

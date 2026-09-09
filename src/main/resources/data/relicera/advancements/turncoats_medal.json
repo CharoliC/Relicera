@@ -1,0 +1,26 @@
+{
+  "parent": "relicera:vindicators_medal",
+  "display": {
+    "icon": {
+      "item": "relicera:turncoats_medal"
+    },
+    "title": {
+      "translate": "advancements.relicera.turncoats_medal.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.turncoats_medal.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "victorious_turncoat": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}
