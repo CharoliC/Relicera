@@ -1,8 +1,6 @@
-package com.yukari.relicera.common.raid;
+package com.yukari.relicera.common.curio;
 
 import com.yukari.relicera.ReliceraMod;
-import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
-import com.yukari.relicera.common.curio.VindicatorsMedalEffects;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;

@@ -19,8 +19,10 @@
     "inside_ancient_forge": {
       "trigger": "minecraft:location",
       "conditions": {
-        "location": {
-          "structure": "relicera:ancient_forge"
+        "player": {
+          "location": {
+            "structure": "relicera:ancient_forge"
+          }
         }
       }
     }

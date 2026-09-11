@@ -27,7 +27,6 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_ALLAY_AURA_RANGE;
     public static final ForgeConfigSpec.DoubleValue ROTTEN_TUSK_PIGLIN_REPEL_RANGE;
     public static final ForgeConfigSpec.DoubleValue FEYSILVER_INGOT_OVERWORLD_CHEST_CHANCE;
-    public static final ForgeConfigSpec.IntValue FEYSILVER_FORGING_ART_VOLUME_ONE_EXPERIENCE_LEVEL_COST;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FEYSILVER_FORGING_ART_VOLUME_ONE_ITEM_BLACKLIST;
     public static final ForgeConfigSpec.DoubleValue MASTER_SMITHS_BROOCH_ARMOR_TOUGHNESS_PER_TRIMMED_ARMOR;
     public static final ForgeConfigSpec.DoubleValue MASTER_SMITHS_BROOCH_DAMAGE_REDUCTION_PER_COATED_ARMOR;
@@ -214,10 +213,6 @@ public final class ModCommonConfig {
         BUILDER.pop();
 
         BUILDER.push("feysilver_forging_art_volume_one");
-
-        FEYSILVER_FORGING_ART_VOLUME_ONE_EXPERIENCE_LEVEL_COST = BUILDER
-                .comment("Experience levels consumed of feysilver coating.")
-                .defineInRange("experienceLevelCost", 50, 0, Integer.MAX_VALUE);
 
         FEYSILVER_FORGING_ART_VOLUME_ONE_ITEM_BLACKLIST = BUILDER
                 .comment("Blacklist of feysilver coating.")

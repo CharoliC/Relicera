@@ -1,4 +1,4 @@
-package com.yukari.relicera.common.raid;
+package com.yukari.relicera.common.loot;
 
 import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
 import com.yukari.relicera.common.curio.VindicatorsMedalEffects;

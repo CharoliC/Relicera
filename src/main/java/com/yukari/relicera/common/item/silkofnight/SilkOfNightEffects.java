@@ -6,18 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.VanillaGameEvent;
 
-import java.util.Set;
-
 public final class SilkOfNightEffects {
-    private static final Set<GameEvent> MOVEMENT_GAME_EVENTS = Set.of(
-            GameEvent.STEP,
-            GameEvent.SWIM,
-            GameEvent.SPLASH,
-            GameEvent.FLAP,
-            GameEvent.ELYTRA_GLIDE,
-            GameEvent.HIT_GROUND
-    );
-
     private SilkOfNightEffects() {
     }
 
@@ -38,7 +27,7 @@ public final class SilkOfNightEffects {
         }
 
         GameEvent gameEvent = event.getVanillaEvent();
-        if (MOVEMENT_GAME_EVENTS.contains(gameEvent)
+        if (gameEvent == GameEvent.HIT_GROUND
                 || gameEvent == GameEvent.ENTITY_DAMAGE
                 && player instanceof SilkOfNightFallContext fallContext
                 && fallContext.relicera$isTakingFallDamage()) {

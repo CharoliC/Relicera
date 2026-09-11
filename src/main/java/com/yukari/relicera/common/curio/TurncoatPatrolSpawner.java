@@ -1,6 +1,5 @@
-package com.yukari.relicera.common.raid;
+package com.yukari.relicera.common.curio;
 
-import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
 import com.yukari.relicera.config.ModCommonConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

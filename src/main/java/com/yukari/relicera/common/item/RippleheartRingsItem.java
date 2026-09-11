@@ -18,20 +18,23 @@ public class RippleheartRingsItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        ItemStack result = stack;
         if (!level.isClientSide()) {
             UUID pairId = RippleheartRingItem.getPairId(stack).orElseGet(UUID::randomUUID);
             ItemStack redRing = ModItems.RIPPLEHEART_RING_RED.get().createBoundStack(pairId);
             ItemStack blueRing = ModItems.RIPPLEHEART_RING_BLUE.get().createBoundStack(pairId);
 
-            if (!player.getAbilities().instabuild) {
-                stack.shrink(1);
+            if (player.getAbilities().instabuild) {
+                giveOrDrop(player, redRing);
+            } else {
+                result = redRing;
+                player.setItemInHand(hand, result);
             }
-            giveOrDrop(player, redRing);
             giveOrDrop(player, blueRing);
             player.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        return InteractionResultHolder.sidedSuccess(result, level.isClientSide());
     }
 
     private static void giveOrDrop(Player player, ItemStack stack) {

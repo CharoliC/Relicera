@@ -16,6 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class FeysilverForgingKnowledge {
     private static final String DATA_KEY = "ReliceraFeysilverForging";
     private static final String VOLUME_ONE_KEY = "VolumeOne";
+    private static final int EXPERIENCE_LEVEL_COST = 39;
 
     private FeysilverForgingKnowledge() {
     }
@@ -57,7 +58,7 @@ public final class FeysilverForgingKnowledge {
         output.setDamageValue(0);
         FeysilverCoating.apply(output);
         event.setOutput(output);
-        event.setCost(ModCommonConfig.FEYSILVER_FORGING_ART_VOLUME_ONE_EXPERIENCE_LEVEL_COST.get());
+        event.setCost(EXPERIENCE_LEVEL_COST);
         event.setMaterialCost(1);
     }
 

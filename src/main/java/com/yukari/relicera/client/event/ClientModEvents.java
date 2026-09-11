@@ -13,7 +13,7 @@ import com.yukari.relicera.client.renderer.RelicRepairTableRenderer;
 import com.yukari.relicera.client.screen.RelicRepairTableScreen;
 import com.yukari.relicera.client.tooltip.ClientIluthiasChaliceTooltip;
 import com.yukari.relicera.common.curio.CovenantTabletEffects;
-import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
+import com.yukari.relicera.common.item.IluthiasChaliceItem.TotemContentsTooltip;
 import com.yukari.relicera.registry.ModBlockEntities;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModEntityTypes;
@@ -75,7 +75,7 @@ public final class ClientModEvents {
 
     @SubscribeEvent
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(IluthiasChaliceTooltip.class, ClientIluthiasChaliceTooltip::new);
+        event.register(TotemContentsTooltip.class, ClientIluthiasChaliceTooltip::new);
     }
 
     @SubscribeEvent

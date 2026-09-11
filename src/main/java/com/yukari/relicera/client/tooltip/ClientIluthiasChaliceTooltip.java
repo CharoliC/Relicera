@@ -1,6 +1,6 @@
 package com.yukari.relicera.client.tooltip;
 
-import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
+import com.yukari.relicera.common.item.IluthiasChaliceItem.TotemContentsTooltip;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -20,7 +20,7 @@ public class ClientIluthiasChaliceTooltip implements ClientTooltipComponent {
     private final NonNullList<ItemStack> totems;
     private final int capacity;
 
-    public ClientIluthiasChaliceTooltip(IluthiasChaliceTooltip tooltip) {
+    public ClientIluthiasChaliceTooltip(TotemContentsTooltip tooltip) {
         this.totems = tooltip.totems();
         this.capacity = tooltip.capacity();
     }

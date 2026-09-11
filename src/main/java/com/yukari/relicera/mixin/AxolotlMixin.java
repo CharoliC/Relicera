@@ -1,6 +1,6 @@
 package com.yukari.relicera.mixin;
 
-import com.yukari.relicera.common.item.RippleheartPearlDrops;
+import com.yukari.relicera.common.loot.RippleheartPearlDrops;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;

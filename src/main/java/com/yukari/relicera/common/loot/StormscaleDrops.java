@@ -1,4 +1,4 @@
-package com.yukari.relicera.common.item;
+package com.yukari.relicera.common.loot;
 
 import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.registry.ModItems;

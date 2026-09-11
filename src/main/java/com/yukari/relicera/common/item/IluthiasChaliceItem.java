@@ -1,6 +1,5 @@
 package com.yukari.relicera.common.item;
 
-import com.yukari.relicera.common.tooltip.IluthiasChaliceTooltip;
 import java.util.Optional;
 import java.util.stream.Stream;
 import net.minecraft.core.NonNullList;
@@ -50,7 +49,7 @@ public class IluthiasChaliceItem extends RelicCurioItem {
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-        return Optional.of(new IluthiasChaliceTooltip(getTotems(stack), TOTEM_CAPACITY));
+        return Optional.of(new TotemContentsTooltip(getTotems(stack), TOTEM_CAPACITY));
     }
 
     @Override
@@ -128,6 +127,9 @@ public class IluthiasChaliceItem extends RelicCurioItem {
             return new ListTag();
         }
         return tag.getList(TAG_TOTEMS, Tag.TAG_COMPOUND);
+    }
+
+    public record TotemContentsTooltip(NonNullList<ItemStack> totems, int capacity) implements TooltipComponent {
     }
 
     private static void playInsertSound(Entity entity) {
