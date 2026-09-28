@@ -5,15 +5,19 @@ import com.yukari.relicera.client.model.DevilsBearskinModel;
 import com.yukari.relicera.client.renderer.LuminasMoonRenderer;
 import com.yukari.relicera.client.renderer.ForgelingRenderer;
 import com.yukari.relicera.client.particle.ElectricSparkParticle;
+import com.yukari.relicera.client.particle.DreamBubbleParticle;
 import com.yukari.relicera.client.particle.FlyParticle;
 import com.yukari.relicera.client.particle.GoldHeartParticle;
 import com.yukari.relicera.client.renderer.TempestSprintHorseLayer;
 import com.yukari.relicera.client.screen.FourfoldSherdPendantScreen;
 import com.yukari.relicera.client.renderer.RelicRepairTableRenderer;
 import com.yukari.relicera.client.screen.RelicRepairTableScreen;
-import com.yukari.relicera.client.tooltip.ClientIluthiasChaliceTooltip;
+import com.yukari.relicera.client.tooltip.ClientFiveSlotContentsTooltip;
 import com.yukari.relicera.common.curio.CovenantTabletEffects;
+import com.yukari.relicera.common.item.AstralStorybookItem;
+import com.yukari.relicera.common.item.InscribedCovenantTabletItem;
 import com.yukari.relicera.common.item.IluthiasChaliceItem.TotemContentsTooltip;
+import com.yukari.relicera.common.item.BaromsCovenantStoneItem.ContractContentsTooltip;
 import com.yukari.relicera.registry.ModBlockEntities;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModEntityTypes;
@@ -47,6 +51,16 @@ public final class ClientModEvents {
                     (stack, level, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.COVENANT_TABLET.get(), ResourceLocation.fromNamespaceAndPath(ReliceraMod.MOD_ID, "completed"),
                     (stack, level, entity, seed) -> CovenantTabletEffects.isFullyUnlocked(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.INSCRIBED_COVENANT_TABLET.get(),
+                    ResourceLocation.fromNamespaceAndPath(ReliceraMod.MOD_ID, "contract_entity"),
+                    (stack, level, entity, seed) -> InscribedCovenantTabletItem.getModelIndex(stack));
+            ItemProperties.register(ModItems.STONEWALL_GREATSHIELD.get(), ResourceLocation.withDefaultNamespace("blocking"),
+                    (stack, level, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.ASTRAL_STORYBOOK.get(), ResourceLocation.fromNamespaceAndPath(ReliceraMod.MOD_ID, "story"),
+                    (stack, level, entity, seed) -> {
+                        int storyId = AstralStorybookItem.getStoryId(stack);
+                        return AstralStorybookItem.isKnownStory(storyId) ? storyId : 0.0F;
+                    });
         });
     }
 
@@ -75,7 +89,12 @@ public final class ClientModEvents {
 
     @SubscribeEvent
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(TotemContentsTooltip.class, ClientIluthiasChaliceTooltip::new);
+        event.register(TotemContentsTooltip.class, tooltip -> new ClientFiveSlotContentsTooltip(
+                tooltip.totems(), tooltip.selectedSlot(), ResourceLocation.fromNamespaceAndPath(
+                        ReliceraMod.MOD_ID, "textures/gui/iluthias_chalice.png")));
+        event.register(ContractContentsTooltip.class, tooltip -> new ClientFiveSlotContentsTooltip(
+                tooltip.contracts(), tooltip.selectedSlot(), ResourceLocation.fromNamespaceAndPath(
+                        ReliceraMod.MOD_ID, "textures/gui/baroms_covenant_stone.png")));
     }
 
     @SubscribeEvent
@@ -85,5 +104,6 @@ public final class ClientModEvents {
         event.registerSpriteSet(ModParticleTypes.GOLDHEART_1.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.35F));
         event.registerSpriteSet(ModParticleTypes.GOLDHEART_2.get(), sprites -> new GoldHeartParticle.Provider(sprites, 1.65F));
         event.registerSpriteSet(ModParticleTypes.FLY.get(), FlyParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.DREAM_BUBBLE.get(), DreamBubbleParticle.Provider::new);
     }
 }

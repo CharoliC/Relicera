@@ -1,9 +1,11 @@
 package com.yukari.relicera.common.recipe.relicrepair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
 
 public enum RelicRepairParticleStyle {
     NONE("none") {
@@ -87,8 +89,47 @@ public enum RelicRepairParticleStyle {
         public void spawnComplete(ServerLevel level, BlockPos pos) {
             spawnSplashBurst(level, pos);
         }
+    },
+    BAROMS_COVENANT_STONE("baroms_covenant_stone") {
+        @Override
+        public void spawnActive(ServerLevel level, BlockPos pos, int progress) {
+            if (progress % ACTIVE_PARTICLE_INTERVAL != 0) {
+                return;
+            }
+
+            RandomSource random = level.getRandom();
+            for (int i = 0; i < 2; i++) {
+                double angle = random.nextDouble() * Math.PI * 2.0D;
+                double radius = 0.4D + random.nextDouble() * 0.3D;
+                double xDirection = Math.cos(angle);
+                double zDirection = Math.sin(angle);
+                level.sendParticles(MOUNTAIN_BLOCK_PARTICLE,
+                        particleX(pos) + xDirection * radius,
+                        displayItemY(pos) + (random.nextDouble() - 0.5D) * 0.2D,
+                        particleZ(pos) + zDirection * radius,
+                        0, -xDirection * 0.04D, 0.03D, -zDirection * 0.04D, 1.0D);
+            }
+        }
+
+        @Override
+        public void spawnComplete(ServerLevel level, BlockPos pos) {
+            RandomSource random = level.getRandom();
+            for (int i = 0; i < 24; i++) {
+                double angle = Math.PI * 2.0D * i / 24.0D;
+                double xDirection = Math.cos(angle);
+                double zDirection = Math.sin(angle);
+                level.sendParticles(MOUNTAIN_BLOCK_PARTICLE,
+                        particleX(pos) + xDirection * 0.12D,
+                        displayItemY(pos),
+                        particleZ(pos) + zDirection * 0.12D,
+                        0, xDirection * 0.12D, 0.07D + random.nextDouble() * 0.08D,
+                        zDirection * 0.12D, 1.0D);
+            }
+        }
     };
 
+    private static final BlockParticleOption MOUNTAIN_BLOCK_PARTICLE =
+            new BlockParticleOption(ParticleTypes.BLOCK, Blocks.DEEPSLATE.defaultBlockState());
     private static final int ACTIVE_PARTICLE_INTERVAL = 4;
     private static final int ACTIVE_FLAME_COUNT = 2;
     private static final int ACTIVE_GLOW_COUNT = 2;

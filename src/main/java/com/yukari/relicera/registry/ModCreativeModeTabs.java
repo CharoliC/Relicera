@@ -19,23 +19,28 @@ public final class ModCreativeModeTabs {
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.relicera"))
                     .icon(() -> ModItems.ASTRAL_LENS.get().getDefaultInstance())
-                    .displayItems((parameters, output) -> ModItems.ITEMS.getEntries().stream()
-                            .map(RegistryObject::get)
-                            .filter(item -> item != ModItems.LUMINAS_CELESTIAL_LENS.get()
-                                    && item != ModItems.FORGELING_SPAWN_EGG.get()
-                                    && item != ModItems.RABBITS_POCKET_WATCH.get())
-                            .map(ModCreativeModeTabs::getCreativeTabStack)
-                            .forEach(output::accept))
+                    .displayItems((parameters, output) -> {
+                        ModItems.ITEMS.getEntries().stream()
+                                .map(RegistryObject::get)
+                                .filter(item -> item != ModItems.LUMINAS_CELESTIAL_LENS.get()
+                                        && item != ModItems.FORGELING_SPAWN_EGG.get()
+                                        && item != ModItems.RABBITS_POCKET_WATCH.get()
+                                        && item != ModItems.INSCRIBED_COVENANT_TABLET.get())
+                                .forEach(item -> {
+                                    if (item == ModItems.COVENANT_TABLET.get()) {
+                                        // empty
+                                        output.accept(item.getDefaultInstance());
+
+                                        // full
+                                        output.accept(CovenantTabletEffects.createFullyUnlockedStack());
+                                    } else {
+                                        output.accept(item.getDefaultInstance());
+                                    }
+                                });
+                    })
                     .build());
 
     private ModCreativeModeTabs() {
-    }
-
-    private static ItemStack getCreativeTabStack(Item item) {
-        if (item == ModItems.COVENANT_TABLET.get()) {
-            return CovenantTabletEffects.createFullyUnlockedStack();
-        }
-        return item.getDefaultInstance();
     }
 
     public static void register(IEventBus eventBus) {

@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "relicera:terracotta_template_base" },
+  "second": { "item": "minecraft:clay_ball" },
+  "result": { "item": "minecraft:shaper_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

@@ -1,3 +1,18 @@
+#### 1.2.1
+
++ Added the relics Barom's Covenant, Weathered Mountain Covenant.
++ Added curios: Warrior's Belt, Thousandweight Gauntlets.
++ Added a equipment: Stonewall Greatshield.
++ Added items: Cobblestone Template Base, Terracotta Template Base.
++ Added a effect: Covenant Breaker.
++ Added several advancements.
++ Redesigned Astral Storybook. Now Bearskin and Little Tailor's Belt can be obtained.
++ Added a new function for Covenant Tablet.
++ Removed a config item for Feysilver Coating, now the level need is 39.
++ Fixed some bugs.
+
+
+
 #### 1.2.0
 
 + Added a structure, **Ancient Forge**.

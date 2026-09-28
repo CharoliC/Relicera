@@ -1,0 +1,11 @@
+{
+  "parent": "relicera:item/stonewall_greatshield_in_hand",
+  "ambientocclusion": false,
+  "gui_light": "front",
+  "overrides": [
+    {
+      "predicate": {"blocking": 1},
+      "model": "relicera:item/stonewall_greatshield_blocking"
+    }
+  ]
+}

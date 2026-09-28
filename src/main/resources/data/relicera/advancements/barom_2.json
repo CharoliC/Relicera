@@ -1,0 +1,26 @@
+{
+  "parent": "relicera:barom_1",
+  "display": {
+    "icon": {
+      "item": "relicera:thousandweight_gauntlets"
+    },
+    "title": {
+      "translate": "advancements.relicera.barom_2.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.barom_2.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "five_wind_bursts_without_landing": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

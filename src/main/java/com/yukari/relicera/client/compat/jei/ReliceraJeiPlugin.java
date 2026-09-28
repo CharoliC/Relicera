@@ -2,12 +2,14 @@ package com.yukari.relicera.client.compat.jei;
 
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.client.screen.RelicRepairTableScreen;
+import com.yukari.relicera.common.item.StonewallGreatshieldItem;
 import com.yukari.relicera.config.ModClientConfig;
 import com.yukari.relicera.registry.ModBlocks;
 import com.yukari.relicera.registry.ModItems;
 import com.yukari.relicera.registry.ModRecipeTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -20,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.stream.IntStream;
+import java.util.List;
 
 @JeiPlugin
 public final class ReliceraJeiPlugin implements IModPlugin {
@@ -77,6 +80,8 @@ public final class ReliceraJeiPlugin implements IModPlugin {
         addInfo(registration, ModItems.LITTLE_TAILORS_BELT.get(), "little_tailors_belt", 1);
         addInfo(registration, ModItems.DEVILS_BEARSKIN.get(), "devils_bearskin", 1);
         addInfo(registration, ModItems.RABBITS_POCKET_WATCH.get(), "rabbits_pocket_watch", 1);
+        addInfo(registration, ModItems.HEART_OF_THE_MOUNTAIN.get(), "heart_of_the_mountain", 2);
+        registerStonewallGreatshieldRepair(registration);
     }
 
     @Override
@@ -107,6 +112,21 @@ public final class ReliceraJeiPlugin implements IModPlugin {
                 .mapToObj(line -> Component.translatable("jei.relicera.info." + itemName + ".line_" + line))
                 .toArray(Component[]::new);
         registration.addItemStackInfo(new ItemStack(item), lines);
+    }
+
+    private static void registerStonewallGreatshieldRepair(IRecipeRegistration registration) {
+        ItemStack damagedShield = new ItemStack(ModItems.STONEWALL_GREATSHIELD.get());
+        damagedShield.setDamageValue(damagedShield.getMaxDamage() - 1);
+
+        ItemStack repairedShield = StonewallGreatshieldItem.createRepairedCopy(damagedShield, 1);
+
+        var recipe = registration.getVanillaRecipeFactory().createAnvilRecipe(
+                damagedShield,
+                List.of(new ItemStack(Items.EMERALD_BLOCK)),
+                List.of(repairedShield),
+                ResourceLocation.fromNamespaceAndPath(ReliceraMod.MOD_ID, "anvil.stonewall_greatshield_repair")
+        );
+        registration.addRecipes(RecipeTypes.ANVIL, List.of(recipe));
     }
 
     private static boolean showRelicRepairRecipes() {

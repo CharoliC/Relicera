@@ -2,6 +2,7 @@ package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.recipe.NoRemainderShapelessRecipe;
+import com.yukari.relicera.common.recipe.AstralStorybookRecipe;
 import com.yukari.relicera.common.recipe.ForgelingSmithingRecipe;
 import com.yukari.relicera.common.recipe.relicrepair.RelicRepairRecipe;
 import com.yukari.relicera.common.recipe.RippleheartRingsRebindingRecipe;
@@ -29,6 +30,9 @@ public final class ModRecipeSerializers {
 
     public static final RegistryObject<RecipeSerializer<RippleheartRingsRebindingRecipe>> RIPPLEHEART_RINGS_REBINDING =
             RECIPE_SERIALIZERS.register("rippleheart_rings_rebinding", RippleheartRingsRebindingRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<AstralStorybookRecipe>> ASTRAL_STORYBOOK =
+            RECIPE_SERIALIZERS.register("astral_storybook", AstralStorybookRecipe.Serializer::new);
 
     private ModRecipeSerializers() {
     }

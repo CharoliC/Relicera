@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " TT",
+    "TDT",
+    "TT "
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:terracotta"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "relicera:terracotta_template_base",
+    "count": 1
+  }
+}

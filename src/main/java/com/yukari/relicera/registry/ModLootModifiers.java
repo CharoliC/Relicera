@@ -8,9 +8,11 @@ import com.yukari.relicera.common.loot.AddEphemeralBloomLootModifier;
 import com.yukari.relicera.common.loot.AddExtinguishedSolarFurnaceLootModifier;
 import com.yukari.relicera.common.loot.AddFeysilverIngotLootModifier;
 import com.yukari.relicera.common.loot.AddForgottenThreadLootModifier;
+import com.yukari.relicera.common.loot.AddHeartOfTheMountainLootModifier;
 import com.yukari.relicera.common.loot.AddOceanRuinArchaeologyLootModifier;
 import com.yukari.relicera.common.loot.AddWitheredLifeChaliceLootModifier;
 import com.yukari.relicera.common.loot.AddVindicatorsMedalLootModifier;
+import com.yukari.relicera.common.loot.AddWeatheredMountainCovenantLootModifier;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -47,6 +49,13 @@ public final class ModLootModifiers {
 
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_VINDICATORS_MEDAL =
             LOOT_MODIFIER_SERIALIZERS.register("add_vindicators_medal", () -> AddVindicatorsMedalLootModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_HEART_OF_THE_MOUNTAIN =
+            LOOT_MODIFIER_SERIALIZERS.register("add_heart_of_the_mountain", () -> AddHeartOfTheMountainLootModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_WEATHERED_MOUNTAIN_COVENANT =
+            LOOT_MODIFIER_SERIALIZERS.register("add_weathered_mountain_covenant",
+                    () -> AddWeatheredMountainCovenantLootModifier.CODEC);
 
     private ModLootModifiers() {
     }

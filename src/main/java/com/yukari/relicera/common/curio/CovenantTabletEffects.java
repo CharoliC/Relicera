@@ -72,6 +72,11 @@ public final class CovenantTabletEffects {
         return hasFallImmunity(stack) && hasMiningSpeed(stack) && hasVillagerDiscount(stack);
     }
 
+    public static boolean isBlank(ItemStack stack) {
+        return stack.is(ModItems.COVENANT_TABLET.get())
+                && !hasFallImmunity(stack) && !hasMiningSpeed(stack) && !hasVillagerDiscount(stack);
+    }
+
     public static ItemStack createFullyUnlockedStack() {
         ItemStack stack = new ItemStack(ModItems.COVENANT_TABLET.get());
         unlockFallImmunity(stack);
@@ -107,7 +112,10 @@ public final class CovenantTabletEffects {
         }
 
         if (event.getAmount() < player.getHealth() + player.getAbsorptionAmount()) {
-            getEquippedTablet(player).ifPresent(CovenantTabletEffects::unlockFallImmunity);
+            getEquippedTablet(player).ifPresent(stack -> {
+                unlockFallImmunity(stack);
+                awardIfComplete(player, stack);
+            });
         }
     }
 
@@ -132,12 +140,24 @@ public final class CovenantTabletEffects {
 
         VillagerData villagerData = villager.getVillagerData();
         if (villagerData.getProfession() == VillagerProfession.TOOLSMITH && villagerData.getLevel() == VillagerData.MAX_VILLAGER_LEVEL) {
-            getEquippedTablet(player).ifPresent(CovenantTabletEffects::unlockMiningSpeed);
+            getEquippedTablet(player).ifPresent(stack -> {
+                unlockMiningSpeed(stack);
+                awardIfComplete(player, stack);
+            });
         }
     }
 
     public static void completeRaidTask(ServerPlayer player) {
-        getEquippedTablet(player).ifPresent(CovenantTabletEffects::unlockVillagerDiscount);
+        getEquippedTablet(player).ifPresent(stack -> {
+            unlockVillagerDiscount(stack);
+            awardIfComplete(player, stack);
+        });
+    }
+
+    private static void awardIfComplete(ServerPlayer player, ItemStack stack) {
+        if (isFullyUnlocked(stack)) {
+            BaromAdvancements.awardCompletedTablet(player);
+        }
     }
 
     private static void unlockFallImmunity(ItemStack stack) {

@@ -1,10 +1,13 @@
 package com.yukari.relicera.common.block;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.item.AstralStorybookItem;
 import com.yukari.relicera.config.ModCommonConfig;
 import com.yukari.relicera.mixin.PlayerAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +19,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -47,10 +51,15 @@ public final class DreamcatcherBoxSleepRewards {
     private static final long TOUHOU_MAID_REWARD_COOLDOWN_TICKS = 12000L;
     private static final int ENIGMATIC_SLEEP_TIMER_LIMIT = 90;
     private static final int VANILLA_SLEEP_TIMER_READY = 100;
+    private static final String PLAYER_REWARD_DAY_KEY = "ReliceraDreamcatcherRewardDay";
 
     private static final Map<ResourceKey<Level>, LevelState> LEVEL_STATES = new HashMap<>();
 
     private DreamcatcherBoxSleepRewards() {
+    }
+
+    public static void clear() {
+        LEVEL_STATES.clear();
     }
 
     public static void onSleepFinished(SleepFinishedTimeEvent event) {
@@ -62,7 +71,7 @@ public final class DreamcatcherBoxSleepRewards {
         for (ServerPlayer player : level.players()) {
             Optional<BlockPos> sleepingPos = player.getSleepingPos();
             if (player.isSleeping() && sleepingPos.isPresent()) {
-                rewardPlayer(level, state, player, sleepingPos.get());
+                rewardPlayer(level, player, sleepingPos.get());
             }
         }
         recordSleepingTouhouMaids(level, state);
@@ -124,14 +133,33 @@ public final class DreamcatcherBoxSleepRewards {
         }
     }
 
-    private static void rewardPlayer(ServerLevel level, LevelState state, ServerPlayer player, BlockPos bedPos) {
-        UUID uuid = player.getUUID();
-        if (!state.rewardedEntities.add(uuid)) {
+    private static void rewardPlayer(ServerLevel level, ServerPlayer player, BlockPos bedPos) {
+        // SleepFinishedTimeEvent runs before vanilla advances the world to the next morning.
+        long currentDay = level.getServer().overworld().getDayTime() / 24000L;
+        CompoundTag playerData = player.getPersistentData();
+        if (playerData.contains(PLAYER_REWARD_DAY_KEY, Tag.TAG_LONG)
+                && playerData.getLong(PLAYER_REWARD_DAY_KEY) == currentDay) {
             return;
         }
 
-        ResourceLocation lootTable = level.random.nextBoolean() ? DREAM_LOOT : NIGHTMARE_LOOT;
-        rewardAt(level, bedPos, lootTable);
+        int storyId = AstralStorybookItem.getActiveStoryIdForDay(player, currentDay);
+        boolean rewarded;
+        if (storyId != 0) {
+            ItemStack storyReward = AstralStorybookItem.getStoryDefinition(storyId)
+                    .map(AstralStorybookItem.StoryDefinition::createReward)
+                    .orElse(ItemStack.EMPTY);
+            rewarded = !storyReward.isEmpty() && rewardAt(level, bedPos, List.of(storyReward));
+            if (rewarded) {
+                AstralStorybookItem.clearActiveStory(player);
+            }
+        } else {
+            ResourceLocation lootTable = level.random.nextBoolean() ? DREAM_LOOT : NIGHTMARE_LOOT;
+            rewarded = rewardAt(level, bedPos, lootTable);
+        }
+
+        if (rewarded) {
+            playerData.putLong(PLAYER_REWARD_DAY_KEY, currentDay);
+        }
     }
 
     private static void recordSleepingVillagers(ServerLevel level, LevelState state) {
@@ -144,7 +172,7 @@ public final class DreamcatcherBoxSleepRewards {
             if (!(entity instanceof Villager villager)
                     || !villager.isAlive()
                     || !villager.isSleeping()
-                    || state.rewardedEntities.contains(villager.getUUID())
+                    || state.rewardedVillagers.contains(villager.getUUID())
                     || state.sleepingVillagers.containsKey(villager.getUUID())) {
                 continue;
             }
@@ -157,7 +185,7 @@ public final class DreamcatcherBoxSleepRewards {
 
     private static void rewardRecordedVillagers(ServerLevel level, LevelState state) {
         for (Map.Entry<UUID, BlockPos> entry : state.sleepingVillagers.entrySet()) {
-            if (state.rewardedEntities.add(entry.getKey())) {
+            if (state.rewardedVillagers.add(entry.getKey())) {
                 rewardAt(level, entry.getValue(), VILLAGER_LOOT);
             }
         }
@@ -254,11 +282,15 @@ public final class DreamcatcherBoxSleepRewards {
         List<ItemStack> loot = generateLoot(level, origin, lootTableId).stream()
                 .filter(stack -> !stack.isEmpty())
                 .toList();
+        return rewardAt(level, origin, loot);
+    }
+
+    private static boolean rewardAt(ServerLevel level, BlockPos origin, List<ItemStack> loot) {
         if (loot.isEmpty()) {
             return false;
         }
 
-        DreamcatcherBoxBlockEntity box = findNearestAcceptingBox(level, origin, ModCommonConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get(), loot);
+        DreamcatcherBoxBlockEntity box = findNearestBox(level, origin, ModCommonConfig.DREAMCATCHER_BOX_SLEEP_RANGE.get(), loot);
         return box != null && box.insertAll(loot);
     }
 
@@ -281,10 +313,6 @@ public final class DreamcatcherBoxSleepRewards {
         return findNearestBox(level, origin, range, null) != null;
     }
 
-    private static DreamcatcherBoxBlockEntity findNearestAcceptingBox(ServerLevel level, BlockPos origin, double range, List<ItemStack> loot) {
-        return findNearestBox(level, origin, range, loot);
-    }
-
     private static DreamcatcherBoxBlockEntity findNearestBox(ServerLevel level, BlockPos origin, double range, List<ItemStack> requiredSpaceFor) {
         if (range <= 0.0D) {
             return null;
@@ -292,22 +320,35 @@ public final class DreamcatcherBoxSleepRewards {
 
         int blockRange = (int) Math.ceil(range);
         double maxDistance = range * range;
-        Vec3 originCenter = Vec3.atCenterOf(origin);
         DreamcatcherBoxBlockEntity nearest = null;
         double nearestDistance = Double.MAX_VALUE;
 
-        BlockPos min = origin.offset(-blockRange, -blockRange, -blockRange);
-        BlockPos max = origin.offset(blockRange, blockRange, blockRange);
-        for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
-            double distance = Vec3.atCenterOf(pos).distanceToSqr(originCenter);
-            if (distance > maxDistance || distance >= nearestDistance || !level.isLoaded(pos)) {
-                continue;
-            }
+        int minChunkX = (origin.getX() - blockRange) >> 4;
+        int maxChunkX = (origin.getX() + blockRange) >> 4;
+        int minChunkZ = (origin.getZ() - blockRange) >> 4;
+        int maxChunkZ = (origin.getZ() + blockRange) >> 4;
+        for (int chunkX = minChunkX; chunkX <= maxChunkX; chunkX++) {
+            for (int chunkZ = minChunkZ; chunkZ <= maxChunkZ; chunkZ++) {
+                LevelChunk chunk = level.getChunkSource().getChunkNow(chunkX, chunkZ);
+                if (chunk == null) {
+                    continue;
+                }
 
-            if (level.getBlockEntity(pos) instanceof DreamcatcherBoxBlockEntity box
-                    && (requiredSpaceFor == null || box.canInsertAll(requiredSpaceFor))) {
-                nearest = box;
-                nearestDistance = distance;
+                // Includes saved block entities not yet instantiated, without loading any chunks.
+                for (BlockPos pos : chunk.getBlockEntitiesPos()) {
+                    double distance = origin.distSqr(pos);
+                    if (distance > maxDistance || distance > nearestDistance
+                            || (distance == nearestDistance && nearest != null
+                            && pos.compareTo(nearest.getBlockPos()) >= 0)) {
+                        continue;
+                    }
+                    if (chunk.getBlockEntity(pos) instanceof DreamcatcherBoxBlockEntity box
+                            && !box.isRemoved()
+                            && (requiredSpaceFor == null || box.canInsertAll(requiredSpaceFor))) {
+                        nearest = box;
+                        nearestDistance = distance;
+                    }
+                }
             }
         }
 
@@ -322,13 +363,13 @@ public final class DreamcatcherBoxSleepRewards {
         private final Map<UUID, BlockPos> sleepingVillagers = new HashMap<>();
         private final Map<UUID, BlockPos> sleepingTouhouMaids = new HashMap<>();
         private final Map<UUID, Long> touhouMaidCooldowns = new HashMap<>();
-        private final java.util.Set<UUID> rewardedEntities = new java.util.HashSet<>();
+        private final java.util.Set<UUID> rewardedVillagers = new java.util.HashSet<>();
         private final java.util.Set<UUID> cursedSleepMessagePlayers = new java.util.HashSet<>();
         private boolean wasNight;
 
         private void startNight() {
             sleepingVillagers.clear();
-            rewardedEntities.clear();
+            rewardedVillagers.clear();
         }
 
         private void endNight() {

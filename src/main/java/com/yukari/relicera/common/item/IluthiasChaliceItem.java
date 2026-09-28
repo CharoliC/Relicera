@@ -7,6 +7,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -18,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 
-public class IluthiasChaliceItem extends RelicCurioItem {
+public class IluthiasChaliceItem extends RelicCurioItem implements SelectableItemContents {
     private static final String TAG_TOTEMS = "Totems";
     public static final int TOTEM_CAPACITY = 5;
 
@@ -33,15 +36,19 @@ public class IluthiasChaliceItem extends RelicCurioItem {
         }
 
         if (carried.isEmpty()) {
-            Optional<ItemStack> removed = removeOneTotem(chalice);
-            if (removed.isPresent() && carriedSlot.set(removed.get())) {
+            int selected = getSelectedContentsSlot(chalice);
+            ItemStack selectedTotem = getTotemAt(chalice, selected).orElse(ItemStack.EMPTY);
+            if (!selectedTotem.isEmpty() && carriedSlot.set(selectedTotem)) {
+                removeTotemAt(chalice, selected);
+                slot.setChanged();
                 playRemoveOneSound(player);
             }
             return true;
         }
 
-        if (carried.is(Items.TOTEM_OF_UNDYING) && addOneTotem(chalice)) {
+        if (carried.is(Items.TOTEM_OF_UNDYING) && addOneTotem(chalice, carried)) {
             carried.shrink(1);
+            slot.setChanged();
             playInsertSound(player);
         }
         return true;
@@ -49,68 +56,86 @@ public class IluthiasChaliceItem extends RelicCurioItem {
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-        return Optional.of(new TotemContentsTooltip(getTotems(stack), TOTEM_CAPACITY));
+        return Optional.of(new TotemContentsTooltip(getTotems(stack), getSelectedContentsSlot(stack)));
     }
 
     @Override
-    public void onDestroyed(ItemEntity itemEntity) {
+    public int getContentsSlotCount() {
+        return TOTEM_CAPACITY;
+    }
+
+    @Override
+    public void onDestroyed(ItemEntity itemEntity, DamageSource damageSource) {
         ItemUtils.onContainerDestroyed(itemEntity, getTotemContents(itemEntity.getItem()));
     }
 
-    public static boolean addOneTotem(ItemStack chalice) {
-        if (!chalice.is(Items.AIR) && getTotemCount(chalice) < TOTEM_CAPACITY) {
+    private boolean addOneTotem(ItemStack chalice, ItemStack totem) {
+        for (int index = 0; index < TOTEM_CAPACITY; index++) {
+            if (getTotemAt(chalice, index).isPresent()) {
+                continue;
+            }
             ListTag totems = getOrCreateTotems(chalice);
             CompoundTag savedTotem = new CompoundTag();
-            new ItemStack(Items.TOTEM_OF_UNDYING).save(savedTotem);
-            totems.add(0, savedTotem);
+            totem.copyWithCount(1).save(savedTotem);
+            totems.set(index, savedTotem);
+            setSelectedContentsSlot(chalice, index);
             return true;
         }
         return false;
     }
 
     public static Optional<ItemStack> peekOneTotem(ItemStack chalice) {
-        ListTag totems = getTotemList(chalice);
-        if (totems.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(ItemStack.of(totems.getCompound(0)));
+        return getTotemAt(chalice, findFirstOccupiedSlot(chalice));
     }
 
-    public static Optional<ItemStack> removeOneTotem(ItemStack chalice) {
-        CompoundTag tag = chalice.getTag();
-        if (tag == null || !tag.contains(TAG_TOTEMS, Tag.TAG_LIST)) {
+    private static int findFirstOccupiedSlot(ItemStack chalice) {
+        for (int index = 0; index < TOTEM_CAPACITY; index++) {
+            if (getTotemAt(chalice, index).isPresent()) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    private static Optional<ItemStack> getTotemAt(ItemStack chalice, int index) {
+        ListTag totems = getTotemList(chalice);
+        if (index < 0 || index >= TOTEM_CAPACITY || index >= totems.size()) {
             return Optional.empty();
         }
-
-        ListTag totems = tag.getList(TAG_TOTEMS, Tag.TAG_COMPOUND);
-        if (totems.isEmpty()) {
+        CompoundTag savedTotem = totems.getCompound(index);
+        if (savedTotem.isEmpty()) {
             return Optional.empty();
         }
+        ItemStack totem = ItemStack.of(savedTotem);
+        return totem.is(Items.TOTEM_OF_UNDYING) ? Optional.of(totem) : Optional.empty();
+    }
 
-        ItemStack removed = ItemStack.of(totems.getCompound(0));
-        totems.remove(0);
-        if (totems.isEmpty()) {
+    public static void removeOneTotem(ItemStack chalice) {
+        removeTotemAt(chalice, findFirstOccupiedSlot(chalice));
+    }
+
+    private static void removeTotemAt(ItemStack chalice, int index) {
+        if (getTotemAt(chalice, index).isEmpty()) {
+            return;
+        }
+
+        ListTag totems = getTotemList(chalice);
+        totems.set(index, new CompoundTag());
+        if (findFirstOccupiedSlot(chalice) < 0) {
             chalice.removeTagKey(TAG_TOTEMS);
         }
-        return Optional.of(removed);
     }
 
     public static NonNullList<ItemStack> getTotems(ItemStack chalice) {
-        NonNullList<ItemStack> result = NonNullList.create();
-        getTotemContents(chalice).forEach(result::add);
+        NonNullList<ItemStack> result = NonNullList.withSize(TOTEM_CAPACITY, ItemStack.EMPTY);
+        for (int index = 0; index < TOTEM_CAPACITY; index++) {
+            result.set(index, getTotemAt(chalice, index).orElse(ItemStack.EMPTY));
+        }
         return result;
     }
 
     public static Stream<ItemStack> getTotemContents(ItemStack chalice) {
-        return getTotemList(chalice).stream()
-                .filter(CompoundTag.class::isInstance)
-                .map(CompoundTag.class::cast)
-                .map(ItemStack::of)
-                .filter(stack -> !stack.isEmpty() && stack.is(Items.TOTEM_OF_UNDYING));
-    }
-
-    private static int getTotemCount(ItemStack chalice) {
-        return (int) getTotemContents(chalice).count();
+        return getTotems(chalice).stream().filter(stack -> !stack.isEmpty());
     }
 
     private static ListTag getOrCreateTotems(ItemStack chalice) {
@@ -118,7 +143,11 @@ public class IluthiasChaliceItem extends RelicCurioItem {
         if (!tag.contains(TAG_TOTEMS, Tag.TAG_LIST)) {
             tag.put(TAG_TOTEMS, new ListTag());
         }
-        return tag.getList(TAG_TOTEMS, Tag.TAG_COMPOUND);
+        ListTag totems = tag.getList(TAG_TOTEMS, Tag.TAG_COMPOUND);
+        while (totems.size() < TOTEM_CAPACITY) {
+            totems.add(new CompoundTag());
+        }
+        return totems;
     }
 
     private static ListTag getTotemList(ItemStack chalice) {
@@ -129,11 +158,13 @@ public class IluthiasChaliceItem extends RelicCurioItem {
         return tag.getList(TAG_TOTEMS, Tag.TAG_COMPOUND);
     }
 
-    public record TotemContentsTooltip(NonNullList<ItemStack> totems, int capacity) implements TooltipComponent {
+    public record TotemContentsTooltip(NonNullList<ItemStack> totems, int selectedSlot) implements TooltipComponent {
     }
 
-    private static void playInsertSound(Entity entity) {
-        entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.level().getRandom().nextFloat() * 0.4F);
+    private static void playInsertSound(Player player) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.playNotifySound(SoundEvents.BREWING_STAND_BREW, SoundSource.PLAYERS, 0.8F, 1.0F);
+        }
     }
 
     private static void playRemoveOneSound(Entity entity) {

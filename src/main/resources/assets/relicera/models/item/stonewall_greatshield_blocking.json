@@ -1,0 +1,5 @@
+{
+  "parent": "relicera:item/stonewall_greatshield_blocking_in_hand",
+  "ambientocclusion": false,
+  "gui_light": "front"
+}

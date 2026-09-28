@@ -8,9 +8,13 @@
     "AbstractHorseMixin",
     "ArmorTrimMixin",
     "AxolotlMixin",
+    "BaromExplosionMixin",
+    "BaromItemStackMixin",
+    "BaromRaidsMixin",
     "ElderGuardianMixin",
     "EnchantmentHelperMixin",
     "EntityMixin",
+    "ExplosionAccessor",
     "FishingHookMixin",
     "FoodDataMixin",
     "FoxAccessor",
@@ -27,6 +31,7 @@
   ],
   "client": [
     "client.LivingEntityRendererMixin",
+    "client.MinecraftMixin",
     "client.PlayerItemInHandLayerMixin"
   ],
   "injectors": {

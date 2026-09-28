@@ -1,0 +1,52 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "relicera:item/covenant_tablet"
+  },
+  "overrides": [
+    {
+      "predicate": {"relicera:contract_entity": 1},
+      "model": "relicera:item/inscribed_covenant_tablet_iron_golem"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 2},
+      "model": "relicera:item/inscribed_covenant_tablet_silverfish"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 3},
+      "model": "relicera:item/inscribed_covenant_tablet_villager"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 4},
+      "model": "relicera:item/inscribed_covenant_tablet_pillager"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 5},
+      "model": "relicera:item/inscribed_covenant_tablet_ender_dragon"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 6},
+      "model": "relicera:item/inscribed_covenant_tablet_zombie"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 7},
+      "model": "relicera:item/inscribed_covenant_tablet_creeper"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 8},
+      "model": "relicera:item/inscribed_covenant_tablet_blaze"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 9},
+      "model": "relicera:item/inscribed_covenant_tablet_husk"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 10},
+      "model": "relicera:item/inscribed_covenant_tablet_skeleton"
+    },
+    {
+      "predicate": {"relicera:contract_entity": 11},
+      "model": "relicera:item/inscribed_covenant_tablet_wandering_trader"
+    }
+  ]
+}

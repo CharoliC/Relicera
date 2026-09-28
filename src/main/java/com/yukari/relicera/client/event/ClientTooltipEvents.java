@@ -8,8 +8,9 @@ import com.yukari.relicera.common.curio.MasterSmithsBroochEffects;
 import com.yukari.relicera.common.curio.NereiasCrownEffects;
 import com.yukari.relicera.common.curio.RippleheartRingClientData;
 import com.yukari.relicera.common.curio.TurncoatsMedalEffects;
+import com.yukari.relicera.common.item.BaromsCovenantStoneItem;
+import com.yukari.relicera.common.item.InscribedCovenantTabletItem;
 import com.yukari.relicera.common.item.feysilver.FeysilverForgingClientData;
-import com.yukari.relicera.common.item.AstralStorybookItem;
 import com.yukari.relicera.common.item.RippleheartRingItem;
 import com.yukari.relicera.common.item.RippleheartRingItem.RingSide;
 import com.yukari.relicera.common.item.TempestsReinsEffects;
@@ -26,6 +27,7 @@ import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -64,10 +66,6 @@ public final class ClientTooltipEvents {
             appendAstralLensTooltip(event);
         }
 
-        if (event.getItemStack().is(ModItems.ASTRAL_STORYBOOK.get())) {
-            appendAstralStorybookTooltip(event);
-        }
-
         if (event.getItemStack().is(ModItems.FEYSILVER_FORGING_ART_VOLUME_ONE.get())) {
             appendFeysilverForgingArtVolumeOneTooltip(event);
         }
@@ -86,6 +84,14 @@ public final class ClientTooltipEvents {
 
         if (event.getItemStack().is(ModItems.TREASURE_HUNTERS_GLOVES.get())) {
             appendTreasureHuntersGlovesTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.THOUSANDWEIGHT_GAUNTLETS.get())) {
+            appendThousandweightGauntletsTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.STONEWALL_GREATSHIELD.get())) {
+            appendStonewallGreatshieldTooltip(event);
         }
 
         if (event.getItemStack().is(ModItems.ASHEN_TOUCH.get())) {
@@ -136,6 +142,10 @@ public final class ClientTooltipEvents {
             appendGranbellsFurnaceTooltip(event);
         }
 
+        if (event.getItemStack().is(ModItems.BAROMS_COVENANT_STONE.get())) {
+            appendBaromsCovenantStoneTooltip(event);
+        }
+
         if (event.getItemStack().is(ModItems.ILUTHIAS_CHALICE.get())) {
             appendIluthiasChaliceTooltip(event);
         }
@@ -170,6 +180,10 @@ public final class ClientTooltipEvents {
 
         if (event.getItemStack().is(ModItems.LITTLE_TAILORS_BELT.get())) {
             appendLittleTailorsBeltTooltip(event);
+        }
+
+        if (event.getItemStack().is(ModItems.WARRIOR_BELT.get())) {
+            appendWarriorBeltTooltip(event);
         }
 
         if (event.getItemStack().is(ModItems.DEVILS_BEARSKIN.get())) {
@@ -225,24 +239,6 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("astral_lens", 2));
         event.getToolTip().add(tooltipLine("astral_lens", 3, gold("-85%")));
         event.getToolTip().add(tooltipLine("astral_lens", 4, gold("-30%")));
-    }
-
-    private static void appendAstralStorybookTooltip(ItemTooltipEvent event) {
-        AstralStorybookItem.getRecordedEnchantment(event.getItemStack()).ifPresentOrElse(recorded ->
-                        event.getToolTip().add(tooltipLine(
-                                "astral_storybook",
-                                0,
-                                AstralStorybookItem.getEnchantmentDisplayName(recorded)
-                        )),
-                () -> event.getToolTip().add(tooltipLine("astral_storybook", 1)));
-        event.getToolTip().add(Component.empty());
-        if (!Screen.hasShiftDown()) {
-            event.getToolTip().add(holdShiftLine("astral_storybook", 2));
-            return;
-        }
-
-        event.getToolTip().add(tooltipLine("astral_storybook", 3));
-        event.getToolTip().add(tooltipLine("astral_storybook", 4));
     }
 
     private static void appendFeysilverForgingArtVolumeOneTooltip(ItemTooltipEvent event) {
@@ -356,6 +352,10 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(CovenantTabletEffects.hasVillagerDiscount(stack)
                 ? tooltipLine("covenant_tablet", 7, gold(formatNegativePercent(ModCommonConfig.COVENANT_TABLET_VILLAGER_TRADE_DISCOUNT.get())))
                 : tooltipLine("covenant_tablet", 6));
+        if (CovenantTabletEffects.isBlank(stack)) {
+            event.getToolTip().add(Component.empty());
+            event.getToolTip().add(tooltipLine("covenant_tablet", 8));
+        }
     }
 
     private static void appendEphemeralBloomPendantTooltip(ItemTooltipEvent event) {
@@ -571,6 +571,71 @@ public final class ClientTooltipEvents {
         return tooltipLine("fourfold_sherd_pendant", effectLine, args);
     }
 
+    private static void appendBaromsCovenantStoneTooltip(ItemTooltipEvent event) {
+        String itemId = "baroms_covenant_stone";
+        event.getToolTip().add(Component.empty());
+        event.getToolTip().add(tooltipLine(itemId, 0));
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine(itemId, 1));
+            return;
+        }
+
+        List<ItemStack> contracts = BaromsCovenantStoneItem.getContracts(event.getItemStack());
+        if (contracts.stream().allMatch(ItemStack::isEmpty)) {
+            event.getToolTip().add(Component.translatable("tooltip.relicera.baroms_covenant_stone.empty"));
+            event.getToolTip().add(Component.translatable("tooltip.relicera.baroms_covenant_stone.neutrality"));
+        }
+        for (ItemStack contract : contracts) {
+            appendBaromsCovenantContractTooltip(event.getToolTip(), contract);
+        }
+    }
+
+    private static void appendBaromsCovenantContractTooltip(List<Component> tooltip, ItemStack contract) {
+        EntityType<?> entityType = InscribedCovenantTabletItem.getContractEntity(contract);
+        int effectLine;
+        if (entityType == EntityType.IRON_GOLEM) {
+            effectLine = 2;
+        } else if (entityType == EntityType.SILVERFISH) {
+            effectLine = 3;
+        } else if (entityType == EntityType.VILLAGER) {
+            effectLine = 5;
+        } else if (entityType == EntityType.PILLAGER) {
+            effectLine = 6;
+        } else if (entityType == EntityType.ENDER_DRAGON) {
+            effectLine = 7;
+        } else if (entityType == EntityType.ZOMBIE) {
+            effectLine = 8;
+        } else if (entityType == EntityType.CREEPER) {
+            effectLine = 9;
+        } else if (entityType == EntityType.BLAZE) {
+            effectLine = 10;
+        } else if (entityType == EntityType.HUSK) {
+            effectLine = 11;
+        } else if (entityType == EntityType.SKELETON) {
+            effectLine = 12;
+        } else if (entityType == EntityType.WANDERING_TRADER) {
+            effectLine = 13;
+        } else {
+            return;
+        }
+
+        tooltip.add(contract.getHoverName().copy().withStyle(ChatFormatting.LIGHT_PURPLE));
+        if (entityType == EntityType.SILVERFISH) {
+            double volumeMultiplier = ModCommonConfig.BAROM_VOLUME_MULTIPLIER.get();
+            tooltip.add(volumeMultiplier == 1.0D
+                    ? tooltipLine("baroms_covenant_stone", 3)
+                    : tooltipLine("baroms_covenant_stone", 4, gold(java.math.BigDecimal.valueOf(volumeMultiplier)
+                            .stripTrailingZeros().toPlainString())));
+        } else if (entityType == EntityType.HUSK) {
+            String chance = java.math.BigDecimal.valueOf(ModCommonConfig.BAROM_HUSK_HUNGER_CHANCE.get())
+                    .multiply(java.math.BigDecimal.valueOf(100)).stripTrailingZeros().toPlainString() + "%";
+            tooltip.add(tooltipLine("baroms_covenant_stone", effectLine, gold(chance)));
+        } else {
+            tooltip.add(tooltipLine("baroms_covenant_stone", effectLine));
+        }
+    }
+
     private static void appendGranbellsFurnaceTooltip(ItemTooltipEvent event) {
         event.getToolTip().add(Component.empty());
         event.getToolTip().add(tooltipLine("granbells_furnace", 0));
@@ -717,6 +782,50 @@ public final class ClientTooltipEvents {
         event.getToolTip().add(tooltipLine("little_tailors_belt", 2));
         event.getToolTip().add(Component.empty());
         event.getToolTip().add(tooltipLine("little_tailors_belt", 3));
+    }
+
+    private static void appendWarriorBeltTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("warrior_belt"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("warrior_belt", 1,
+                gold(formatSignedPercent(ModCommonConfig.WARRIOR_BELT_CRITICAL_DAMAGE_BONUS.get()))));
+        event.getToolTip().add(tooltipLine("warrior_belt", 2,
+                gold(formatSignedPercent(ModCommonConfig.WARRIOR_BELT_KNOCKBACK_RESISTANCE.get()))));
+        event.getToolTip().add(tooltipLine("warrior_belt", 3,
+                gold(formatSignedPercent(ModCommonConfig.WARRIOR_BELT_MOVEMENT_SPEED_BONUS.get()))));
+    }
+
+    private static void appendThousandweightGauntletsTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("thousandweight_gauntlets"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("thousandweight_gauntlets", 1,
+                gold(formatSignedPercent(-ModCommonConfig.THOUSANDWEIGHT_GAUNTLETS_ATTACK_SPEED_REDUCTION.get()))));
+
+        event.getToolTip().add(Component.empty());
+
+        event.getToolTip().add(tooltipLine("thousandweight_gauntlets", 2));
+        event.getToolTip().add(tooltipLine("thousandweight_gauntlets", 3));
+        event.getToolTip().add(tooltipLine("thousandweight_gauntlets", 4));
+    }
+
+    private static void appendStonewallGreatshieldTooltip(ItemTooltipEvent event) {
+        event.getToolTip().add(Component.empty());
+        if (!Screen.hasShiftDown()) {
+            event.getToolTip().add(holdShiftLine("stonewall_greatshield"));
+            return;
+        }
+
+        event.getToolTip().add(tooltipLine("stonewall_greatshield", 1));
+        event.getToolTip().add(tooltipLine("stonewall_greatshield", 2));
+        event.getToolTip().add(tooltipLine("stonewall_greatshield", 3));
     }
 
     private static void appendDevilsBearskinTooltip(ItemTooltipEvent event) {

@@ -20,8 +20,6 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue TREASURE_HUNTERS_GLOVES_LUCK_PER_CHEST;
     public static final ForgeConfigSpec.IntValue TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH;
-    public static final ForgeConfigSpec.IntValue ASTRAL_STORYBOOK_EXPERIENCE_POINT_COST;
-    public static final ForgeConfigSpec.DoubleValue ASTRAL_STORYBOOK_ABOVE_MAX_LEVEL_CHANCE;
     public static final ForgeConfigSpec.DoubleValue ASTRAL_STORYBOOK_ADVANCED_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_IRON_GOLEM_DROP_CHANCE;
     public static final ForgeConfigSpec.DoubleValue WARFIRE_FRAGMENT_ALLAY_AURA_RANGE;
@@ -55,6 +53,9 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_UNDERWATER_RUIN_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_BURIED_TREASURE_CHEST_CHANCE;
     public static final ForgeConfigSpec.DoubleValue DRIED_CROWN_OCEAN_RUIN_ARCHAEOLOGY_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue WEATHERED_MOUNTAIN_COVENANT_TRAIL_RUINS_ARCHAEOLOGY_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue WEATHERED_MOUNTAIN_COVENANT_PILLAGER_OUTPOST_CHEST_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue WEATHERED_MOUNTAIN_COVENANT_MINESHAFT_DUNGEON_CHEST_CHANCE;
     public static final ForgeConfigSpec.IntValue BRUTAL_PLUNDER_BADGE_LOOTING_BONUS;
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_DAMAGE_BONUS_PER_LOOTING_LEVEL;
     public static final ForgeConfigSpec.DoubleValue BRUTAL_PLUNDER_BADGE_MAX_DAMAGE_BONUS;
@@ -67,6 +68,11 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue RIPPLEHEART_RINGS_BLUE_HEALING_BONUS;
     public static final ForgeConfigSpec.DoubleValue LITTLE_TAILORS_BELT_REACTION_RANGE;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LITTLE_TAILORS_BELT_INSTANT_KILL_ENTITY_TYPES;
+    public static final ForgeConfigSpec.DoubleValue WARRIOR_BELT_KNOCKBACK_RESISTANCE;
+    public static final ForgeConfigSpec.DoubleValue WARRIOR_BELT_MOVEMENT_SPEED_BONUS;
+    public static final ForgeConfigSpec.DoubleValue WARRIOR_BELT_CRITICAL_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.DoubleValue THOUSANDWEIGHT_GAUNTLETS_ATTACK_SPEED_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue THOUSANDWEIGHT_GAUNTLETS_WIND_BURST_LAUNCH_HEIGHT;
     public static final ForgeConfigSpec.DoubleValue DEVILS_BEARSKIN_MAX_HEALTH_LOSS;
     public static final ForgeConfigSpec.IntValue RABBITS_POCKET_WATCH_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DIVINE_SEVERANCE_RING_HEAD_DROPS;
@@ -76,6 +82,8 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_MINING_SPEED_BONUS;
     public static final ForgeConfigSpec.DoubleValue COVENANT_TABLET_VILLAGER_TRADE_DISCOUNT;
     public static final ForgeConfigSpec.DoubleValue GRANBELLS_FURNACE_DAMAGE_BONUS;
+    public static final ForgeConfigSpec.DoubleValue BAROM_VOLUME_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue BAROM_HUSK_HUNGER_CHANCE;
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_PRESERVE_SMITHING_TEMPLATES;
     public static final ForgeConfigSpec.BooleanValue GRANBELLS_FURNACE_KEEP_INVENTORY_IN_FIRE_OR_LAVA;
     public static final ForgeConfigSpec.DoubleValue ILUTHIAS_CHALICE_UNDEAD_DAMAGE_BONUS;
@@ -148,6 +156,22 @@ public final class ModCommonConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("warrior_belt");
+
+        WARRIOR_BELT_KNOCKBACK_RESISTANCE = BUILDER
+                .comment("Knockback resistance bonus. 0.10 = +10%")
+                .defineInRange("knockbackResistance", 0.10D, 0.0D, 1.0D);
+
+        WARRIOR_BELT_MOVEMENT_SPEED_BONUS = BUILDER
+                .comment("Movement speed bonus. 0.10 = +10%.")
+                .defineInRange("movementSpeedBonus", 0.10D, 0.0D, 10.0D);
+
+        WARRIOR_BELT_CRITICAL_DAMAGE_BONUS = BUILDER
+                .comment("Vanilla critical hit bonus. 0.08 = 1.50 -> 1.58.")
+                .defineInRange("criticalDamageBonus", 0.08D, 0.0D, 10.0D);
+
+        BUILDER.pop();
+
         BUILDER.push("night_gloves");
 
         NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS = BUILDER
@@ -168,15 +192,19 @@ public final class ModCommonConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("thousandweight_gauntlets");
+
+        THOUSANDWEIGHT_GAUNTLETS_ATTACK_SPEED_REDUCTION = BUILDER
+                .comment("Attack speed reduction. 0.60 = -60%.")
+                .defineInRange("attackSpeedReduction", 0.60D, 0.0D, 0.90D);
+
+        THOUSANDWEIGHT_GAUNTLETS_WIND_BURST_LAUNCH_HEIGHT = BUILDER
+                .comment("Wind burst launch height in blocks.")
+                .defineInRange("windBurstLaunchHeight", 12.0D, 0.0D, 64.0D);
+
+        BUILDER.pop();
+
         BUILDER.push("astral_storybook");
-
-        ASTRAL_STORYBOOK_EXPERIENCE_POINT_COST = BUILDER
-                .comment("Experience points(not level) consumed by using Astral Storybook.")
-                .defineInRange("experiencePointCost", 1200, 0, Integer.MAX_VALUE);
-
-        ASTRAL_STORYBOOK_ABOVE_MAX_LEVEL_CHANCE = BUILDER
-                .comment("Chance for enchantments with max level >= 2 to get max + 1 level. 0.20 = 20%.")
-                .defineInRange("aboveMaxLevelChance", 0.20D, 0.0D, 1.0D);
 
         ASTRAL_STORYBOOK_ADVANCED_CHEST_CHANCE = BUILDER
                 .comment("Chance for Astral Storybook to be added to certain chest. 0.016 = 1.6%.")
@@ -368,6 +396,22 @@ public final class ModCommonConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("weathered_mountain_covenant");
+
+        WEATHERED_MOUNTAIN_COVENANT_TRAIL_RUINS_ARCHAEOLOGY_CHANCE = BUILDER
+                .comment("Chance per suspicious gravel loot in Trail Ruins. 0.039 = 3.9%.")
+                .defineInRange("trailRuinsArchaeologyChance", 0.039D, 0.0D, 1.0D);
+
+        WEATHERED_MOUNTAIN_COVENANT_PILLAGER_OUTPOST_CHEST_CHANCE = BUILDER
+                .comment("Chance for Weathered Mountain Covenant to be added to Pillager Outpost chest. 0.032 = 3.2%.")
+                .defineInRange("pillagerOutpostChestChance", 0.032D, 0.0D, 1.0D);
+
+        WEATHERED_MOUNTAIN_COVENANT_MINESHAFT_DUNGEON_CHEST_CHANCE = BUILDER
+                .comment("Chance for Weathered Mountain Covenant to be added to mineshaft minecart or dungeon chest. 0.019 = 1.9%.")
+                .defineInRange("mineshaftDungeonChestChance", 0.019D, 0.0D, 1.0D);
+
+        BUILDER.pop();
+
         BUILDER.push("brutal_plunder_badge");
 
         BRUTAL_PLUNDER_BADGE_LOOTING_BONUS = BUILDER
@@ -549,6 +593,15 @@ public final class ModCommonConfig {
                 .comment("Share of nearby aquatic creatures' total max health added as armor to the wearer. 0.10 = 10%.")
                 .defineInRange("aquaticMaxHealthArmorShare", 0.10D, 0.0D, 10.0D);
 
+        BUILDER.pop();
+
+        BUILDER.push("baroms_covenant_stone");
+        BAROM_VOLUME_MULTIPLIER = BUILDER
+                .comment("Volume multiplier for silverfish covenant, if mob volume < volumeMultiplier * wearer volume, the damage is ignored.")
+                .defineInRange("volumeMultiplier", 1.0D, 0.0D, 1024.0D);
+        BAROM_HUSK_HUNGER_CHANCE = BUILDER
+                .comment("Chance to gain 1 hunger after melee attack with the Husk covenant. 0.15 = 15%.")
+                .defineInRange("huskHungerChance", 0.15D, 0.0D, 1.0D);
         BUILDER.pop();
 
         BUILDER.push("dreamcatcher_box");

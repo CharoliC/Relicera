@@ -1,16 +1,19 @@
 package com.yukari.relicera.registry;
 
 import com.yukari.relicera.ReliceraMod;
+import com.yukari.relicera.common.item.BaromsCovenantStoneItem;
 import com.yukari.relicera.common.item.AstralLensItem;
 import com.yukari.relicera.common.item.AstralStorybookItem;
 import com.yukari.relicera.common.item.CovenantTabletItem;
 import com.yukari.relicera.common.item.armor.devilsbearskin.DevilsBearskinItem;
 import com.yukari.relicera.common.item.EphemeralBloomItem;
 import com.yukari.relicera.common.item.EphemeralBloomPendantItem;
+import com.yukari.relicera.common.item.EnvironmentallyIndestructibleItem;
 import com.yukari.relicera.common.item.feysilver.FeysilverForgingArtVolumeOneItem;
 import com.yukari.relicera.common.item.ForgelingBucketItem;
 import com.yukari.relicera.common.item.FourfoldSherdPendantItem;
 import com.yukari.relicera.common.item.IluthiasChaliceItem;
+import com.yukari.relicera.common.item.InscribedCovenantTabletItem;
 import com.yukari.relicera.common.item.LeatherGlovesItem;
 import com.yukari.relicera.common.item.LittleTailorsBeltItem;
 import com.yukari.relicera.common.item.LuminasCelestialLensItem;
@@ -22,7 +25,9 @@ import com.yukari.relicera.common.item.RevivalNectarItem;
 import com.yukari.relicera.common.item.RippleheartRingItem;
 import com.yukari.relicera.common.item.RippleheartRingsItem;
 import com.yukari.relicera.common.item.SolarEmberItem;
+import com.yukari.relicera.common.item.StonewallGreatshieldItem;
 import com.yukari.relicera.common.item.TempestsReinsItem;
+import com.yukari.relicera.common.item.ThousandweightGauntletsItem;
 import com.yukari.relicera.common.item.TorchflowerEmberItem;
 import com.yukari.relicera.common.item.TurncoatsMedalItem;
 import net.minecraft.world.item.BlockItem;
@@ -41,6 +46,16 @@ public final class ModItems {
             new Item(new Item.Properties()
                     .stacksTo(64)
                     .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> COBBLESTONE_TEMPLATE_BASE = ITEMS.register("cobblestone_template_base", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.COMMON)));
+
+    public static final RegistryObject<Item> TERRACOTTA_TEMPLATE_BASE = ITEMS.register("terracotta_template_base", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.COMMON)));
 
     public static final RegistryObject<Item> FEYSILVER_FORGING_ART_VOLUME_ONE = ITEMS.register("feysilver_forging_art_volume_one", () ->
             new FeysilverForgingArtVolumeOneItem(new Item.Properties()
@@ -117,6 +132,12 @@ public final class ModItems {
                     .stacksTo(64)
                     .rarity(Rarity.UNCOMMON)));
 
+    public static final RegistryObject<Item> REVIVAL_NECTAR = ITEMS.register("revival_nectar", () ->
+            new RevivalNectarItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)
+                    .food(RevivalNectarItem.createFoodProperties())));
+
     public static final RegistryObject<Item> WARFIRE_FRAGMENT = ITEMS.register("warfire_fragment", () ->
             new Item(new Item.Properties()
                     .stacksTo(64)
@@ -134,10 +155,26 @@ public final class ModItems {
                     .stacksTo(1)
                     .rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> HEART_OF_THE_MOUNTAIN = ITEMS.register("heart_of_the_mountain", () ->
+            new EnvironmentallyIndestructibleItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)
+                    .fireResistant()));
+
+    public static final RegistryObject<Item> STONEWALL_GREATSHIELD = ITEMS.register("stonewall_greatshield", () ->
+            new StonewallGreatshieldItem(new Item.Properties()
+                    .durability(StonewallGreatshieldItem.MAX_DURABILITY)
+                    .rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> LITTLE_TAILORS_BELT = ITEMS.register("little_tailors_belt", () ->
             new LittleTailorsBeltItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> WARRIOR_BELT = ITEMS.register("warrior_belt", () ->
+            new QuickEquipCurioItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> DEVILS_BEARSKIN = ITEMS.register("devils_bearskin", () ->
             new DevilsBearskinItem(new Item.Properties()
@@ -149,12 +186,6 @@ public final class ModItems {
             new RabbitsPocketWatchItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.RARE)));
-
-    public static final RegistryObject<Item> REVIVAL_NECTAR = ITEMS.register("revival_nectar", () ->
-            new RevivalNectarItem(new Item.Properties()
-                    .stacksTo(1)
-                    .rarity(Rarity.EPIC)
-                    .food(RevivalNectarItem.createFoodProperties())));
 
     public static final RegistryObject<Item> EPHEMERAL_BLOOM_PENDANT = ITEMS.register("ephemeral_bloom_pendant", () ->
             new EphemeralBloomPendantItem(new Item.Properties()
@@ -180,6 +211,12 @@ public final class ModItems {
             new QuickEquipCurioItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> THOUSANDWEIGHT_GAUNTLETS = ITEMS.register("thousandweight_gauntlets", () ->
+            new ThousandweightGauntletsItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.EPIC)
+                    .setNoRepair()));
 
     public static final RegistryObject<Item> DIVINE_SEVERANCE_RING = ITEMS.register("divine_severance_ring", () ->
             new QuickEquipCurioItem(new Item.Properties()
@@ -218,6 +255,11 @@ public final class ModItems {
 
     public static final RegistryObject<Item> COVENANT_TABLET = ITEMS.register("covenant_tablet", () ->
             new CovenantTabletItem(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> INSCRIBED_COVENANT_TABLET = ITEMS.register("inscribed_covenant_tablet", () ->
+            new InscribedCovenantTabletItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(Rarity.UNCOMMON)));
 
@@ -280,6 +322,14 @@ public final class ModItems {
             new RelicCurioItem(new Item.Properties()
                     .stacksTo(1)
                     .rarity(ReliceraMod.LEGENDARY)));
+
+    public static final RegistryObject<Item> WEATHERED_MOUNTAIN_COVENANT = ITEMS.register("weathered_mountain_covenant", () ->
+            new Item(new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> BAROMS_COVENANT_STONE = ITEMS.register("baroms_covenant_stone", () ->
+            new BaromsCovenantStoneItem(new Item.Properties().stacksTo(1).rarity(ReliceraMod.LEGENDARY)));
 
     public static final RegistryObject<Item> LUMINAS_CELESTIAL_LENS = ITEMS.register("luminas_celestial_lens", () ->
             new LuminasCelestialLensItem(new Item.Properties()

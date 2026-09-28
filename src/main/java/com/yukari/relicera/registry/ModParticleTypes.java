@@ -17,6 +17,7 @@ public final class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> GOLDHEART_1 = PARTICLE_TYPES.register("goldheart_1", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> GOLDHEART_2 = PARTICLE_TYPES.register("goldheart_2", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> FLY = PARTICLE_TYPES.register("fly", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> DREAM_BUBBLE = PARTICLE_TYPES.register("dream_bubble", () -> new SimpleParticleType(false));
 
     private ModParticleTypes() {
     }
