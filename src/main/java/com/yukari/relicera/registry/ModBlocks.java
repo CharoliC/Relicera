@@ -5,6 +5,7 @@ import com.yukari.relicera.common.block.DreamcatcherBoxBlock;
 import com.yukari.relicera.common.block.EphemeralBloomBlock;
 import com.yukari.relicera.common.block.PottedEphemeralBloomBlock;
 import com.yukari.relicera.common.block.RelicRepairTableBlock;
+import com.yukari.relicera.common.block.SculkFruitCropBlock;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -46,6 +47,15 @@ public final class ModBlocks {
             new DreamcatcherBoxBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
                     .sound(SoundType.DEEPSLATE)
                     .lightLevel(state -> 7)));
+
+    public static final RegistryObject<Block> SCULK_FRUIT_CROP = BLOCKS.register("sculk_fruit_crop", () ->
+            new SculkFruitCropBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noOcclusion()
+                    .instabreak()
+                    .sound(SoundType.SCULK)
+                    .lightLevel(state -> 9)
+                    .pushReaction(PushReaction.DESTROY)));
 
     private ModBlocks() {
     }

@@ -25,6 +25,8 @@
     "PlayerAccessor",
     "RandomizableContainerBlockEntityMixin",
     "RaidMixin",
+    "SculkCatalystBlockEntityMixin",
+    "SculkCatalystListenerMixin",
     "SlotMixin",
     "VillagerMixin",
     "VillagerHostilesSensorMixin",

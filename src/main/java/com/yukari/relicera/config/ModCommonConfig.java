@@ -17,6 +17,7 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec.DoubleValue EPHEMERAL_BLOOM_STRONGHOLD_LIBRARY_CHEST_CHANCE;
     public static final ForgeConfigSpec.IntValue EPHEMERAL_BLOOM_ABSORPTION_INTERVAL_TICKS;
     public static final ForgeConfigSpec.IntValue EPHEMERAL_BLOOM_MAX_ABSORPTION;
+    public static final ForgeConfigSpec.IntValue SCULK_FRUIT_EXPERIENCE_PER_STAGE;
     public static final ForgeConfigSpec.DoubleValue NIGHT_GLOVES_NIGHT_ATTACK_DAMAGE_BONUS;
     public static final ForgeConfigSpec.DoubleValue TREASURE_HUNTERS_GLOVES_LUCK_PER_CHEST;
     public static final ForgeConfigSpec.IntValue TREASURE_HUNTERS_GLOVES_MAX_ITEMS_TAKEN_BEFORE_REFRESH;
@@ -113,6 +114,12 @@ public final class ModCommonConfig {
     public static final ForgeConfigSpec SPEC;
 
     static {
+        BUILDER.push("sculk_fruit");
+        SCULK_FRUIT_EXPERIENCE_PER_STAGE = BUILDER
+                .comment("Sculk Catalyst charge consumed per growth stage.")
+                .defineInRange("experiencePerStage", 30, 1, 1000000);
+        BUILDER.pop();
+
         BUILDER.push("forgotten_thread");
 
         FORGOTTEN_THREAD_VILLAGE_CHEST_CHANCE = BUILDER

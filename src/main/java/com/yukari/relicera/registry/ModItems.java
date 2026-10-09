@@ -26,6 +26,7 @@ import com.yukari.relicera.common.item.RelicCurioItem;
 import com.yukari.relicera.common.item.RevivalNectarItem;
 import com.yukari.relicera.common.item.RippleheartRingItem;
 import com.yukari.relicera.common.item.RippleheartRingsItem;
+import com.yukari.relicera.common.item.SculkFruitSeedsItem;
 import com.yukari.relicera.common.item.SolarEmberItem;
 import com.yukari.relicera.common.item.StonewallGreatshieldItem;
 import com.yukari.relicera.common.item.TempestsReinsItem;
@@ -68,6 +69,11 @@ public final class ModItems {
 
     public static final RegistryObject<Item> FORGOTTEN_THREAD = ITEMS.register("forgotten_thread", () ->
             new Item(new Item.Properties()
+                    .stacksTo(64)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> SCULK_FRUIT_SEEDS = ITEMS.register("sculk_fruit_seeds", () ->
+            new SculkFruitSeedsItem(ModBlocks.SCULK_FRUIT_CROP.get(), new Item.Properties()
                     .stacksTo(64)
                     .rarity(Rarity.UNCOMMON)));
 

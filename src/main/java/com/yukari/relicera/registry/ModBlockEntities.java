@@ -4,6 +4,7 @@ import com.yukari.relicera.ReliceraMod;
 import com.yukari.relicera.common.block.DreamcatcherBoxBlockEntity;
 import com.yukari.relicera.common.block.EphemeralBloomBlockEntity;
 import com.yukari.relicera.common.block.RelicRepairTableBlockEntity;
+import com.yukari.relicera.common.block.SculkFruitCropBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,6 +27,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("ephemeral_bloom", () ->
                     BlockEntityType.Builder.of(EphemeralBloomBlockEntity::new,
                             ModBlocks.EPHEMERAL_BLOOM.get(), ModBlocks.POTTED_EPHEMERAL_BLOOM.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SculkFruitCropBlockEntity>> SCULK_FRUIT_CROP =
+            BLOCK_ENTITIES.register("sculk_fruit_crop", () ->
+                    BlockEntityType.Builder.of(SculkFruitCropBlockEntity::new, ModBlocks.SCULK_FRUIT_CROP.get()).build(null));
 
     private ModBlockEntities() {
     }

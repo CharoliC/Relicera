@@ -24,6 +24,7 @@ public final class CommonModEvents {
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(
                     ModBlocks.EPHEMERAL_BLOOM.getId(), ModBlocks.POTTED_EPHEMERAL_BLOOM);
             ComposterBlock.COMPOSTABLES.put(ModItems.EPHEMERAL_BLOOM.get(), 0.99F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.SCULK_FRUIT_SEEDS.get(), 0.30F);
         });
     }
 
