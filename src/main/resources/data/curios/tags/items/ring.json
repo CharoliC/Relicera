@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "relicera:ashen_touch",
+    "relicera:divine_severance_ring",
+    "relicera:ring_of_satiety",
+    "relicera:rippleheart_ring_red",
+    "relicera:rippleheart_ring_blue",
+    {
+      "id": "relicera:immortal_soul_ring",
+      "required": false
+    }
+  ]
+}

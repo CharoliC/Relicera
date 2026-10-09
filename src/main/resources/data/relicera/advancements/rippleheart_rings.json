@@ -1,0 +1,26 @@
+{
+  "parent": "relicera:nereia_2",
+  "display": {
+    "icon": {
+      "item": "relicera:rippleheart_rings"
+    },
+    "title": {
+      "translate": "advancements.relicera.rippleheart_rings.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.rippleheart_rings.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wear_active_rippleheart_ring": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

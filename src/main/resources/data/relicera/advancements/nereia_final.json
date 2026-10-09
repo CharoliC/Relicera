@@ -1,0 +1,35 @@
+{
+  "parent": "relicera:nereia_2",
+  "display": {
+    "icon": {
+      "item": "relicera:nereias_crown"
+    },
+    "title": {
+      "translate": "advancements.relicera.nereia_final.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.nereia_final.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_nereias_crown": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:nereias_crown"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

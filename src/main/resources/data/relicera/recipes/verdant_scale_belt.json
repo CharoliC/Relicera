@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": [
+    "MSM",
+    "S S",
+    "NNN"
+  ],
+  "key": {
+    "M": {
+      "item": "twilightforest:moss_patch"
+    },
+    "S": {
+      "item": "twilightforest:steeleaf_ingot"
+    },
+    "N": {
+      "item": "twilightforest:naga_scale"
+    }
+  },
+  "result": {
+    "item": "relicera:verdant_scale_belt"
+  }
+}

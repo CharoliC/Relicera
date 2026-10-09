@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:nereia",
+  "display": {
+    "icon": {
+      "item": "relicera:stormscale"
+    },
+    "title": {
+      "translate": "advancements.relicera.nereia_1.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.nereia_1.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_stormscale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:stormscale"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

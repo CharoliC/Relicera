@@ -1,0 +1,34 @@
+{
+  "parent": "relicera:barom",
+  "display": {
+    "icon": {
+      "item": "relicera:covenant_tablet",
+      "nbt": "{FallImmunityUnlocked:1b,MiningSpeedUnlocked:1b,VillagerDiscountUnlocked:1b}"
+    },
+    "title": {
+      "translate": "advancements.relicera.barom_3.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.barom_3.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_completed_covenant_tablet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:covenant_tablet"
+            ],
+            "nbt": "{FallImmunityUnlocked:1b,MiningSpeedUnlocked:1b,VillagerDiscountUnlocked:1b}"
+          }
+        ]
+      }
+    }
+  }
+}

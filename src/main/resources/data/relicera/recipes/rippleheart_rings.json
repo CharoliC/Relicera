@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "EAF"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "B": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "C": {
+      "item": "relicera:feysilver_ingot"
+    },
+    "D": {
+      "item": "relicera:rippleheart_pearl"
+    },
+    "E": {
+      "item": "minecraft:iron_ingot"
+    },
+    "F": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "relicera:rippleheart_rings",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "relicera:item/astral_storybook"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "relicera:story": 1.0
+      },
+      "model": "relicera:item/astral_storybook_1"
+    },
+    {
+      "predicate": {
+        "relicera:story": 2.0
+      },
+      "model": "relicera:item/astral_storybook_2"
+    }
+  ]
+}

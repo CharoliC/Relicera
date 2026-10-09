@@ -1,0 +1,5 @@
+{
+  "type": "relicera:add_forgotten_thread",
+  "conditions": [],
+  "source": "village_chest"
+}

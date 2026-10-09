@@ -1,0 +1,18 @@
+{
+  "type": "relicera:templateless_smithing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "base": {
+    "item": "twilightforest:mazebreaker_pickaxe"
+  },
+  "addition": {
+    "item": "relicera:heart_of_the_mountain"
+  },
+  "result": {
+    "item": "relicera:depthbreaker"
+  }
+}

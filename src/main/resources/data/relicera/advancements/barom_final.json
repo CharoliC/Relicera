@@ -1,0 +1,35 @@
+{
+  "parent": "relicera:barom_3",
+  "display": {
+    "icon": {
+      "item": "relicera:baroms_covenant_stone"
+    },
+    "title": {
+      "translate": "advancements.relicera.barom_final.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.barom_final.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_baroms_covenant_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:baroms_covenant_stone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "relicera:cobblestone_template_base" },
+  "second": { "item": "minecraft:iron_sword" },
+  "result": { "item": "minecraft:vex_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

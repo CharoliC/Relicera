@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "DID",
+    "DHD",
+    "DED"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "H": {
+      "item": "relicera:heart_of_the_mountain"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    }
+  },
+  "result": {
+    "item": "relicera:stonewall_greatshield",
+    "count": 1
+  }
+}

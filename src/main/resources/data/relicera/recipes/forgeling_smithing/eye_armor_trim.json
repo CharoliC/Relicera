@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "minecraft:end_stone" },
+  "second": { "item": "minecraft:ender_eye" },
+  "result": { "item": "minecraft:eye_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

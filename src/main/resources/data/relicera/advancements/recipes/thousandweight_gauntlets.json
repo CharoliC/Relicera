@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_heart_of_the_mountain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:heart_of_the_mountain"
+            ]
+          }
+        ]
+      }
+    },
+    "has_feysilver_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:feysilver_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_heart_of_the_mountain",
+      "has_feysilver_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "relicera:thousandweight_gauntlets"
+    ]
+  }
+}

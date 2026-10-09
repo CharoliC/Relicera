@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "relicera:item/baroms_covenant_stone"
+  }
+}

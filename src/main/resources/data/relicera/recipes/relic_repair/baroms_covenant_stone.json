@@ -1,0 +1,50 @@
+{
+  "type": "relicera:relic_repair",
+  "relic": {
+    "item": "relicera:weathered_mountain_covenant"
+  },
+  "catalyst": {
+    "ingredient": {
+      "item": "relicera:feysilver_ingot"
+    },
+    "count": 1
+  },
+  "materials": [
+    {
+      "ingredient": {
+        "item": "relicera:heart_of_the_mountain"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "type": "forge:partial_nbt",
+        "item": "relicera:covenant_tablet",
+        "nbt": "{FallImmunityUnlocked:1b,MiningSpeedUnlocked:1b,VillagerDiscountUnlocked:1b}"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:lodestone"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "relicera:baroms_covenant_stone"
+  },
+  "repair_time": 200,
+  "particle_style": "baroms_covenant_stone",
+  "hints": [
+    {
+      "translate": "container.relicera.relic_repair_table.hint.baroms_covenant_stone.heart_of_the_mountain"
+    },
+    {
+      "translate": "container.relicera.relic_repair_table.hint.baroms_covenant_stone.covenant_tablet"
+    },
+    {
+      "translate": "container.relicera.relic_repair_table.hint.baroms_covenant_stone.lodestone"
+    }
+  ]
+}

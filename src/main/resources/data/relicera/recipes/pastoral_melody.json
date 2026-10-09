@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "minecraft:raiser_armor_trim_smithing_template"
+  },
+  "base": {
+    "item": "minecraft:goat_horn"
+  },
+  "addition": {
+    "item": "relicera:primal_soil"
+  },
+  "result": {
+    "item": "relicera:pastoral_melody"
+  }
+}

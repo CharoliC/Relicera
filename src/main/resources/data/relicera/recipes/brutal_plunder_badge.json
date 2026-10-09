@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SAS",
+    "BLB",
+    "GIG"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "A": {
+      "item": "minecraft:golden_axe"
+    },
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "L": {
+      "item": "relicera:rotten_tusk"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "I": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "result": {
+    "item": "relicera:brutal_plunder_badge",
+    "count": 1
+  }
+}

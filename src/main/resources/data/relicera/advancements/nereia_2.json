@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:nereia",
+  "display": {
+    "icon": {
+      "item": "relicera:rippleheart_pearl"
+    },
+    "title": {
+      "translate": "advancements.relicera.nereia_2.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.nereia_2.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_rippleheart_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:rippleheart_pearl"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

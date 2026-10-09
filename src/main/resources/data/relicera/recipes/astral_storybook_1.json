@@ -1,0 +1,28 @@
+{
+  "type": "relicera:astral_storybook",
+  "category": "misc",
+  "pattern": [
+    "LSL",
+    "WBW",
+    "LSL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    },
+    "B": {
+      "item": "relicera:astral_storybook"
+    }
+  },
+  "result": {
+    "item": "relicera:astral_storybook",
+    "count": 1
+  },
+  "story": 1
+}

@@ -1,0 +1,36 @@
+{
+  "parent": "relicera:feysilver",
+  "display": {
+    "icon": {
+      "item": "minecraft:blade_pottery_sherd"
+    },
+    "title": {
+      "translate": "advancements.relicera.feysilver_extra_1.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.feysilver_extra_1.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_all_trades_pendant": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:fourfold_sherd_pendant"
+            ],
+            "nbt": "{Sherds:{Items:[{id:\"minecraft:blade_pottery_sherd\"},{id:\"minecraft:archer_pottery_sherd\"},{id:\"minecraft:angler_pottery_sherd\"},{id:\"minecraft:miner_pottery_sherd\"}]}}"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

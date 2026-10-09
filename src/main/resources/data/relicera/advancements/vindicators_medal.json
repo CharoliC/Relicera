@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:root",
+  "display": {
+    "icon": {
+      "item": "relicera:vindicators_medal"
+    },
+    "title": {
+      "translate": "advancements.relicera.vindicators_medal.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.vindicators_medal.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_vindicators_medal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:vindicators_medal"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

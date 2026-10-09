@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "relicera:ancient_forge",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 18459627,
+    "spacing": 68,
+    "separation": 24,
+    "exclusion_zone": {
+      "other_set": "minecraft:nether_complexes",
+      "chunk_count": 6
+    }
+  }
+}

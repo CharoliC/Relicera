@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ore_bearing_ground/deepslate",
+    "#forge:cobblestone/deepslate",
+    "#forge:ores_in_ground/deepslate",
+    "minecraft:polished_deepslate",
+    "minecraft:chiseled_deepslate",
+    "minecraft:deepslate_bricks",
+    "minecraft:cracked_deepslate_bricks",
+    "minecraft:deepslate_tiles",
+    "minecraft:cracked_deepslate_tiles",
+    "minecraft:cobbled_deepslate_stairs",
+    "minecraft:cobbled_deepslate_slab",
+    "minecraft:cobbled_deepslate_wall",
+    "minecraft:polished_deepslate_stairs",
+    "minecraft:polished_deepslate_slab",
+    "minecraft:polished_deepslate_wall",
+    "minecraft:deepslate_brick_stairs",
+    "minecraft:deepslate_brick_slab",
+    "minecraft:deepslate_brick_wall",
+    "minecraft:deepslate_tile_stairs",
+    "minecraft:deepslate_tile_slab",
+    "minecraft:deepslate_tile_wall",
+    "#forge:obsidian",
+    "minecraft:crying_obsidian"
+  ]
+}

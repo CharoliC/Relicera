@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "relicera:item/covenant_tablet"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "relicera:completed": 1
+      },
+      "model": "relicera:item/covenant_tablet_completed"
+    }
+  ]
+}

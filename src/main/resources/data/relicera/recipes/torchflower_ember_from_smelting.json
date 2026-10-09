@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:torchflower"
+  },
+  "result": "relicera:torchflower_ember",
+  "experience": 1.2,
+  "cookingtime": 200
+}

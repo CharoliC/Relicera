@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "minecraft:netherrack" },
+  "second": { "item": "minecraft:diamond" },
+  "result": { "item": "minecraft:netherite_upgrade_smithing_template" },
+  "required_jumps": 6
+}

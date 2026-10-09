@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "minecraft:tide_armor_trim_smithing_template"
+  },
+  "base": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "addition": {
+    "item": "relicera:stormscale"
+  },
+  "result": {
+    "item": "relicera:tempests_reins"
+  }
+}

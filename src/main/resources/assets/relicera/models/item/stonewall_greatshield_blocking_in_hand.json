@@ -1,0 +1,23 @@
+{
+  "parent": "relicera:item/stonewall_greatshield_in_hand",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [50, -24, 0],
+      "translation": [3, -0.5, -3]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [60, -19, 0],
+      "translation": [2.5, 0.25, -3.75]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 0, 5],
+      "translation": [-3.839662, -7.82612, -3.5],
+      "scale": [1.25, 1.25, 1.25]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 0, 5],
+      "translation": [-3.763556, -9.569235, -3.5],
+      "scale": [1.25, 1.25, 1.25]
+    }
+  }
+}

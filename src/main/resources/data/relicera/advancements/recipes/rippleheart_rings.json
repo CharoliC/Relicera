@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rippleheart_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:rippleheart_pearl"
+            ]
+          }
+        ]
+      }
+    },
+    "has_feysilver_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:feysilver_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rippleheart_pearl",
+      "has_feysilver_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "relicera:rippleheart_rings"
+    ]
+  }
+}

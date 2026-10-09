@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "GFG",
+    "DLD",
+    " A "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "F": {
+      "item": "relicera:feysilver_ingot"
+    },
+    "D": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "L": {
+      "item": "relicera:leather_gloves"
+    },
+    "A": {
+      "item": "minecraft:respawn_anchor"
+    }
+  },
+  "result": {
+    "item": "relicera:treasure_hunters_gloves",
+    "count": 1
+  }
+}

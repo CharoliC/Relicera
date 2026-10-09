@@ -1,0 +1,28 @@
+{
+  "type": "relicera:astral_storybook",
+  "category": "misc",
+  "pattern": [
+    "GSG",
+    "EBE",
+    "GSG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "B": {
+      "item": "relicera:astral_storybook"
+    }
+  },
+  "result": {
+    "item": "relicera:astral_storybook",
+    "count": 1
+  },
+  "story": 2
+}

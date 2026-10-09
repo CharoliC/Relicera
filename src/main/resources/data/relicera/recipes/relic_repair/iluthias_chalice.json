@@ -1,0 +1,48 @@
+{
+  "type": "relicera:relic_repair",
+  "relic": {
+    "item": "relicera:withered_life_chalice"
+  },
+  "catalyst": {
+    "ingredient": {
+      "item": "relicera:feysilver_ingot"
+    },
+    "count": 1
+  },
+  "materials": [
+    {
+      "ingredient": {
+        "item": "relicera:revival_nectar"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "relicera:chalice_lining"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:totem_of_undying"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "relicera:iluthias_chalice"
+  },
+  "repair_time": 200,
+  "particle_style": "life_chalice",
+  "hints": [
+    {
+      "translate": "container.relicera.relic_repair_table.hint.iluthias_chalice.revival_nectar"
+    },
+    {
+      "translate": "container.relicera.relic_repair_table.hint.iluthias_chalice.chalice_lining"
+    },
+    {
+      "translate": "container.relicera.relic_repair_table.hint.iluthias_chalice.totem_of_undying"
+    }
+  ]
+}

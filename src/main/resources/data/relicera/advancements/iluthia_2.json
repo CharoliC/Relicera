@@ -1,0 +1,33 @@
+{
+  "parent": "relicera:iluthia_1",
+  "display": {
+    "icon": {
+      "item": "relicera:revival_nectar"
+    },
+    "title": {
+      "translate": "advancements.relicera.iluthia_2.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.iluthia_2.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "drink_revival_nectar": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "relicera:revival_nectar"
+          ]
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

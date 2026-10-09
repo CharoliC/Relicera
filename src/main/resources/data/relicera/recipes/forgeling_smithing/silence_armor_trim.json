@@ -1,0 +1,7 @@
+{
+  "type": "relicera:forgeling_smithing",
+  "first": { "item": "minecraft:cobbled_deepslate" },
+  "second": { "item": "minecraft:echo_shard" },
+  "result": { "item": "minecraft:silence_armor_trim_smithing_template" },
+  "required_jumps": 6
+}

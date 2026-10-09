@@ -1,0 +1,32 @@
+{
+  "parent": "relicera:barom",
+  "display": {
+    "icon": {
+      "item": "relicera:heart_of_the_mountain"
+    },
+    "title": {
+      "translate": "advancements.relicera.barom_1.title"
+    },
+    "description": {
+      "translate": "advancements.relicera.barom_1.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_heart_of_the_mountain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "relicera:heart_of_the_mountain"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "IFI",
+    "DLD",
+    "BHB"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "F": {
+      "item": "relicera:feysilver_ingot"
+    },
+    "D": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "L": {
+      "item": "relicera:leather_gloves"
+    },
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "H": {
+      "item": "relicera:heart_of_the_mountain"
+    }
+  },
+  "result": {
+    "item": "relicera:thousandweight_gauntlets",
+    "count": 1
+  }
+}

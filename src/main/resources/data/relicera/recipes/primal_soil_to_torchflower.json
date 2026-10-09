@@ -1,0 +1,24 @@
+{
+  "type": "relicera:water_bottle_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "relicera:primal_soil"
+    },
+    {
+      "item": "minecraft:orange_dye"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "type": "forge:partial_nbt",
+      "item": "minecraft:potion",
+      "nbt": "{Potion:\"minecraft:water\"}"
+    }
+  ],
+  "result": {
+    "item": "minecraft:torchflower",
+    "count": 1
+  }
+}
